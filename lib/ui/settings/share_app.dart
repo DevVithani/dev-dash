@@ -17,6 +17,7 @@ class ShareApp extends StatelessWidget {
       body: Column(
         children: [
           Image.asset('assets/share_app.jpg'),
+
           const Text(
             'Share App',
             style: TextStyle(
