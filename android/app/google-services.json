@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "966810875683",
+    "project_id": "devdash-731ff",
+    "storage_bucket": "devdash-731ff.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:966810875683:android:4683746d6f5dbdc77dfe96",
+        "android_client_info": {
+          "package_name": "com.example.dev_dash"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDjXBzkmcOafKoNIooPQm5b_UH4YsGX4NA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

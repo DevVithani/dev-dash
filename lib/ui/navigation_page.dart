@@ -1,0 +1,92 @@
+import 'package:flutter/material.dart';
+import 'package:dev_dash/ui/about_page.dart';
+import 'package:dev_dash/ui/home_page.dart';
+import 'package:dev_dash/ui/settings/settings_page.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
+
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  int currentPage = 0;
+
+  List<Widget> listPages = [
+    const HomePage(),
+    const AboutPage(),
+    const SettingsPage(),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: listPages[currentPage],
+      bottomNavigationBar: Container(
+        height: 85,
+        color: Colors.black,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+          child: GNav(
+            duration: const Duration(milliseconds: 500),
+            selectedIndex: currentPage,
+            onTabChange: (index) {
+              setState(() {
+                currentPage = index;
+              });
+            },
+            gap: 8,
+            backgroundColor: Colors.black,
+            color: Colors.white,
+            activeColor: Colors.white,
+            // tabBackgroundGradient: LinearGradient(colors: [Colors.deepPurpleAccent, Colors.white]),
+            tabBackgroundColor: Colors.blue,
+            padding: const EdgeInsets.all(16),
+            tabs: const [
+              GButton(
+                icon: Icons.home,
+                text: 'Home',
+              ),
+              GButton(
+                icon: Icons.info,
+                text: 'About App',
+              ),
+              GButton(
+                icon: Icons.settings,
+                text: 'Settings',
+              ),
+            ],
+          ),
+        ),
+      ),
+      // bottomNavigationBar: CurvedNavigationBar(
+      //   height: 50,
+      //   backgroundColor: Colors.white,
+      //   color: Colors.black,
+      //   animationDuration: const Duration(milliseconds: 500),
+      //   items: const [
+      //     Icon(
+      //       Icons.home_outlined,
+      //       color: Colors.white,
+      //     ),
+      //     Icon(
+      //       Icons.info_outline,
+      //       color: Colors.white,
+      //     ),
+      //     Icon(
+      //       Icons.settings_outlined,
+      //       color: Colors.white,
+      //     ),
+      //   ],
+      //   onTap: (index) {
+      //     setState(() {
+      //       currentPage = index;
+      //     });
+      //   },
+      // ),
+    );
+  }
+}
