@@ -53,7 +53,7 @@ class RateApp extends StatelessWidget {
               padding: const EdgeInsets.only(top: 80.0),
               child: Center(
                 child:  RatingBarIndicator(
-                  rating: 4.5,
+                  rating: 5,
                   itemSize: 52,
                   itemPadding: const EdgeInsets.all(8),
                   itemCount: 5,
@@ -70,6 +70,7 @@ class RateApp extends StatelessWidget {
               child: TextField(
                 decoration: InputDecoration(
                   hintText: 'Write Review',
+                  hintStyle: const TextStyle(color: Colors.black),
                   enabledBorder: const OutlineInputBorder(
                     borderSide: BorderSide(
                       color: Colors.white,

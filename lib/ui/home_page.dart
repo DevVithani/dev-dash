@@ -942,7 +942,6 @@ class _HomePageState extends State<HomePage> {
                               child: const Icon(
                                 Icons.check,
                                 color: Colors.white,
-                                size: 25,
                               ),
                             ),
                           ),

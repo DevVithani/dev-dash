@@ -8,6 +8,15 @@ class ShareApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: const Icon(
+            Icons.arrow_back,
+            color: Colors.white,
+          ),
+        ),
         backgroundColor: Colors.deepPurpleAccent,
         title: const Text(
           "Share App",
@@ -17,23 +26,27 @@ class ShareApp extends StatelessWidget {
       body: Column(
         children: [
           Image.asset('assets/share_app.jpg'),
-
           const Text(
             'Share App',
             style: TextStyle(
               fontWeight: FontWeight.bold,
+              fontSize: 35,
             ),
           ),
-          const Text(
-            'Invite friends and both boost your flutter skills',
-            style: TextStyle(fontWeight: FontWeight.w600),
+          const Padding(
+            padding: EdgeInsets.only(top: 28),
+            child: Text('Share to your friends by using this: ', style: TextStyle(fontSize: 18),),
           ),
-          const Text('Share to your friends by using this: '),
-          ElevatedButton(
-            onPressed: () {
-              Share.share('com.example.dev_dash');
-            },
-            child: const Text('Share App'),
+          Padding(
+            padding: const EdgeInsets.only(top: 18.0),
+            child: Center(
+              child: ElevatedButton(
+                onPressed: () {
+                  Share.share('com.example.dev_dash');
+                },
+                child: const Text('Share App'),
+              ),
+            ),
           ),
         ],
       ),

@@ -1,6 +1,8 @@
 import 'package:dev_dash/ui/settings/language.dart';
+import 'package:dev_dash/ui/settings/privacy_page.dart';
 import 'package:dev_dash/ui/settings/profile_page.dart';
 import 'package:dev_dash/ui/settings/rate_app.dart';
+import 'package:dev_dash/ui/settings/share_app.dart';
 import 'package:dev_dash/ui/theme.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -156,7 +158,14 @@ class _SettingsPageState extends State<SettingsPage> {
                       ),
                     ),
                     title: const Text('Privacy'),
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => PrivacyPage(),
+                        ),
+                      );
+                    },
                   ),
                   const Divider(),
                   ListTile(
@@ -233,7 +242,12 @@ class _SettingsPageState extends State<SettingsPage> {
                       ),
                     ),
                     title: const Text('Share App'),
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => ShareApp()),
+                      );
+                    },
                   ),
                 ],
               ),

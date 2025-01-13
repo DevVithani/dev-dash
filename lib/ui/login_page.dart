@@ -128,11 +128,12 @@ class _LoginPageState extends State<LoginPage> {
                                     style: const TextStyle(
                                       color: Colors.deepPurpleAccent,
                                       fontWeight: FontWeight.bold,
+                                      fontSize: 16,
                                     ),
                                   ),
                                 ),
                                 const SizedBox(
-                                  width: 50,
+                                  width: 10,
                                 ),
                                 Expanded(
                                   child: Center(
@@ -151,6 +152,7 @@ class _LoginPageState extends State<LoginPage> {
                                         hintStyle: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           color: Colors.deepPurpleAccent,
+                                          fontSize: 16,
                                         ),
                                       ),
                                       expands: false,
@@ -170,7 +172,7 @@ class _LoginPageState extends State<LoginPage> {
                             height: 20,
                           ),
                           Center(
-                            child: Container(
+                            child: SizedBox(
                               // margin: const EdgeInsets.only(left: 96),
                               width: double.infinity,
                               child: ElevatedButton(
@@ -178,7 +180,7 @@ class _LoginPageState extends State<LoginPage> {
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(25),
                                   ),
-                                  backgroundColor: Colors.white,
+                                  backgroundColor: Colors.blue,
                                   elevation: 5,
                                   padding: const EdgeInsets.all(15),
                                 ),
@@ -221,7 +223,7 @@ class _LoginPageState extends State<LoginPage> {
                                   style: TextStyle(
                                     fontSize: 15,
                                     fontWeight: FontWeight.bold,
-                                    color: Colors.deepPurpleAccent,
+                                    color: Colors.white,
                                   ),
                                 ),
                               ),
@@ -259,19 +261,23 @@ class _LoginPageState extends State<LoginPage> {
                                   }
                                 },
                                 child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
                                   children: [
-                                    Image.asset(
-                                      'assets/google.png',
-                                      height: 30,
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 35),
+                                      child: Image.asset(
+                                        'assets/google.png',
+                                        height: 30,
+                                      ),
                                     ),
-                                    const Text(
-                                      'Sign In with Google',
-                                      style: TextStyle(
-                                        fontSize: 15,
-                                        color: Colors.deepPurpleAccent,
-                                        fontWeight: FontWeight.bold,
+                                    Container(
+                                      padding: EdgeInsets.only(left: 45),
+                                      child: const Text(
+                                        'Sign In with Google',
+                                        style: TextStyle(
+                                          fontSize: 15,
+                                          color: Colors.deepPurpleAccent,
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                       ),
                                     ),
                                   ],

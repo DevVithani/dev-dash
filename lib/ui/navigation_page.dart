@@ -42,7 +42,6 @@ class _HomeScreenState extends State<HomeScreen> {
             backgroundColor: Colors.black,
             color: Colors.white,
             activeColor: Colors.white,
-            // tabBackgroundGradient: LinearGradient(colors: [Colors.deepPurpleAccent, Colors.white]),
             tabBackgroundColor: Colors.blue,
             padding: const EdgeInsets.all(16),
             tabs: const [
@@ -62,31 +61,6 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
-      // bottomNavigationBar: CurvedNavigationBar(
-      //   height: 50,
-      //   backgroundColor: Colors.white,
-      //   color: Colors.black,
-      //   animationDuration: const Duration(milliseconds: 500),
-      //   items: const [
-      //     Icon(
-      //       Icons.home_outlined,
-      //       color: Colors.white,
-      //     ),
-      //     Icon(
-      //       Icons.info_outline,
-      //       color: Colors.white,
-      //     ),
-      //     Icon(
-      //       Icons.settings_outlined,
-      //       color: Colors.white,
-      //     ),
-      //   ],
-      //   onTap: (index) {
-      //     setState(() {
-      //       currentPage = index;
-      //     });
-      //   },
-      // ),
     );
   }
 }
