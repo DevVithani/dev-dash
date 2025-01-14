@@ -53,7 +53,7 @@ class RateApp extends StatelessWidget {
               padding: const EdgeInsets.only(top: 80.0),
               child: Center(
                 child:  RatingBarIndicator(
-                  rating: 5,
+                  rating: 4.5,
                   itemSize: 52,
                   itemPadding: const EdgeInsets.all(8),
                   itemCount: 5,
@@ -80,7 +80,7 @@ class RateApp extends StatelessWidget {
                   fillColor: Colors.grey.shade100,
                   contentPadding: const EdgeInsets.all(10),
                 ),
-                keyboardType: TextInputType.name,
+                keyboardType: TextInputType.text,
               ),
             ),
             Container(
