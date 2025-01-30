@@ -1,4 +1,3 @@
-import 'package:dev_dash/ui/settings/language.dart';
 import 'package:dev_dash/ui/settings/privacy_page.dart';
 import 'package:dev_dash/ui/settings/profile_page.dart';
 import 'package:dev_dash/ui/settings/rate_app.dart';
@@ -8,7 +7,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -18,8 +16,6 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-  SharedPreferences? prefs;
-
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
@@ -64,7 +60,6 @@ class _SettingsPageState extends State<SettingsPage> {
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
-                        color: Colors.deepPurpleAccent,
                       ),
                     ),
                   ),
@@ -114,34 +109,9 @@ class _SettingsPageState extends State<SettingsPage> {
                       activeColor: Colors.white,
                       value: themeProvider.isDarkMode,
                       onChanged: (value) {
-                        // Toggle the theme mode when the switch is toggled
                         themeProvider.switchTheme(value);
                       },
                     ),
-                  ),
-                  const Divider(),
-                  ListTile(
-                    leading: Container(
-                      padding: const EdgeInsets.all(5),
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Colors.pink,
-                      ),
-                      child: const Icon(
-                        Icons.language,
-                        color: Colors.white,
-                        size: 25,
-                      ),
-                    ),
-                    title: const Text('Language'),
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => Language(),
-                        ),
-                      );
-                    },
                   ),
                   const Divider(),
                   ListTile(
@@ -162,7 +132,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => PrivacyPage(),
+                          builder: (context) => const PrivacyPage(),
                         ),
                       );
                     },
@@ -200,7 +170,6 @@ class _SettingsPageState extends State<SettingsPage> {
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
-                        color: Colors.deepPurpleAccent,
                       ),
                     ),
                   ),
@@ -209,7 +178,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       padding: const EdgeInsets.all(5),
                       decoration: const BoxDecoration(
                         shape: BoxShape.circle,
-                        color: Colors.red,
+                        color: Colors.lightBlueAccent,
                       ),
                       child: const Icon(
                         Icons.thumb_up,
@@ -222,7 +191,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => RateApp(),
+                          builder: (context) => const RateApp(),
                         ),
                       );
                     },
@@ -245,7 +214,8 @@ class _SettingsPageState extends State<SettingsPage> {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => ShareApp()),
+                        MaterialPageRoute(
+                            builder: (context) => const ShareApp()),
                       );
                     },
                   ),

@@ -100,7 +100,7 @@ class RateApp extends StatelessWidget {
                   snackbarShow(context, 'Thanks for Rating');
                 },
                 child: const Text(
-                  'Submit Feedback',
+                  'Submit',
                   style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,

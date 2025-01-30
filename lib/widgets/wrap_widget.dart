@@ -272,25 +272,25 @@ class _WrapWidgetExampleState extends State<WrapWidgetExample> {
               Chip(
                 avatar: CircleAvatar(
                     backgroundColor: Colors.blue.shade900,
-                    child: const Text('1')),
+                    child: const Text('1', style: TextStyle(color: Colors.white),),),
                 label: const Text('Hamilton'),
               ),
               Chip(
                 avatar: CircleAvatar(
                     backgroundColor: Colors.blue.shade900,
-                    child: const Text('2')),
+                    child: const Text('2', style: TextStyle(color: Colors.white),),),
                 label: const Text('Lafayette'),
               ),
               Chip(
                 avatar: CircleAvatar(
                     backgroundColor: Colors.blue.shade900,
-                    child: const Text('3')),
+                    child: const Text('3', style: TextStyle(color: Colors.white),),),
                 label: const Text('Mulligan'),
               ),
               Chip(
                 avatar: CircleAvatar(
                     backgroundColor: Colors.blue.shade900,
-                    child: const Text('4')),
+                    child: const Text('4', style: TextStyle(color: Colors.white),),),
                 label: const Text('Laurens'),
               ),
             ],

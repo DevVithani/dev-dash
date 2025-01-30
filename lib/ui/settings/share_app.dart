@@ -33,19 +33,12 @@ class ShareApp extends StatelessWidget {
               fontSize: 35,
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.only(top: 28),
-            child: Text('Share to your friends by using this: ', style: TextStyle(fontSize: 18),),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 18.0),
-            child: Center(
-              child: ElevatedButton(
-                onPressed: () {
-                  Share.share('com.example.dev_dash');
-                },
-                child: const Text('Share App'),
-              ),
+          Center(
+            child: ElevatedButton(
+              onPressed: () {
+                Share.share('com.example.dev_dash');
+              },
+              child: const Text('Share App'),
             ),
           ),
         ],

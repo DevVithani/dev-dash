@@ -185,6 +185,10 @@ class _LoginPageState extends State<LoginPage> {
                                   padding: const EdgeInsets.all(15),
                                 ),
                                 onPressed: () async {
+                                  if (phone.isEmpty) {
+                                    showSnackbar(context, 'Please enter your mobile number');
+                                    return;
+                                  }
                                   snackbarShow(
                                     context,
                                     'Verification code sent Successfully',
@@ -196,10 +200,7 @@ class _LoginPageState extends State<LoginPage> {
                                         (PhoneAuthCredential credential) {},
                                     verificationFailed: (e) {
                                       print('Error: $e');
-                                      if (e.code == 'invalid-phone-number') {
-                                        showSnackbar(context,
-                                            'Provided number is Invalid');
-                                      } else if (e.code ==
+                                      if (e.code ==
                                           'network-request-failed') {
                                         showSnackbar(context,
                                             'Network Error: Please check your Internet Connection');
@@ -236,15 +237,12 @@ class _LoginPageState extends State<LoginPage> {
                               style: TextStyle(
                                 fontSize: 16,
                                 color: Colors.white,
-                                decoration: TextDecoration.underline,
-                                decorationStyle: TextDecorationStyle.double,
-                                decorationColor: Colors.deepPurpleAccent,
                               ),
                             ),
                           ),
                           const SizedBox(height: 20),
                           Center(
-                            child: Container(
+                            child: SizedBox(
                               width: double.infinity,
                               child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
@@ -270,7 +268,7 @@ class _LoginPageState extends State<LoginPage> {
                                       ),
                                     ),
                                     Container(
-                                      padding: EdgeInsets.only(left: 45),
+                                      padding: const EdgeInsets.only(left: 45),
                                       child: const Text(
                                         'Sign In with Google',
                                         style: TextStyle(

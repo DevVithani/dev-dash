@@ -799,7 +799,6 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // automaticallyImplyLeading: false,
         backgroundColor: Colors.black,
         title: const Text(
           'Flutter Tutorials',
@@ -927,8 +926,8 @@ class _HomePageState extends State<HomePage> {
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            progressColor: Colors.deepPurpleAccent,
-                            backgroundColor: Colors.lightBlueAccent,
+                            progressColor: Colors.lightBlueAccent,
+                            backgroundColor: Colors.blue,
                           ),
                         ),
                         if (percent >= 100)

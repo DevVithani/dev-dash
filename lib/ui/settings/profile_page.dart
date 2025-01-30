@@ -168,7 +168,7 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
               TextField(
                 decoration: InputDecoration(
-                  prefixIcon: const Icon(Icons.password),
+                  prefixIcon: const Icon(Icons.lock),
                   labelText: 'Create Password',
                   hintText: 'Enter Your Password (Optional)',
                   suffixIcon: IconButton(
@@ -192,7 +192,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   contentPadding: const EdgeInsets.all(10),
                 ),
                 obscureText: !_isPasswordVisible,
-                keyboardType: TextInputType.phone,
+                keyboardType: TextInputType.number,
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 80.0),

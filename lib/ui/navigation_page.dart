@@ -43,6 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
             color: Colors.white,
             activeColor: Colors.white,
             tabBackgroundColor: Colors.blue,
+            // tabBackgroundColor: Colors.blue,
             padding: const EdgeInsets.all(16),
             tabs: const [
               GButton(
