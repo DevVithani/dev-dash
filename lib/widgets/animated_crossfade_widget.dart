@@ -12,6 +12,141 @@ class AnimatedCrossFadeWidget extends StatefulWidget {
 }
 
 class _AnimatedCrossFadeWidgetState extends State<AnimatedCrossFadeWidget> {
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        backgroundColor: Colors.black,
+        title: const Text(
+          'AnimatedCrossFade',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
+      ),
+      body: const Expanded(
+        flex: 1,
+        child: WidgetWithCodeView(
+          filePath: 'lib/widgets/animated_crossfade_widget.dart',
+          iconForegroundColor: Colors.white,
+          iconBackgroundColor: Colors.black,
+          codeLinkPrefix: 'https://google.com?q=',
+          codeContent: '''
+          import 'package:flutter/material.dart';
+        
+          class AnimatedCrossFadeExample extends StatefulWidget {
+          const AnimatedCrossFadeExample({super.key});
+        
+          @override
+          State<AnimatedCrossFadeExample> createState() =>
+        _AnimatedCrossFadeExampleState();
+        }
+        
+        class _AnimatedCrossFadeExampleState extends State<AnimatedCrossFadeExample>
+            with TickerProviderStateMixin {
+          late bool _bool = true;
+          late bool bul = true;
+          
+        
+          @override
+          Widget build(BuildContext context) {
+            return SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Center(
+              child: AnimatedCrossFade(
+                firstChild: Container(
+                  height: 200,
+                  width: 200,
+                  color: Colors.blue,
+                ),
+                secondChild: Container(
+                  height: 200,
+                  width: 200,
+                  color: Colors.green,
+                ),
+                crossFadeState:
+                    _bool ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+                duration: const Duration(seconds: 1),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 25),
+              child: Center(
+                child: ElevatedButton(
+                  onPressed: () {
+                    setState(
+                      () {
+                        _bool = !_bool;
+                      },
+                    );
+                  },
+                  child: const Text("Switch"),
+                ),
+              ),
+            ),
+            
+            // Example 2 Code
+            
+            Center(
+              child: AnimatedCrossFade(
+                firstChild: Image.network(
+                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQsIz4qZKTOplGKCIt860B8HP3mTBMZGACNFg&s'),
+                secondChild: Image.network(
+                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZGEs4ajlkUdtcsedEPmKeRkpSkOtQwh6lzQ&s'),
+                crossFadeState:
+                    bul ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+                duration: const Duration(seconds: 1),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 25),
+              child: Center(
+                child: ElevatedButton(
+                  onPressed: () {
+                    setState(
+                      () {
+                        bul = !bul;
+                      },
+                    );
+                  },
+                  child: const Text("Switch"),
+          ),
+        ),
+      ),
+              ],
+            ),
+          );
+        }
+      }''',
+          child: AnimatedCrossFadeExample(),
+        ),
+      ),
+    );
+  }
+}
+
+class AnimatedCrossFadeExample extends StatefulWidget {
+  const AnimatedCrossFadeExample({super.key});
+
+  @override
+  State<AnimatedCrossFadeExample> createState() =>
+      _AnimatedCrossFadeExampleState();
+}
+
+class _AnimatedCrossFadeExampleState extends State<AnimatedCrossFadeExample>
+    with TickerProviderStateMixin {
+  late bool _bool = true;
+  late bool bul = true;
+
   String url = 'https://youtu.be/PGK2UUAyE54';
 
   YoutubePlayerController? controller;
@@ -35,159 +170,18 @@ class _AnimatedCrossFadeWidgetState extends State<AnimatedCrossFadeWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-        backgroundColor: Colors.black,
-        title: const Text(
-          'AnimatedCrossFade',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
-        ),
-      ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 8),
-            child: YoutubePlayer(
-              controller: controller!,
-              progressColors: const ProgressBarColors(
-                backgroundColor: Colors.black,
-                handleColor: Colors.white,
-              ),
-            ),
-          ),
-          const Expanded(
-            flex: 1,
-            child: WidgetWithCodeView(
-              filePath: 'lib/widgets/animated_crossfade_widget.dart',
-              iconForegroundColor: Colors.white,
-              iconBackgroundColor: Colors.black,
-              codeLinkPrefix: 'https://google.com?q=',
-              codeContent: '''
-              import 'package:flutter/material.dart';
-            
-              class AnimatedCrossFadeExample extends StatefulWidget {
-              const AnimatedCrossFadeExample({super.key});
-            
-              @override
-              State<AnimatedCrossFadeExample> createState() =>
-            _AnimatedCrossFadeExampleState();
-            }
-            
-            class _AnimatedCrossFadeExampleState extends State<AnimatedCrossFadeExample>
-                with TickerProviderStateMixin {
-              late bool _bool = true;
-              late bool bul = true;
-              
-            
-              @override
-              Widget build(BuildContext context) {
-                return SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Center(
-                  child: AnimatedCrossFade(
-                    firstChild: Container(
-                      height: 200,
-                      width: 200,
-                      color: Colors.blue,
-                    ),
-                    secondChild: Container(
-                      height: 200,
-                      width: 200,
-                      color: Colors.green,
-                    ),
-                    crossFadeState:
-                        _bool ? CrossFadeState.showFirst : CrossFadeState.showSecond,
-                    duration: const Duration(seconds: 1),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 25),
-                  child: Center(
-                    child: ElevatedButton(
-                      onPressed: () {
-                        setState(
-                          () {
-                            _bool = !_bool;
-                          },
-                        );
-                      },
-                      child: const Text("Switch"),
-                    ),
-                  ),
-                ),
-                
-                // Example 2 Code
-                
-                Center(
-                  child: AnimatedCrossFade(
-                    firstChild: Image.network(
-                        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQsIz4qZKTOplGKCIt860B8HP3mTBMZGACNFg&s'),
-                    secondChild: Image.network(
-                        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZGEs4ajlkUdtcsedEPmKeRkpSkOtQwh6lzQ&s'),
-                    crossFadeState:
-                        bul ? CrossFadeState.showFirst : CrossFadeState.showSecond,
-                    duration: const Duration(seconds: 1),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 25),
-                  child: Center(
-                    child: ElevatedButton(
-                      onPressed: () {
-                        setState(
-                          () {
-                            bul = !bul;
-                          },
-                        );
-                      },
-                      child: const Text("Switch"),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}''',
-              child: AnimatedCrossFadeExample(),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class AnimatedCrossFadeExample extends StatefulWidget {
-  const AnimatedCrossFadeExample({super.key});
-
-  @override
-  State<AnimatedCrossFadeExample> createState() =>
-      _AnimatedCrossFadeExampleState();
-}
-
-class _AnimatedCrossFadeExampleState extends State<AnimatedCrossFadeExample>
-    with TickerProviderStateMixin {
-  late bool _bool = true;
-  late bool bul = true;
-
-  @override
-  Widget build(BuildContext context) {
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          YoutubePlayer(
+            controller: controller!,
+            progressColors: const ProgressBarColors(
+              backgroundColor: Colors.black,
+              handleColor: Colors.white,
+            ),
+          ),
           const Padding(
             padding: EdgeInsets.only(top: 18, left: 15),
             child: Text(

@@ -12,26 +12,7 @@ class SafeAreaWidget extends StatefulWidget {
 
 class _SafeAreaWidgetState extends State<SafeAreaWidget> {
 
-  String url = 'https://youtu.be/lkF0TQJO0bA';
 
-  YoutubePlayerController? controller;
-
-  @override
-  void initState() {
-    final videoId = YoutubePlayer.convertUrlToId(url);
-
-    controller = YoutubePlayerController(
-      initialVideoId: videoId!,
-      flags: const YoutubePlayerFlags(
-        autoPlay: false,
-        mute: false,
-        enableCaption: true,
-        loop: true,
-        forceHD: true,
-      ),
-    );
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,16 +38,6 @@ class _SafeAreaWidgetState extends State<SafeAreaWidget> {
                       ),
                     ),
                   ),
-                ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(bottom: 8),
-              child: YoutubePlayer(
-                controller: controller!,
-                progressColors: const ProgressBarColors(
-                  backgroundColor: Colors.black,
-                  handleColor: Colors.white,
                 ),
               ),
             ),
@@ -133,12 +104,40 @@ class SafeAreaExample extends StatefulWidget {
 
 class _SafeAreaExampleState extends State<SafeAreaExample> {
 
+  String url = 'https://youtu.be/lkF0TQJO0bA';
+
+  YoutubePlayerController? controller;
+
+  @override
+  void initState() {
+    final videoId = YoutubePlayer.convertUrlToId(url);
+
+    controller = YoutubePlayerController(
+      initialVideoId: videoId!,
+      flags: const YoutubePlayerFlags(
+        autoPlay: false,
+        mute: false,
+        enableCaption: true,
+        loop: true,
+        forceHD: true,
+      ),
+    );
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return const Column(
+    return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
+        YoutubePlayer(
+          controller: controller!,
+          progressColors: const ProgressBarColors(
+            backgroundColor: Colors.black,
+            handleColor: Colors.white,
+          ),
+        ),
+        const Padding(
           padding: EdgeInsets.only(top: 18, left: 15),
           child: Text(
             'Properties of SafeArea Widget: ',
@@ -148,7 +147,7 @@ class _SafeAreaExampleState extends State<SafeAreaExample> {
             ),
           ),
         ),
-        Padding(
+        const Padding(
           padding: EdgeInsets.only(top: 18, left: 15),
           child: Text(
             '1.bottom\n'
@@ -163,7 +162,7 @@ class _SafeAreaExampleState extends State<SafeAreaExample> {
             ),
           ),
         ),
-        Padding(
+        const Padding(
           padding: EdgeInsets.only(top: 18, left: 15),
           child: Text(
             'Example: Top of the Screen',

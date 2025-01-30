@@ -13,33 +13,6 @@ class ValueListEnableBuilderWidget extends StatefulWidget {
 class _ValueListEnableBuilderWidgetState
     extends State<ValueListEnableBuilderWidget> {
 
-  String url = 'https://youtu.be/s-ZG-jS5QHQ';
-
-  YoutubePlayerController? controller;
-
-  @override
-  void initState() {
-    final videoId = YoutubePlayer.convertUrlToId(url);
-
-    controller = YoutubePlayerController(
-      initialVideoId: videoId!,
-      flags: const YoutubePlayerFlags(
-        autoPlay: false,
-        mute: false,
-        enableCaption: true,
-        loop: true,
-        forceHD: true,
-      ),
-    );
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    controller?.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,97 +30,83 @@ class _ValueListEnableBuilderWidgetState
           ),
         ),
       ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 8),
-            child: YoutubePlayer(
-              controller: controller!,
-              progressColors: const ProgressBarColors(
-                backgroundColor: Colors.black,
-                handleColor: Colors.white,
-              ),
-            ),
-          ),
-          const Expanded(
-            flex: 1,
-            child: WidgetWithCodeView(
-              filePath: 'lib/widgets/value_list_enable_builder_widget.dart',
-              iconBackgroundColor: Colors.black,
-              iconForegroundColor: Colors.white,
-              codeLinkPrefix: 'https://google.com?q=',
-              codeContent: '''
-              import 'package:flutter/material.dart';
-            
-              class ValueListExample extends StatefulWidget {
-              const ValueListExample({super.key});
-            
-              @override
-              State<ValueListExample> createState() => _ValueListExampleState();
-            }
-            
-            class _ValueListExampleState extends State<ValueListExample> {
-              final ValueNotifier<int> _counter = ValueNotifier<int>(0);
-            
-              @override
-              Widget build(BuildContext context) {
-                return Scaffold(
-            body: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  const Text('You have pushed the button this many times:'),
-                  ValueListenableBuilder<int>(
-                    builder: (BuildContext context, int value, Widget? child) {
-                      return Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          CountDisplay(count: value),
-                          child!,
-                        ],
-                      );
-                    },
-                    valueListenable: _counter,
-                    child: const Padding(
-                      padding: EdgeInsets.all(10.0),
-                      child: SizedBox(
-                        width: 40,
-                        height: 40,
-                        child: FlutterLogo(size: 40),
-                      ),
-                    ),
+      body: const Expanded(
+        flex: 1,
+        child: WidgetWithCodeView(
+          filePath: 'lib/widgets/value_list_enable_builder_widget.dart',
+          iconBackgroundColor: Colors.black,
+          iconForegroundColor: Colors.white,
+          codeLinkPrefix: 'https://google.com?q=',
+          codeContent: '''
+          import 'package:flutter/material.dart';
+        
+          class ValueListExample extends StatefulWidget {
+          const ValueListExample({super.key});
+        
+          @override
+          State<ValueListExample> createState() => _ValueListExampleState();
+        }
+        
+        class _ValueListExampleState extends State<ValueListExample> {
+          final ValueNotifier<int> _counter = ValueNotifier<int>(0);
+        
+          @override
+          Widget build(BuildContext context) {
+            return Scaffold(
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              const Text('You have pushed the button this many times:'),
+              ValueListenableBuilder<int>(
+                builder: (BuildContext context, int value, Widget? child) {
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      CountDisplay(count: value),
+                      child!,
+                    ],
+                  );
+                },
+                valueListenable: _counter,
+                child: const Padding(
+                  padding: EdgeInsets.all(10.0),
+                  child: SizedBox(
+                    width: 40,
+                    height: 40,
+                    child: FlutterLogo(size: 40),
                   ),
-                ],
+                ),
               ),
-            ),
-            floatingActionButton: FloatingActionButton(
-              child: const Icon(Icons.plus_one),
-              onPressed: () => _counter.value += 1,
-            ),
-                );
-              }
-            }
-            
-            class CountDisplay extends StatelessWidget {
-              const CountDisplay({super.key, required this.count});
-            
-              final int count;
-            
-              @override
-              Widget build(BuildContext context) {
-                return Container(
-            width: 100,
-            height: 100,
-            padding: const EdgeInsetsDirectional.all(10),
-            child: Text('count', style: Theme.of(context).textTheme.headlineMedium), // put dollar symbol before count
-                );
-              }
-            }''',
-              child: ValueListExample(),
-            ),
+            ],
           ),
-        ],
+        ),
+        floatingActionButton: FloatingActionButton(
+          child: const Icon(Icons.plus_one),
+          onPressed: () => _counter.value += 1,
+        ),
+            );
+          }
+        }
+        
+        class CountDisplay extends StatelessWidget {
+          const CountDisplay({super.key, required this.count});
+        
+          final int count;
+        
+          @override
+          Widget build(BuildContext context) {
+            return Container(
+        width: 100,
+        height: 100,
+        padding: const EdgeInsetsDirectional.all(10),
+        child: Text('count', style: Theme.of(context).textTheme.headlineMedium), // put dollar symbol before count
+            );
+          }
+        }''',
+          child: ValueListExample(),
+        ),
       ),
     );
   }
@@ -179,6 +138,33 @@ class ValueListExample extends StatefulWidget {
 class _ValueListExampleState extends State<ValueListExample> {
   final ValueNotifier<int> _counter = ValueNotifier<int>(0);
 
+  String url = 'https://youtu.be/s-ZG-jS5QHQ';
+
+  YoutubePlayerController? controller;
+
+  @override
+  void initState() {
+    final videoId = YoutubePlayer.convertUrlToId(url);
+
+    controller = YoutubePlayerController(
+      initialVideoId: videoId!,
+      flags: const YoutubePlayerFlags(
+        autoPlay: false,
+        mute: false,
+        enableCaption: true,
+        loop: true,
+        forceHD: true,
+      ),
+    );
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    controller?.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -187,7 +173,13 @@ class _ValueListExampleState extends State<ValueListExample> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-
+            YoutubePlayer(
+              controller: controller!,
+              progressColors: const ProgressBarColors(
+                backgroundColor: Colors.black,
+                handleColor: Colors.white,
+              ),
+            ),
             const Padding(
               padding: EdgeInsets.only(top: 18, left: 15),
               child: Text(

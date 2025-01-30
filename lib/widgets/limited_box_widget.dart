@@ -11,6 +11,130 @@ class LimitedBoxWidget extends StatefulWidget {
 
 class _LimitedBoxWidgetState extends State<LimitedBoxWidget> {
 
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        title: const Text(
+          'LimitedBox',
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        ),
+        backgroundColor: Colors.black,
+      ),
+      body: const Expanded(
+        flex: 1,
+        child: WidgetWithCodeView(
+          filePath: 'lib/widgets/limited_box_widget',
+          iconForegroundColor: Colors.white,
+          iconBackgroundColor: Colors.black,
+          codeLinkPrefix: 'https://google.com?q=',
+          codeContent: '''
+          import 'package:flutter/material.dart';
+                  
+          class LimitedBoxExample extends StatefulWidget {
+          const LimitedBoxExample({super.key});
+        
+          @override
+          State<LimitedBoxExample> createState() => _LimitedBoxExampleState();
+        }
+        
+        class _LimitedBoxExampleState extends State<LimitedBoxExample> {
+        
+          @override
+          Widget build(BuildContext context) {
+            return SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+          
+          // Example 1 code
+          
+            const Padding(
+              padding: EdgeInsets.only(top: 18),
+              child: Center(
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: LimitedBox(
+                    maxHeight: 50,
+                    maxWidth: 300,
+                    child: Card(
+                      child: ListTile(
+                        leading: Icon(Icons.person),
+                        title: Text("Person 1"),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            
+            // Example 2 code
+            
+            const Padding(
+              padding: EdgeInsets.only(top: 18),
+              child: Center(
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: LimitedBox(
+                    maxHeight: 69,
+                    maxWidth: 365,
+                    child: Card(
+                      child: ListTile(
+                        leading: Icon(Icons.person),
+                        title: Text("Person 2"),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            
+            // Example 3 Code
+            
+            const Padding(
+              padding: EdgeInsets.only(top: 18),
+              child: Center(
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: LimitedBox(
+                    maxHeight: 80,
+                    maxWidth: 320,
+                    child: Card(
+                      child: ListTile(
+                        leading: Icon(Icons.person),
+                        title: Text("Person 3"),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+            );
+          }
+        }''',
+          child: LimitedBoxExample(),
+        ),
+      ),
+    );
+  }
+}
+
+class LimitedBoxExample extends StatefulWidget {
+  const LimitedBoxExample({super.key});
+
+  @override
+  State<LimitedBoxExample> createState() => _LimitedBoxExampleState();
+}
+
+class _LimitedBoxExampleState extends State<LimitedBoxExample> {
+
   String url = 'https://www.youtube.com/watch?v=uVki2CIzBTs';
 
   YoutubePlayerController? controller;
@@ -34,157 +158,26 @@ class _LimitedBoxWidgetState extends State<LimitedBoxWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-        title: const Text(
-          'LimitedBox',
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-        ),
-        backgroundColor: Colors.black,
-      ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 8),
-            child: YoutubePlayer(
-              controller: controller!,
-              progressColors: const ProgressBarColors(
-                backgroundColor: Colors.black,
-                handleColor: Colors.white,
-              ),
-            ),
-          ),
-          const Expanded(
-            flex: 1,
-            child: WidgetWithCodeView(
-              filePath: 'lib/widgets/limited_box_widget',
-              iconForegroundColor: Colors.white,
-              iconBackgroundColor: Colors.black,
-              codeLinkPrefix: 'https://google.com?q=',
-              codeContent: '''
-              import 'package:flutter/material.dart';
-                      
-              class LimitedBoxExample extends StatefulWidget {
-              const LimitedBoxExample({super.key});
-            
-              @override
-              State<LimitedBoxExample> createState() => _LimitedBoxExampleState();
-            }
-            
-            class _LimitedBoxExampleState extends State<LimitedBoxExample> {
-            
-              @override
-              Widget build(BuildContext context) {
-                return SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-              
-              // Example 1 code
-              
-                const Padding(
-                  padding: EdgeInsets.only(top: 18),
-                  child: Center(
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: LimitedBox(
-                        maxHeight: 50,
-                        maxWidth: 300,
-                        child: Card(
-                          child: ListTile(
-                            leading: Icon(Icons.person),
-                            title: Text("Person 1"),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                
-                // Example 2 code
-                
-                const Padding(
-                  padding: EdgeInsets.only(top: 18),
-                  child: Center(
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: LimitedBox(
-                        maxHeight: 69,
-                        maxWidth: 365,
-                        child: Card(
-                          child: ListTile(
-                            leading: Icon(Icons.person),
-                            title: Text("Person 2"),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                
-                // Example 3 Code
-                
-                const Padding(
-                  padding: EdgeInsets.only(top: 18),
-                  child: Center(
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: LimitedBox(
-                        maxHeight: 80,
-                        maxWidth: 320,
-                        child: Card(
-                          child: ListTile(
-                            leading: Icon(Icons.person),
-                            title: Text("Person 3"),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-                );
-              }
-            }''',
-              child: LimitedBoxExample(),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class LimitedBoxExample extends StatefulWidget {
-  const LimitedBoxExample({super.key});
-
-  @override
-  State<LimitedBoxExample> createState() => _LimitedBoxExampleState();
-}
-
-class _LimitedBoxExampleState extends State<LimitedBoxExample> {
-
-  @override
-  Widget build(BuildContext context) {
-    return const SingleChildScrollView(
+    return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
+          YoutubePlayer(
+            controller: controller!,
+            progressColors: const ProgressBarColors(
+              backgroundColor: Colors.black,
+              handleColor: Colors.white,
+            ),
+          ),
+          const Padding(
             padding: EdgeInsets.only(top: 18, left: 15),
             child: Text(
               'Properties of LimitedBox Widget: ',
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
             ),
           ),
-          Padding(
+          const Padding(
             padding: EdgeInsets.only(top: 18, left: 15),
             child: Text(
               '1.maxHeight\n'
@@ -193,11 +186,11 @@ class _LimitedBoxExampleState extends State<LimitedBoxExample> {
               style: TextStyle(fontSize: 18),
             ),
           ),
-          Divider(
+          const Divider(
             thickness: 2,
             height: 50,
           ),
-          Padding(
+          const Padding(
             padding: EdgeInsets.only(top: 18, left: 15),
             child: Text(
               'Example 1: ',
@@ -208,7 +201,7 @@ class _LimitedBoxExampleState extends State<LimitedBoxExample> {
               ),
             ),
           ),
-          Padding(
+          const Padding(
             padding: EdgeInsets.only(top: 18),
             child: Center(
               child: SingleChildScrollView(
@@ -226,11 +219,11 @@ class _LimitedBoxExampleState extends State<LimitedBoxExample> {
               ),
             ),
           ),
-          Divider(
+          const Divider(
             thickness: 2,
             height: 50,
           ),
-          Padding(
+          const Padding(
             padding: EdgeInsets.only(top: 18, left: 15),
             child: Text(
               'Example 2: ',
@@ -241,7 +234,7 @@ class _LimitedBoxExampleState extends State<LimitedBoxExample> {
               ),
             ),
           ),
-          Padding(
+          const Padding(
             padding: EdgeInsets.only(top: 18),
             child: Center(
               child: SingleChildScrollView(
@@ -259,11 +252,11 @@ class _LimitedBoxExampleState extends State<LimitedBoxExample> {
               ),
             ),
           ),
-          Divider(
+          const Divider(
             thickness: 2,
             height: 50,
           ),
-          Padding(
+          const Padding(
             padding: EdgeInsets.only(top: 18, left: 15),
             child: Text(
               'Example 3: ',
@@ -274,7 +267,7 @@ class _LimitedBoxExampleState extends State<LimitedBoxExample> {
               ),
             ),
           ),
-          Padding(
+          const Padding(
             padding: EdgeInsets.only(top: 18),
             child: Center(
               child: SingleChildScrollView(
@@ -292,7 +285,7 @@ class _LimitedBoxExampleState extends State<LimitedBoxExample> {
               ),
             ),
           ),
-          Divider(
+          const Divider(
             thickness: 2,
             height: 50,
           ),

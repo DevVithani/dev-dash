@@ -12,6 +12,137 @@ class ListViewWidget extends StatefulWidget {
 
 class _ListViewWidgetState extends State<ListViewWidget> {
 
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        backgroundColor: Colors.black,
+        title: const Text(
+          'Listview',
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+      body: const Expanded(
+        flex: 1,
+        child: WidgetWithCodeView(
+          filePath: 'lib/widgets/list_view_widget.dart',
+          iconBackgroundColor: Colors.black,
+          iconForegroundColor: Colors.white,
+          codeLinkPrefix: 'https://google.com?q=',
+          codeContent: '''
+          import 'package:flutter/material.dart';
+        
+          class ListViewExample extends StatefulWidget {
+          const ListViewExample({super.key});
+        
+          @override
+          State<ListViewExample> createState() => _ListViewExampleState();
+        }
+        
+        class _ListViewExampleState extends State<ListViewExample> {
+          @override
+          Widget build(BuildContext context) {
+            return ListView(
+        children: [
+        
+        // Example 1 Code
+        
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ListTile(
+              title: const Text("User 1"),
+              tileColor: Colors.white,
+              onTap: () {},
+              leading: const Icon(Icons.person),
+              trailing: const Icon(Icons.add_circle),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ListTile(
+              title: const Text("User 2"),
+              tileColor: Colors.white,
+              onTap: () {},
+              leading: const Icon(Icons.person),
+              trailing: const Icon(Icons.add_circle),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ListTile(
+              title: const Text("User 3"),
+              tileColor: Colors.white,
+              onTap: () {},
+              leading: const Icon(Icons.person),
+              trailing: const Icon(Icons.add_circle),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ListTile(
+              title: const Text("User 4"),
+              tileColor: Colors.white,
+              onTap: () {},
+              leading: const Icon(Icons.person),
+              trailing: const Icon(Icons.add_circle),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ListTile(
+              title: const Text("User 5"),
+              tileColor: Colors.white,
+              onTap: () {},
+              leading: const Icon(Icons.person),
+              trailing: const Icon(Icons.add_circle),
+            ),
+          ),
+          
+          // Example 2 Code
+          
+          SizedBox(
+            height: MediaQuery.of(context).size.height / 2.5,
+            child: ListView.builder(
+              itemBuilder: (BuildContext context, int index) {
+                return Card(
+                  child: ListTile(
+                    title: Text('User {index + 1}'),    // put dollar Symbol before {}
+                    leading: const Icon(Icons.person, size: 20,),
+                    trailing: const Icon(Icons.check, size: 20,),
+                  ),
+                );
+              },
+              itemCount: 5,
+            ),
+          ),
+        ],
+            );
+          }
+        }
+        ''',
+          child: ListViewExample(),
+        ),
+      ),
+    );
+  }
+}
+
+class ListViewExample extends StatefulWidget {
+  const ListViewExample({super.key});
+
+  @override
+  State<ListViewExample> createState() => _ListViewExampleState();
+}
+
+class _ListViewExampleState extends State<ListViewExample> {
+
   String url = 'https://youtu.be/KJpkjHGiI5A';
 
   YoutubePlayerController? controller;
@@ -35,153 +166,15 @@ class _ListViewWidgetState extends State<ListViewWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-        backgroundColor: Colors.black,
-        title: const Text(
-          'Listview',
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 8),
-            child: YoutubePlayer(
-              controller: controller!,
-              progressColors: const ProgressBarColors(
-                backgroundColor: Colors.black,
-                handleColor: Colors.white,
-              ),
-            ),
-          ),
-          const Expanded(
-            flex: 1,
-            child: WidgetWithCodeView(
-              filePath: 'lib/widgets/list_view_widget.dart',
-              iconBackgroundColor: Colors.black,
-              iconForegroundColor: Colors.white,
-              codeLinkPrefix: 'https://google.com?q=',
-              codeContent: '''
-              import 'package:flutter/material.dart';
-            
-              class ListViewExample extends StatefulWidget {
-              const ListViewExample({super.key});
-            
-              @override
-              State<ListViewExample> createState() => _ListViewExampleState();
-            }
-            
-            class _ListViewExampleState extends State<ListViewExample> {
-              @override
-              Widget build(BuildContext context) {
-                return ListView(
-            children: [
-            
-            // Example 1 Code
-            
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: ListTile(
-                  title: const Text("User 1"),
-                  tileColor: Colors.white,
-                  onTap: () {},
-                  leading: const Icon(Icons.person),
-                  trailing: const Icon(Icons.add_circle),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: ListTile(
-                  title: const Text("User 2"),
-                  tileColor: Colors.white,
-                  onTap: () {},
-                  leading: const Icon(Icons.person),
-                  trailing: const Icon(Icons.add_circle),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: ListTile(
-                  title: const Text("User 3"),
-                  tileColor: Colors.white,
-                  onTap: () {},
-                  leading: const Icon(Icons.person),
-                  trailing: const Icon(Icons.add_circle),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: ListTile(
-                  title: const Text("User 4"),
-                  tileColor: Colors.white,
-                  onTap: () {},
-                  leading: const Icon(Icons.person),
-                  trailing: const Icon(Icons.add_circle),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: ListTile(
-                  title: const Text("User 5"),
-                  tileColor: Colors.white,
-                  onTap: () {},
-                  leading: const Icon(Icons.person),
-                  trailing: const Icon(Icons.add_circle),
-                ),
-              ),
-              
-              // Example 2 Code
-              
-              SizedBox(
-                height: MediaQuery.of(context).size.height / 2.5,
-                child: ListView.builder(
-                  itemBuilder: (BuildContext context, int index) {
-                    return Card(
-                      child: ListTile(
-                        title: Text('User {index + 1}'),    // put dollar Symbol before {}
-                        leading: const Icon(Icons.person, size: 20,),
-                        trailing: const Icon(Icons.check, size: 20,),
-                      ),
-                    );
-                  },
-                  itemCount: 5,
-                ),
-              ),
-            ],
-                );
-              }
-            }
-            ''',
-              child: ListViewExample(),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class ListViewExample extends StatefulWidget {
-  const ListViewExample({super.key});
-
-  @override
-  State<ListViewExample> createState() => _ListViewExampleState();
-}
-
-class _ListViewExampleState extends State<ListViewExample> {
-
-  @override
-  Widget build(BuildContext context) {
     return ListView(
       children: [
+        YoutubePlayer(
+          controller: controller!,
+          progressColors: const ProgressBarColors(
+            backgroundColor: Colors.black,
+            handleColor: Colors.white,
+          ),
+        ),
         const Padding(
           padding: EdgeInsets.only(top: 18, left: 15),
           child: Text(

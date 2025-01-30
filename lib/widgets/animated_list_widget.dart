@@ -12,26 +12,6 @@ class AnimatedListWidget extends StatefulWidget {
 
 class _AnimatedListWidgetState extends State<AnimatedListWidget> {
 
-  String url = 'https://youtu.be/ZtfItHwFlZ8';
-
-  YoutubePlayerController? controller;
-
-  @override
-  void initState() {
-    final videoId = YoutubePlayer.convertUrlToId(url);
-
-    controller = YoutubePlayerController(
-      initialVideoId: videoId!,
-      flags: const YoutubePlayerFlags(
-        autoPlay: false,
-        mute: false,
-        enableCaption: true,
-        loop: true,
-        forceHD: true,
-      ),
-    );
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,127 +30,113 @@ class _AnimatedListWidgetState extends State<AnimatedListWidget> {
           ),
         ),
       ),
-      body: Column(
-        children: [
-          Padding(
-            padding: EdgeInsets.only(bottom: 8),
-            child: YoutubePlayer(
-              controller: controller!,
-              progressColors: const ProgressBarColors(
-                backgroundColor: Colors.black,
-                handleColor: Colors.white,
-              ),
-            ),
-          ),
-          const Expanded(
-            flex: 1,
-            child: WidgetWithCodeView(
-              filePath: 'lib/widgets/animated_list_widget.dart',
-              iconBackgroundColor: Colors.black,
-              iconForegroundColor: Colors.white,
-              codeLinkPrefix: 'https://google.com?q=',
-              codeContent: '''
-              import 'package:flutter/material.dart';
-            
-              class AnimatedListExample extends StatefulWidget {
-              const AnimatedListExample({super.key});
-            
-              @override
-              State<AnimatedListExample> createState() => _AnimatedListExampleState();
-            }
-            
-            class _AnimatedListExampleState extends State<AnimatedListExample> {
-              final GlobalKey<AnimatedListState> _listKey = GlobalKey();
-              final _items = [];
-            
-              void _addItem() {
-                _items.insert(0, "Item {_items.length + 1}");    // put dollar symbol before {}
-                _listKey.currentState!
-              .insertItem(0, duration: const Duration(milliseconds: 500));
-              }
-            
-              void _removeItem(int index) {
-                _listKey.currentState!.removeItem(
-            index,
-            (_, animation) {
-              return SizeTransition(
-                sizeFactor: animation,
-                child: const Card(
-                  margin: EdgeInsets.all(10),
-                  color: Colors.black,
-                  child: ListTile(
-                    title: Text(
-                      "Deleted",
-                      style: TextStyle(fontSize: 24, color: Colors.white),
-                    ),
-                  ),
+      body: const Expanded(
+        flex: 1,
+        child: WidgetWithCodeView(
+          filePath: 'lib/widgets/animated_list_widget.dart',
+          iconBackgroundColor: Colors.black,
+          iconForegroundColor: Colors.white,
+          codeLinkPrefix: 'https://google.com?q=',
+          codeContent: '''
+          import 'package:flutter/material.dart';
+        
+          class AnimatedListExample extends StatefulWidget {
+          const AnimatedListExample({super.key});
+        
+          @override
+          State<AnimatedListExample> createState() => _AnimatedListExampleState();
+        }
+        
+        class _AnimatedListExampleState extends State<AnimatedListExample> {
+          final GlobalKey<AnimatedListState> _listKey = GlobalKey();
+          final _items = [];
+        
+          void _addItem() {
+            _items.insert(0, "Item {_items.length + 1}");    // put dollar symbol before {}
+            _listKey.currentState!
+          .insertItem(0, duration: const Duration(milliseconds: 500));
+          }
+        
+          void _removeItem(int index) {
+            _listKey.currentState!.removeItem(
+        index,
+        (_, animation) {
+          return SizeTransition(
+            sizeFactor: animation,
+            child: const Card(
+              margin: EdgeInsets.all(10),
+              color: Colors.black,
+              child: ListTile(
+                title: Text(
+                  "Deleted",
+                  style: TextStyle(fontSize: 24, color: Colors.white),
                 ),
-              );
-            },
-            duration: const Duration(milliseconds: 500),
-                );
-                _items.removeAt(index);
-              }
-            
-              @override
-              Widget build(BuildContext context) {
-                return Scaffold(
-            body: SingleChildScrollView(
-              clipBehavior: Clip.none,
-              scrollDirection: Axis.vertical,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height / 4,
-                    child: AnimatedList(
-                      key: _listKey,
-                      initialItemCount: 0,
-                      padding: const EdgeInsets.all(10),
-                      itemBuilder: (context, index, animation) {
-                        return SizeTransition(
-                          key: UniqueKey(),
-                          sizeFactor: animation,
-                          child: Card(
-                            margin: const EdgeInsets.all(10),
-                            color: Colors.blue,
-                            child: ListTile(
-                              title: Text(
-                                _items[index],
-                                style: const TextStyle(
-                                    fontSize: 24,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              trailing: IconButton(
-                                icon: const Icon(
-                                  Icons.delete,
-                                  color: Colors.white,
-                                ),
-                                onPressed: () {
-                                  _removeItem(index);
-                                },
-                              ),
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-                ],
               ),
             ),
-            floatingActionButton: FloatingActionButton(
-              onPressed: _addItem,
-              child: const Icon(Icons.add),
-            ),
-                );
-              }
-            }''',
-              child: AnimatedListExample(),
-            ),
+          );
+        },
+        duration: const Duration(milliseconds: 500),
+            );
+            _items.removeAt(index);
+          }
+        
+          @override
+          Widget build(BuildContext context) {
+            return Scaffold(
+        body: SingleChildScrollView(
+          clipBehavior: Clip.none,
+          scrollDirection: Axis.vertical,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: MediaQuery.of(context).size.height / 4,
+                child: AnimatedList(
+                  key: _listKey,
+                  initialItemCount: 0,
+                  padding: const EdgeInsets.all(10),
+                  itemBuilder: (context, index, animation) {
+                    return SizeTransition(
+                      key: UniqueKey(),
+                      sizeFactor: animation,
+                      child: Card(
+                        margin: const EdgeInsets.all(10),
+                        color: Colors.blue,
+                        child: ListTile(
+                          title: Text(
+                            _items[index],
+                            style: const TextStyle(
+                                fontSize: 24,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          trailing: IconButton(
+                            icon: const Icon(
+                              Icons.delete,
+                              color: Colors.white,
+                            ),
+                            onPressed: () {
+                              _removeItem(index);
+                            },
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ],
           ),
-        ],
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: _addItem,
+          child: const Icon(Icons.add),
+        ),
+            );
+          }
+        }''',
+          child: AnimatedListExample(),
+        ),
       ),
     );
   }
@@ -216,6 +182,27 @@ class _AnimatedListExampleState extends State<AnimatedListExample> {
     _items.removeAt(index);
   }
 
+  String url = 'https://youtu.be/ZtfItHwFlZ8';
+
+  YoutubePlayerController? controller;
+
+  @override
+  void initState() {
+    final videoId = YoutubePlayer.convertUrlToId(url);
+
+    controller = YoutubePlayerController(
+      initialVideoId: videoId!,
+      flags: const YoutubePlayerFlags(
+        autoPlay: false,
+        mute: false,
+        enableCaption: true,
+        loop: true,
+        forceHD: true,
+      ),
+    );
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -225,6 +212,13 @@ class _AnimatedListExampleState extends State<AnimatedListExample> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            YoutubePlayer(
+              controller: controller!,
+              progressColors: const ProgressBarColors(
+                backgroundColor: Colors.black,
+                handleColor: Colors.white,
+              ),
+            ),
             const Padding(
               padding: EdgeInsets.only(top: 18, left: 15),
               child: Text(

@@ -107,6 +107,142 @@ class FocusableActionButtonWidget extends StatefulWidget {
 class _FocusableActionButtonWidgetState
     extends State<FocusableActionButtonWidget> {
 
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        backgroundColor: Colors.black,
+        title: const Text(
+          'FocusableAction Detector',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
+      ),
+      body: const Expanded(
+        flex: 1,
+        child: WidgetWithCodeView(
+          filePath: 'lib/widgets/focusable_action_button_widget.dart',
+          iconBackgroundColor: Colors.black,
+          iconForegroundColor: Colors.white,
+          codeLinkPrefix: 'https://google.com?q=',
+          codeContent: '''
+          import 'package:flutter/material.dart';
+          import 'package:flutter/services.dart';
+          
+          class FadButton extends StatefulWidget {
+          const FadButton({
+            super.key,
+            required this.onPressed,
+            required this.child,
+          });
+        
+          final VoidCallback onPressed;
+          final Widget child;
+        
+          @override
+          State<FadButton> createState() => _FadButtonState();
+        }
+        
+        class _FadButtonState extends State<FadButton> {
+          bool _focused = false;
+          bool _hovering = false;
+          bool _on = false;
+          late final Map<Type, Action<Intent>> _actionMap;
+          final Map<ShortcutActivator, Intent> _shortcutMap =
+        const <ShortcutActivator, Intent>{
+            SingleActivator(LogicalKeyboardKey.keyX): ActivateIntent(),
+          };
+        
+          @override
+          void initState() {
+            super.initState();
+            _actionMap = <Type, Action<Intent>>{
+        ActivateIntent: CallbackAction<Intent>(
+          onInvoke: (Intent intent) => _toggleState(),
+        ),
+            };
+          }
+        
+          Color get color {
+            Color baseColor = Colors.lightBlue;
+            if (_focused) {
+        baseColor = Color.alphaBlend(Colors.black.withOpacity(0.25), baseColor);
+            }
+            if (_hovering) {
+        baseColor = Color.alphaBlend(Colors.black.withOpacity(0.1), baseColor);
+            }
+            return baseColor;
+          }
+        
+          void _toggleState() {
+            setState(() {
+        _on = !_on;
+            });
+          }
+        
+          void _handleFocusHighlight(bool value) {
+            setState(() {
+        _focused = value;
+            });
+          }
+        
+          void _handleHoveHighlight(bool value) {
+            setState(() {
+        _hovering = value;
+            });
+          }
+        
+          @override
+          Widget build(BuildContext context) {
+            return GestureDetector(
+        onTap: _toggleState,
+        child: FocusableActionDetector(
+          actions: _actionMap,
+          shortcuts: _shortcutMap,
+          onShowFocusHighlight: _handleFocusHighlight,
+          onShowHoverHighlight: _handleHoveHighlight,
+          child: Row(
+            children: <Widget>[
+              Container(
+                padding: const EdgeInsets.all(10.0),
+                color: color,
+                child: widget.child,
+              ),
+              Container(
+                width: 30,
+                height: 30,
+                margin: const EdgeInsets.all(10.0),
+                color: _on ? Colors.red : Colors.transparent,
+              ),
+            ],
+          ),
+        ),
+            );
+          }
+        }''',
+          child: FocusableExample(),
+        ),
+      ),
+    );
+  }
+}
+
+class FocusableExample extends StatefulWidget {
+  const FocusableExample({super.key});
+
+  @override
+  State<FocusableExample> createState() => _FocusableExampleState();
+}
+
+class _FocusableExampleState extends State<FocusableExample> {
+
   String url = 'https://youtu.be/R84AGg0lKs8';
 
   YoutubePlayerController? controller;
@@ -130,160 +266,18 @@ class _FocusableActionButtonWidgetState
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-        backgroundColor: Colors.black,
-        title: const Text(
-          'FocusableAction Detector',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
-        ),
-      ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 8),
-            child: YoutubePlayer(
-              controller: controller!,
-              progressColors: const ProgressBarColors(
-                backgroundColor: Colors.black,
-                handleColor: Colors.white,
-              ),
-            ),
-          ),
-          const Expanded(
-            flex: 1,
-            child: WidgetWithCodeView(
-              filePath: 'lib/widgets/focusable_action_button_widget.dart',
-              iconBackgroundColor: Colors.black,
-              iconForegroundColor: Colors.white,
-              codeLinkPrefix: 'https://google.com?q=',
-              codeContent: '''
-              import 'package:flutter/material.dart';
-              import 'package:flutter/services.dart';
-              
-              class FadButton extends StatefulWidget {
-              const FadButton({
-                super.key,
-                required this.onPressed,
-                required this.child,
-              });
-            
-              final VoidCallback onPressed;
-              final Widget child;
-            
-              @override
-              State<FadButton> createState() => _FadButtonState();
-            }
-            
-            class _FadButtonState extends State<FadButton> {
-              bool _focused = false;
-              bool _hovering = false;
-              bool _on = false;
-              late final Map<Type, Action<Intent>> _actionMap;
-              final Map<ShortcutActivator, Intent> _shortcutMap =
-            const <ShortcutActivator, Intent>{
-                SingleActivator(LogicalKeyboardKey.keyX): ActivateIntent(),
-              };
-            
-              @override
-              void initState() {
-                super.initState();
-                _actionMap = <Type, Action<Intent>>{
-            ActivateIntent: CallbackAction<Intent>(
-              onInvoke: (Intent intent) => _toggleState(),
-            ),
-                };
-              }
-            
-              Color get color {
-                Color baseColor = Colors.lightBlue;
-                if (_focused) {
-            baseColor = Color.alphaBlend(Colors.black.withOpacity(0.25), baseColor);
-                }
-                if (_hovering) {
-            baseColor = Color.alphaBlend(Colors.black.withOpacity(0.1), baseColor);
-                }
-                return baseColor;
-              }
-            
-              void _toggleState() {
-                setState(() {
-            _on = !_on;
-                });
-              }
-            
-              void _handleFocusHighlight(bool value) {
-                setState(() {
-            _focused = value;
-                });
-              }
-            
-              void _handleHoveHighlight(bool value) {
-                setState(() {
-            _hovering = value;
-                });
-              }
-            
-              @override
-              Widget build(BuildContext context) {
-                return GestureDetector(
-            onTap: _toggleState,
-            child: FocusableActionDetector(
-              actions: _actionMap,
-              shortcuts: _shortcutMap,
-              onShowFocusHighlight: _handleFocusHighlight,
-              onShowHoverHighlight: _handleHoveHighlight,
-              child: Row(
-                children: <Widget>[
-                  Container(
-                    padding: const EdgeInsets.all(10.0),
-                    color: color,
-                    child: widget.child,
-                  ),
-                  Container(
-                    width: 30,
-                    height: 30,
-                    margin: const EdgeInsets.all(10.0),
-                    color: _on ? Colors.red : Colors.transparent,
-                  ),
-                ],
-              ),
-            ),
-                );
-              }
-            }''',
-              child: FocusableExample(),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class FocusableExample extends StatefulWidget {
-  const FocusableExample({super.key});
-
-  @override
-  State<FocusableExample> createState() => _FocusableExampleState();
-}
-
-class _FocusableExampleState extends State<FocusableExample> {
-
-  @override
-  Widget build(BuildContext context) {
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          YoutubePlayer(
+            controller: controller!,
+            progressColors: const ProgressBarColors(
+              backgroundColor: Colors.black,
+              handleColor: Colors.white,
+            ),
+          ),
           const Padding(
             padding: EdgeInsets.only(top: 18, left: 15),
             child: Text(

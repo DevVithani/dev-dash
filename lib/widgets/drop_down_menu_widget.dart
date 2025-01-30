@@ -39,6 +39,185 @@ class DropDownMenuWidget extends StatefulWidget {
 
 class _DropDownMenuWidgetState extends State<DropDownMenuWidget> {
 
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        backgroundColor: Colors.black,
+        title: const Text(
+          'DropDown Menu',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
+      ),
+      body: const Expanded(
+        flex: 1,
+        child: WidgetWithCodeView(
+          filePath: 'lib/widgets/drop_down_menu_widget.dart',
+          iconBackgroundColor: Colors.black,
+          iconForegroundColor: Colors.white,
+          codeLinkPrefix: 'https://google.com?q=',
+          codeContent: '''
+          import 'package:flutter/material.dart';
+          
+          enum ColorLabel {
+          blue('Blue', Colors.blue),
+          pink('Pink', Colors.pink),
+          green('Green', Colors.green),
+          yellow('Orange', Colors.orange),
+          purple('Purple', Colors.purple),
+          grey('Grey', Colors.grey);
+        
+          const ColorLabel(this.label, this.color);
+          final String label;
+          final Color color;
+        }
+        
+        enum IconLabel {
+          smile('Smile', Icons.sentiment_satisfied_outlined),
+          cloud(
+            'Cloud',
+            Icons.cloud_outlined,
+          ),
+          brush('Brush', Icons.brush_outlined),
+          heart('Heart', Icons.favorite);
+        
+          const IconLabel(this.label, this.icon);
+          final String label;
+          final IconData icon;
+        }
+        
+          class DropDownMenuExample extends StatefulWidget {
+          const DropDownMenuExample({super.key});
+        
+          @override
+          State<DropDownMenuExample> createState() => _DropDownMenuExampleState();
+        }
+        
+        class _DropDownMenuExampleState extends State<DropDownMenuExample> {
+          final TextEditingController colorController = TextEditingController();
+          final TextEditingController iconController = TextEditingController();
+          ColorLabel? selectedColor;
+          IconLabel? selectedIcon;
+        
+          @override
+          Widget build(BuildContext context) {
+            return SafeArea(
+        child: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Column(
+              Column(
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        DropdownMenu<ColorLabel>(
+                          initialSelection: ColorLabel.green,
+                          controller: colorController,
+                          requestFocusOnTap: true,
+                          label: const Text('Color'),
+                          onSelected: (ColorLabel? color) {
+                            setState(() {
+                              selectedColor = color;
+                            });
+                          },
+                          dropdownMenuEntries: ColorLabel.values
+                              .map<DropdownMenuEntry<ColorLabel>>(
+                                  (ColorLabel color) {
+                            return DropdownMenuEntry<ColorLabel>(
+                              value: color,
+                              label: color.label,
+                              enabled: color.label != 'Grey',
+                              style: MenuItemButton.styleFrom(
+                                foregroundColor: color.color,
+                              ),
+                            );
+                          }).toList(),
+                        ),
+                        const SizedBox(width: 24),
+                        DropdownMenu<IconLabel>(
+                          controller: iconController,
+                          enableFilter: true,
+                          requestFocusOnTap: true,
+                          leadingIcon: const Icon(Icons.search),
+                          label: const Text('Icon'),
+                          inputDecorationTheme: const InputDecorationTheme(
+                            filled: true,
+                            contentPadding: EdgeInsets.symmetric(vertical: 5.0),
+                          ),
+                          onSelected: (IconLabel? icon) {
+                            setState(() {
+                              selectedIcon = icon;
+                            });
+                          },
+                          dropdownMenuEntries:
+                              IconLabel.values.map<DropdownMenuEntry<IconLabel>>(
+                            (IconLabel icon) {
+                              return DropdownMenuEntry<IconLabel>(
+                                value: icon,
+                                label: icon.label,
+                                leadingIcon: Icon(icon.icon),
+                              );
+                            },
+                          ).toList(),
+                        ),
+                      ],
+                    ),
+                  ),
+                  if (selectedColor != null && selectedIcon != null)
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                            'You selected a {selectedColor?.label} {selectedIcon?.label}'), // put dollar symbol before {}
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 5),
+                          child: Icon(
+                            selectedIcon?.icon,
+                            color: selectedColor?.color,
+                          ),
+                        )
+                      ],
+                    )
+                  else
+                    const Text('Please select a color and an icon.')
+                ],
+              ),
+            ],
+          ),
+        ),
+            );
+          }
+        }''',
+          child: DropDownMenuExample(),
+        ),
+      ),
+    );
+  }
+}
+
+class DropDownMenuExample extends StatefulWidget {
+  const DropDownMenuExample({super.key});
+
+  @override
+  State<DropDownMenuExample> createState() => _DropDownMenuExampleState();
+}
+
+class _DropDownMenuExampleState extends State<DropDownMenuExample> {
+  final TextEditingController colorController = TextEditingController();
+  final TextEditingController iconController = TextEditingController();
+  ColorLabel? selectedColor;
+  IconLabel? selectedIcon;
+
   String url = 'https://www.youtube.com/watch?v=giV9AbM2gd8';
 
   YoutubePlayerController? controller;
@@ -68,204 +247,19 @@ class _DropDownMenuWidgetState extends State<DropDownMenuWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-        backgroundColor: Colors.black,
-        title: const Text(
-          'DropDown Menu',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
-        ),
-      ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 8),
-            child: YoutubePlayer(
-              controller: controller!,
-              progressColors: const ProgressBarColors(
-                backgroundColor: Colors.black,
-                handleColor: Colors.white,
-              ),
-            ),
-          ),
-          const Expanded(
-            flex: 1,
-            child: WidgetWithCodeView(
-              filePath: 'lib/widgets/drop_down_menu_widget.dart',
-              iconBackgroundColor: Colors.black,
-              iconForegroundColor: Colors.white,
-              codeLinkPrefix: 'https://google.com?q=',
-              codeContent: '''
-              import 'package:flutter/material.dart';
-              
-              enum ColorLabel {
-              blue('Blue', Colors.blue),
-              pink('Pink', Colors.pink),
-              green('Green', Colors.green),
-              yellow('Orange', Colors.orange),
-              purple('Purple', Colors.purple),
-              grey('Grey', Colors.grey);
-            
-              const ColorLabel(this.label, this.color);
-              final String label;
-              final Color color;
-            }
-            
-            enum IconLabel {
-              smile('Smile', Icons.sentiment_satisfied_outlined),
-              cloud(
-                'Cloud',
-                Icons.cloud_outlined,
-              ),
-              brush('Brush', Icons.brush_outlined),
-              heart('Heart', Icons.favorite);
-            
-              const IconLabel(this.label, this.icon);
-              final String label;
-              final IconData icon;
-            }
-            
-              class DropDownMenuExample extends StatefulWidget {
-              const DropDownMenuExample({super.key});
-            
-              @override
-              State<DropDownMenuExample> createState() => _DropDownMenuExampleState();
-            }
-            
-            class _DropDownMenuExampleState extends State<DropDownMenuExample> {
-              final TextEditingController colorController = TextEditingController();
-              final TextEditingController iconController = TextEditingController();
-              ColorLabel? selectedColor;
-              IconLabel? selectedIcon;
-            
-              @override
-              Widget build(BuildContext context) {
-                return SafeArea(
-            child: SingleChildScrollView(
-              scrollDirection: Axis.vertical,
-              child: Column(
-                  Column(
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 20),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            DropdownMenu<ColorLabel>(
-                              initialSelection: ColorLabel.green,
-                              controller: colorController,
-                              requestFocusOnTap: true,
-                              label: const Text('Color'),
-                              onSelected: (ColorLabel? color) {
-                                setState(() {
-                                  selectedColor = color;
-                                });
-                              },
-                              dropdownMenuEntries: ColorLabel.values
-                                  .map<DropdownMenuEntry<ColorLabel>>(
-                                      (ColorLabel color) {
-                                return DropdownMenuEntry<ColorLabel>(
-                                  value: color,
-                                  label: color.label,
-                                  enabled: color.label != 'Grey',
-                                  style: MenuItemButton.styleFrom(
-                                    foregroundColor: color.color,
-                                  ),
-                                );
-                              }).toList(),
-                            ),
-                            const SizedBox(width: 24),
-                            DropdownMenu<IconLabel>(
-                              controller: iconController,
-                              enableFilter: true,
-                              requestFocusOnTap: true,
-                              leadingIcon: const Icon(Icons.search),
-                              label: const Text('Icon'),
-                              inputDecorationTheme: const InputDecorationTheme(
-                                filled: true,
-                                contentPadding: EdgeInsets.symmetric(vertical: 5.0),
-                              ),
-                              onSelected: (IconLabel? icon) {
-                                setState(() {
-                                  selectedIcon = icon;
-                                });
-                              },
-                              dropdownMenuEntries:
-                                  IconLabel.values.map<DropdownMenuEntry<IconLabel>>(
-                                (IconLabel icon) {
-                                  return DropdownMenuEntry<IconLabel>(
-                                    value: icon,
-                                    label: icon.label,
-                                    leadingIcon: Icon(icon.icon),
-                                  );
-                                },
-                              ).toList(),
-                            ),
-                          ],
-                        ),
-                      ),
-                      if (selectedColor != null && selectedIcon != null)
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Text(
-                                'You selected a {selectedColor?.label} {selectedIcon?.label}'), // put dollar symbol before {}
-                            Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 5),
-                              child: Icon(
-                                selectedIcon?.icon,
-                                color: selectedColor?.color,
-                              ),
-                            )
-                          ],
-                        )
-                      else
-                        const Text('Please select a color and an icon.')
-                    ],
-                  ),
-                ],
-              ),
-            ),
-                );
-              }
-            }''',
-              child: DropDownMenuExample(),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class DropDownMenuExample extends StatefulWidget {
-  const DropDownMenuExample({super.key});
-
-  @override
-  State<DropDownMenuExample> createState() => _DropDownMenuExampleState();
-}
-
-class _DropDownMenuExampleState extends State<DropDownMenuExample> {
-  final TextEditingController colorController = TextEditingController();
-  final TextEditingController iconController = TextEditingController();
-  ColorLabel? selectedColor;
-  IconLabel? selectedIcon;
-
-  @override
-  Widget build(BuildContext context) {
     return SafeArea(
       child: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            YoutubePlayer(
+              controller: controller!,
+              progressColors: const ProgressBarColors(
+                backgroundColor: Colors.black,
+                handleColor: Colors.white,
+              ),
+            ),
             const Padding(
               padding: EdgeInsets.only(top: 18, left: 15),
               child: Text(

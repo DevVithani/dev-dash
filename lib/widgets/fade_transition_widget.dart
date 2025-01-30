@@ -11,6 +11,111 @@ class FadeTransitionWidget extends StatefulWidget {
 
 class _FadeTransitionWidgetState extends State<FadeTransitionWidget> {
 
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        backgroundColor: Colors.black,
+        title: const Text(
+          'Fade Transition',
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+      body: const Expanded(
+        flex: 1,
+        child: WidgetWithCodeView(
+          filePath: 'lib/widgets/fade_transition_widget.dart',
+          iconForegroundColor: Colors.white,
+          iconBackgroundColor: Colors.black,
+          codeLinkPrefix: 'https://google.com?q=',
+          codeContent: '''
+          import 'package:flutter/material.dart';
+        
+          class FadeTransitionExample extends StatefulWidget {
+          const FadeTransitionExample({super.key});
+        
+          @override
+          State<FadeTransitionExample> createState() => _FadeTransitionExampleState();
+        }
+        
+        class _FadeTransitionExampleState extends State<FadeTransitionExample>
+            with TickerProviderStateMixin {
+          late final AnimationController _controller =
+        AnimationController(vsync: this, duration: const Duration(seconds: 2))
+          ..repeat(reverse: true);
+          late final Animation<double> _animation =
+        CurvedAnimation(parent: _controller, curve: Curves.bounceInOut);
+        
+          @override
+          Widget build(BuildContext context) {
+            return SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+          
+          // Example 1 Code
+          
+            Padding(
+              padding: const EdgeInsets.only(top: 18.0, right: 30),
+              child: Center(
+                child: FadeTransition(
+                  opacity: _animation,
+                  child: const FlutterLogo(size: 150),
+                ),
+              ),
+            ),
+          
+            // Example 2 Code
+            
+            Padding(
+              padding: const EdgeInsets.only(top: 18.0, right: 30),
+              child: Center(
+                child: FadeTransition(
+                  opacity: _animation,
+                  child: Image.network('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkSlzgF_naJxuH1GVmKSsvK2N4RojeyefhHw&s'),
+                ),
+              ),
+            ),
+          ],
+        ),
+            );
+          }
+        }''',
+          child: FadeTransitionExample(),
+        ),
+      ),
+    );
+  }
+}
+
+class FadeTransitionExample extends StatefulWidget {
+  const FadeTransitionExample({super.key});
+
+  @override
+  State<FadeTransitionExample> createState() => _FadeTransitionExampleState();
+}
+
+class _FadeTransitionExampleState extends State<FadeTransitionExample>
+    with TickerProviderStateMixin {
+  late final AnimationController _controller =
+      AnimationController(vsync: this, duration: const Duration(seconds: 2))
+        ..repeat(reverse: true);
+  late final Animation<double> _animation =
+      CurvedAnimation(parent: _controller, curve: Curves.bounceInOut);
+  late final AnimationController _coNtrOllEr =
+      AnimationController(vsync: this, duration: const Duration(seconds: 2))
+        ..repeat(reverse: true);
+  late final Animation<double> _aNiMAtION =
+      CurvedAnimation(parent: _coNtrOllEr, curve: Curves.elasticInOut);
+
   String url = 'https://www.youtube.com/watch?v=rLwWVbv3xDQ';
 
   YoutubePlayerController? controller;
@@ -40,130 +145,18 @@ class _FadeTransitionWidgetState extends State<FadeTransitionWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-        backgroundColor: Colors.black,
-        title: const Text(
-          'Fade Transition',
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-      body: Column(
-        children: [
-          Padding(
-            padding: EdgeInsets.only(bottom: 8),
-            child: YoutubePlayer(
-              controller: controller!,
-              progressColors: const ProgressBarColors(
-                backgroundColor: Colors.black,
-                handleColor: Colors.white,
-              ),
-            ),
-          ),
-          Expanded(
-            flex: 1,
-            child: const WidgetWithCodeView(
-              filePath: 'lib/widgets/fade_transition_widget.dart',
-              iconForegroundColor: Colors.white,
-              iconBackgroundColor: Colors.black,
-              codeLinkPrefix: 'https://google.com?q=',
-              codeContent: '''
-              import 'package:flutter/material.dart';
-            
-              class FadeTransitionExample extends StatefulWidget {
-              const FadeTransitionExample({super.key});
-            
-              @override
-              State<FadeTransitionExample> createState() => _FadeTransitionExampleState();
-            }
-            
-            class _FadeTransitionExampleState extends State<FadeTransitionExample>
-                with TickerProviderStateMixin {
-              late final AnimationController _controller =
-            AnimationController(vsync: this, duration: const Duration(seconds: 2))
-              ..repeat(reverse: true);
-              late final Animation<double> _animation =
-            CurvedAnimation(parent: _controller, curve: Curves.bounceInOut);
-            
-              @override
-              Widget build(BuildContext context) {
-                return SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-              
-              // Example 1 Code
-              
-                Padding(
-                  padding: const EdgeInsets.only(top: 18.0, right: 30),
-                  child: Center(
-                    child: FadeTransition(
-                      opacity: _animation,
-                      child: const FlutterLogo(size: 150),
-                    ),
-                  ),
-                ),
-              
-                // Example 2 Code
-                
-                Padding(
-                  padding: const EdgeInsets.only(top: 18.0, right: 30),
-                  child: Center(
-                    child: FadeTransition(
-                      opacity: _animation,
-                      child: Image.network('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkSlzgF_naJxuH1GVmKSsvK2N4RojeyefhHw&s'),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-                );
-              }
-            }''',
-              child: FadeTransitionExample(),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class FadeTransitionExample extends StatefulWidget {
-  const FadeTransitionExample({super.key});
-
-  @override
-  State<FadeTransitionExample> createState() => _FadeTransitionExampleState();
-}
-
-class _FadeTransitionExampleState extends State<FadeTransitionExample>
-    with TickerProviderStateMixin {
-  late final AnimationController _controller =
-      AnimationController(vsync: this, duration: const Duration(seconds: 2))
-        ..repeat(reverse: true);
-  late final Animation<double> _animation =
-      CurvedAnimation(parent: _controller, curve: Curves.bounceInOut);
-  late final AnimationController _coNtrOllEr =
-      AnimationController(vsync: this, duration: const Duration(seconds: 2))
-        ..repeat(reverse: true);
-  late final Animation<double> _aNiMAtION =
-      CurvedAnimation(parent: _coNtrOllEr, curve: Curves.elasticInOut);
-
-  @override
-  Widget build(BuildContext context) {
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          YoutubePlayer(
+            controller: controller!,
+            progressColors: const ProgressBarColors(
+              backgroundColor: Colors.black,
+              handleColor: Colors.white,
+            ),
+          ),
           const Padding(
             padding: EdgeInsets.only(top: 18, left: 15),
             child: Text(

@@ -13,27 +13,6 @@ class OverLayWidget extends StatefulWidget {
 class _OverLayWidgetState extends State<OverLayWidget> {
   int currentPageIndex = 0;
 
-  String url = 'https://www.youtube.com/watch?v=S0Ylpa44OAQ';
-
-  YoutubePlayerController? controller;
-
-  @override
-  void initState() {
-    final videoId = YoutubePlayer.convertUrlToId(url);
-
-    controller = YoutubePlayerController(
-      initialVideoId: videoId!,
-      flags: const YoutubePlayerFlags(
-        autoPlay: false,
-        mute: false,
-        enableCaption: true,
-        loop: true,
-        forceHD: true,
-      ),
-    );
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -69,189 +48,175 @@ class _OverLayWidgetState extends State<OverLayWidget> {
           ),
         ],
       ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 8),
-            child: YoutubePlayer(
-              controller: controller!,
-              progressColors: const ProgressBarColors(
-                backgroundColor: Colors.black,
-                handleColor: Colors.white,
-              ),
-            ),
-          ),
-          const Expanded(
-            flex: 1,
-            child: WidgetWithCodeView(
-              filePath: 'lib/widgets/overlay_widget.dart',
-              iconBackgroundColor: Colors.black,
-              iconForegroundColor: Colors.white,
-              codeLinkPrefix: 'https://google.com?q=',
-              codeContent: '''
-              import 'package:flutter/material.dart';
-            
-              class OverlayExample extends StatefulWidget {
-              const OverlayExample({super.key});
-            
-              @override
-              State<OverlayExample> createState() => _OverlayExampleState();
+      body: const Expanded(
+        flex: 1,
+        child: WidgetWithCodeView(
+          filePath: 'lib/widgets/overlay_widget.dart',
+          iconBackgroundColor: Colors.black,
+          iconForegroundColor: Colors.white,
+          codeLinkPrefix: 'https://google.com?q=',
+          codeContent: '''
+          import 'package:flutter/material.dart';
+        
+          class OverlayExample extends StatefulWidget {
+          const OverlayExample({super.key});
+        
+          @override
+          State<OverlayExample> createState() => _OverlayExampleState();
+        }
+        
+        class _OverlayExampleState extends State<OverlayExample> {
+          int currentPageIndex = 0;
+        
+          OverlayEntry? overlayEntry;
+        
+          void createHighlightOverlay({
+            required AlignmentDirectional alignment,
+            required Color borderColor,
+          }) {
+            removeHighlightOverlay();
+        
+            assert(overlayEntry == null);
+        
+            Widget builder(BuildContext context) {
+        final (String label, Color? color) = switch (currentPageIndex) {
+          0 => ('Explore page', Colors.red),
+          1 => ('Commute page', Colors.green),
+          2 => ('Saved page', Colors.orange),
+          _ => ('No page selected.', null),
+        };
+        if (color == null) {
+          return Text(label);
+        }
+        return Column(
+          children: <Widget>[
+            Text(label, style: TextStyle(color: color)),
+            Icon(Icons.arrow_downward, color: color),
+          ],
+        );
             }
-            
-            class _OverlayExampleState extends State<OverlayExample> {
-              int currentPageIndex = 0;
-            
-              OverlayEntry? overlayEntry;
-            
-              void createHighlightOverlay({
-                required AlignmentDirectional alignment,
-                required Color borderColor,
-              }) {
-                removeHighlightOverlay();
-            
-                assert(overlayEntry == null);
-            
-                Widget builder(BuildContext context) {
-            final (String label, Color? color) = switch (currentPageIndex) {
-              0 => ('Explore page', Colors.red),
-              1 => ('Commute page', Colors.green),
-              2 => ('Saved page', Colors.orange),
-              _ => ('No page selected.', null),
-            };
-            if (color == null) {
-              return Text(label);
-            }
-            return Column(
-              children: <Widget>[
-                Text(label, style: TextStyle(color: color)),
-                Icon(Icons.arrow_downward, color: color),
-              ],
-            );
-                }
-            
-                overlayEntry = OverlayEntry(
-            builder: (BuildContext context) {
-              return SafeArea(
-                child: Align(
-                  alignment: alignment,
-                  heightFactor: 1.0,
-                  child: DefaultTextStyle(
-                    style: const TextStyle(
-                      color: Colors.blue,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14.0,
-                    ),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        const Text('Tap here for'),
-                        Builder(builder: builder),
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width / 3,
-                          height: 80.0,
-                          child: Center(
-                            child: Container(
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: borderColor,
-                                  width: 4.0,
-                                ),
-                              ),
+        
+            overlayEntry = OverlayEntry(
+        builder: (BuildContext context) {
+          return SafeArea(
+            child: Align(
+              alignment: alignment,
+              heightFactor: 1.0,
+              child: DefaultTextStyle(
+                style: const TextStyle(
+                  color: Colors.blue,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14.0,
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    const Text('Tap here for'),
+                    Builder(builder: builder),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width / 3,
+                      height: 80.0,
+                      child: Center(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: borderColor,
+                              width: 4.0,
                             ),
                           ),
                         ),
-                      ],
+                      ),
                     ),
-                  ),
+                  ],
                 ),
-              );
-            },
-                );
-            
-                Overlay.of(context, debugRequiredFor: widget).insert(overlayEntry!);
-              }
-            
-              void removeHighlightOverlay() {
-                overlayEntry?.remove();
-                overlayEntry?.dispose();
-                overlayEntry = null;
-              }
-            
-              @override
-              void dispose() {
-                removeHighlightOverlay();
-                super.dispose();
-              }
-            
-              @override
-              Widget build(BuildContext context) {
-                return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+              ),
+            ),
+          );
+        },
+            );
+        
+            Overlay.of(context, debugRequiredFor: widget).insert(overlayEntry!);
+          }
+        
+          void removeHighlightOverlay() {
+            overlayEntry?.remove();
+            overlayEntry?.dispose();
+            overlayEntry = null;
+          }
+        
+          @override
+          void dispose() {
+            removeHighlightOverlay();
+            super.dispose();
+          }
+        
+          @override
+          Widget build(BuildContext context) {
+            return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Text(
+            'Use Overlay to highlight a NavigationBar destination',
+            style: Theme.of(context).textTheme.bodyMedium,
+          ),
+          const SizedBox(height: 20.0),
+          Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text(
-                'Use Overlay to highlight a NavigationBar destination',
-                style: Theme.of(context).textTheme.bodyMedium,
-              ),
-              const SizedBox(height: 20.0),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        currentPageIndex = 0;
-                      });
-                      createHighlightOverlay(
-                        alignment: AlignmentDirectional.bottomStart,
-                        borderColor: Colors.red,
-                      );
-                    },
-                    child: const Text('Explore'),
-                  ),
-                  const SizedBox(width: 20.0),
-                  ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        currentPageIndex = 1;
-                      });
-                      createHighlightOverlay(
-                        alignment: AlignmentDirectional.bottomCenter,
-                        borderColor: Colors.green,
-                      );
-                    },
-                    child: const Text('Commute'),
-                  ),
-                  const SizedBox(width: 20.0),
-                  ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        currentPageIndex = 2;
-                      });
-                      createHighlightOverlay(
-                        alignment: AlignmentDirectional.bottomEnd,
-                        borderColor: Colors.orange,
-                      );
-                    },
-                    child: const Text('Saved'),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 10.0),
               ElevatedButton(
                 onPressed: () {
-                  removeHighlightOverlay();
+                  setState(() {
+                    currentPageIndex = 0;
+                  });
+                  createHighlightOverlay(
+                    alignment: AlignmentDirectional.bottomStart,
+                    borderColor: Colors.red,
+                  );
                 },
-                child: const Text('Remove Overlay'),
+                child: const Text('Explore'),
+              ),
+              const SizedBox(width: 20.0),
+              ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    currentPageIndex = 1;
+                  });
+                  createHighlightOverlay(
+                    alignment: AlignmentDirectional.bottomCenter,
+                    borderColor: Colors.green,
+                  );
+                },
+                child: const Text('Commute'),
+              ),
+              const SizedBox(width: 20.0),
+              ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    currentPageIndex = 2;
+                  });
+                  createHighlightOverlay(
+                    alignment: AlignmentDirectional.bottomEnd,
+                    borderColor: Colors.orange,
+                  );
+                },
+                child: const Text('Saved'),
               ),
             ],
-                );
-              }
-            }''',
-              child: OverlayExample(),
-            ),
+          ),
+          const SizedBox(height: 10.0),
+          ElevatedButton(
+            onPressed: () {
+              removeHighlightOverlay();
+            },
+            child: const Text('Remove Overlay'),
           ),
         ],
+            );
+          }
+        }''',
+          child: OverlayExample(),
+        ),
       ),
     );
   }
@@ -265,6 +230,27 @@ class OverlayExample extends StatefulWidget {
 }
 
 class _OverlayExampleState extends State<OverlayExample> {
+
+  String url = 'https://www.youtube.com/watch?v=S0Ylpa44OAQ';
+
+  YoutubePlayerController? controller;
+
+  @override
+  void initState() {
+    final videoId = YoutubePlayer.convertUrlToId(url);
+
+    controller = YoutubePlayerController(
+      initialVideoId: videoId!,
+      flags: const YoutubePlayerFlags(
+        autoPlay: false,
+        mute: false,
+        enableCaption: true,
+        loop: true,
+        forceHD: true,
+      ),
+    );
+    super.initState();
+  }
   int currentPageIndex = 0;
 
   OverlayEntry? overlayEntry;
@@ -356,6 +342,13 @@ class _OverlayExampleState extends State<OverlayExample> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          YoutubePlayer(
+            controller: controller!,
+            progressColors: const ProgressBarColors(
+              backgroundColor: Colors.black,
+              handleColor: Colors.white,
+            ),
+          ),
           const Padding(
             padding: EdgeInsets.only(top: 18, left: 15),
             child: Text(

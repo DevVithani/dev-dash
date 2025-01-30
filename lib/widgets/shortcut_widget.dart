@@ -13,27 +13,6 @@ class ShortcutWidget extends StatefulWidget {
 
 class _ShortcutWidgetState extends State<ShortcutWidget> {
 
-  String url = 'https://youtu.be/6ZcQmdoz9N8';
-
-  YoutubePlayerController? controller;
-
-  @override
-  void initState() {
-    final videoId = YoutubePlayer.convertUrlToId(url);
-
-    controller = YoutubePlayerController(
-      initialVideoId: videoId!,
-      flags: const YoutubePlayerFlags(
-        autoPlay: false,
-        mute: false,
-        enableCaption: true,
-        loop: true,
-        forceHD: true,
-      ),
-    );
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,106 +30,92 @@ class _ShortcutWidgetState extends State<ShortcutWidget> {
           ),
         ),
       ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 8),
-            child: YoutubePlayer(
-              controller: controller!,
-              progressColors: const ProgressBarColors(
-                backgroundColor: Colors.black,
-                handleColor: Colors.white,
-              ),
-            ),
-          ),
-          const Expanded(
-            flex: 1,
-            child: WidgetWithCodeView(
-              filePath: 'lib/widgets/shortcut_widget.dart',
-              iconBackgroundColor: Colors.black,
-              iconForegroundColor: Colors.white,
-              codeLinkPrefix: 'https://google.com?q=',
-              codeContent: '''
-              import 'package:flutter/material.dart';
-              import 'package:flutter/services.dart';
-              
-              class IncrementIntent extends Intent {
-              const IncrementIntent();
-            }
-            
-            class DecrementIntent extends Intent {
-              const DecrementIntent();
-            }
-            
-            class ShortcutsExample extends StatefulWidget {
-              const ShortcutsExample({super.key});
-            
-              @override
-              State<ShortcutsExample> createState() => _ShortcutsExampleState();
-            }
-            
-            class _ShortcutsExampleState extends State<ShortcutsExample> {
-            
-              int count = 0;
-            
-              @override
-              Widget build(BuildContext context) {
-                return SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: Center(
-                    child: Shortcuts(
-                      shortcuts: const <ShortcutActivator, Intent>{
-                        SingleActivator(LogicalKeyboardKey.arrowUp):
-                            IncrementIntent(),
-                        SingleActivator(LogicalKeyboardKey.arrowDown):
-                            DecrementIntent(),
-                      },
-                      child: Actions(
-                        actions: <Type, Action<Intent>>{
-                          IncrementIntent: CallbackAction<IncrementIntent>(
-                            onInvoke: (IncrementIntent intent) => setState(() {
-                              count = count + 1;
-                            }),
-                          ),
-                          DecrementIntent: CallbackAction<DecrementIntent>(
-                            onInvoke: (DecrementIntent intent) => setState(() {
-                              count = count - 1;
-                            }),
-                          ),
-                        },
-                        child: Focus(
-                          autofocus: true,
-                          child: Column(
-                            children: <Widget>[
-                              const Text(
-                                  'Add to the counter by pressing the up arrow key'),
-                              const Text(
-                                  'Subtract from the counter by pressing the down arrow key'),
-                              Text('count: count'),     // put dollar before  : count
-                            ],
-                          ),
-                        ),
+      body: const Expanded(
+        flex: 1,
+        child: WidgetWithCodeView(
+          filePath: 'lib/widgets/shortcut_widget.dart',
+          iconBackgroundColor: Colors.black,
+          iconForegroundColor: Colors.white,
+          codeLinkPrefix: 'https://google.com?q=',
+          codeContent: '''
+          import 'package:flutter/material.dart';
+          import 'package:flutter/services.dart';
+          
+          class IncrementIntent extends Intent {
+          const IncrementIntent();
+        }
+        
+        class DecrementIntent extends Intent {
+          const DecrementIntent();
+        }
+        
+        class ShortcutsExample extends StatefulWidget {
+          const ShortcutsExample({super.key});
+        
+          @override
+          State<ShortcutsExample> createState() => _ShortcutsExampleState();
+        }
+        
+        class _ShortcutsExampleState extends State<ShortcutsExample> {
+        
+          int count = 0;
+        
+          @override
+          Widget build(BuildContext context) {
+            return SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Center(
+                child: Shortcuts(
+                  shortcuts: const <ShortcutActivator, Intent>{
+                    SingleActivator(LogicalKeyboardKey.arrowUp):
+                        IncrementIntent(),
+                    SingleActivator(LogicalKeyboardKey.arrowDown):
+                        DecrementIntent(),
+                  },
+                  child: Actions(
+                    actions: <Type, Action<Intent>>{
+                      IncrementIntent: CallbackAction<IncrementIntent>(
+                        onInvoke: (IncrementIntent intent) => setState(() {
+                          count = count + 1;
+                        }),
+                      ),
+                      DecrementIntent: CallbackAction<DecrementIntent>(
+                        onInvoke: (DecrementIntent intent) => setState(() {
+                          count = count - 1;
+                        }),
+                      ),
+                    },
+                    child: Focus(
+                      autofocus: true,
+                      child: Column(
+                        children: <Widget>[
+                          const Text(
+                              'Add to the counter by pressing the up arrow key'),
+                          const Text(
+                              'Subtract from the counter by pressing the down arrow key'),
+                          Text('count: count'),     // put dollar before  : count
+                        ],
                       ),
                     ),
                   ),
                 ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 50),
-                ),
-              ],
+              ),
             ),
-                );
-              }
-            }''',
-              child: ShortcutsExample(),
+            const Padding(
+              padding: EdgeInsets.symmetric(vertical: 50),
             ),
-          ),
-        ],
+          ],
+        ),
+            );
+          }
+        }''',
+          child: ShortcutsExample(),
+        ),
       ),
     );
   }
@@ -175,6 +140,27 @@ class _ShortcutsExampleState extends State<ShortcutsExample> {
 
   int count = 0;
 
+  String url = 'https://youtu.be/6ZcQmdoz9N8';
+
+  YoutubePlayerController? controller;
+
+  @override
+  void initState() {
+    final videoId = YoutubePlayer.convertUrlToId(url);
+
+    controller = YoutubePlayerController(
+      initialVideoId: videoId!,
+      flags: const YoutubePlayerFlags(
+        autoPlay: false,
+        mute: false,
+        enableCaption: true,
+        loop: true,
+        forceHD: true,
+      ),
+    );
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -182,6 +168,13 @@ class _ShortcutsExampleState extends State<ShortcutsExample> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          YoutubePlayer(
+            controller: controller!,
+            progressColors: const ProgressBarColors(
+              backgroundColor: Colors.black,
+              handleColor: Colors.white,
+            ),
+          ),
           const Padding(
             padding: EdgeInsets.only(top: 18, left: 15),
             child: Text(

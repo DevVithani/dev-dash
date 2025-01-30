@@ -14,6 +14,112 @@ class FloatingActionButtonWidget extends StatefulWidget {
 class _FloatingActionButtonWidgetState
     extends State<FloatingActionButtonWidget> {
 
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        title: const Text(
+          'FloatingAction Button',
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        backgroundColor: Colors.black,
+      ),
+      body: const Expanded(
+        flex: 1,
+        child: WidgetWithCodeView(
+          filePath: 'lib/widgets/floating_action_button_widget.dart',
+          iconBackgroundColor: Colors.black,
+          iconForegroundColor: Colors.white,
+          codeLinkPrefix: 'https://google.com?q=',
+          codeContent: '''
+          import 'package:flutter/material.dart';
+        
+          class FloatingActionButtonExample extends StatefulWidget {
+          const FloatingActionButtonExample({super.key});
+        
+          @override
+          State<FloatingActionButtonExample> createState() =>
+        _FloatingActionButtonExampleState();
+        }
+        
+        class _FloatingActionButtonExampleState
+            extends State<FloatingActionButtonExample> {
+          int i = 0;
+        
+          @override
+          Widget build(BuildContext context) {
+            return Scaffold(
+        body: Center(
+          child: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                const Center(
+                  child: Text(
+                    'Button Pressed this many Times:',
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                Center(
+                  child: Text(
+                    "i",                //put dollar symbol before i
+                    style: const TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.miniEndFloat,
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: Colors.black,
+          onPressed: () {
+            setState(() {
+              i++;
+            });
+          },
+          child: const Icon(
+            Icons.add,
+            color: Colors.white,
+            weight: 30.0,
+          ),
+        ),
+            );
+          }
+        }''',
+          child: FloatingActionButtonExample(),
+        ),
+      ),
+    );
+  }
+}
+
+class FloatingActionButtonExample extends StatefulWidget {
+  const FloatingActionButtonExample({super.key});
+
+  @override
+  State<FloatingActionButtonExample> createState() =>
+      _FloatingActionButtonExampleState();
+}
+
+class _FloatingActionButtonExampleState
+    extends State<FloatingActionButtonExample> {
+
   String url = 'https://www.youtube.com/watch?v=2uaoEDOgk_I';
 
   YoutubePlayerController? controller;
@@ -35,125 +141,6 @@ class _FloatingActionButtonWidgetState
     super.initState();
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-        title: const Text(
-          'FloatingAction Button',
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        backgroundColor: Colors.black,
-      ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 8),
-            child: YoutubePlayer(
-              controller: controller!,
-              progressColors: const ProgressBarColors(
-                backgroundColor: Colors.black,
-                handleColor: Colors.white,
-              ),
-            ),
-          ),
-          const Expanded(
-            flex: 1,
-            child: WidgetWithCodeView(
-              filePath: 'lib/widgets/floating_action_button_widget.dart',
-              iconBackgroundColor: Colors.black,
-              iconForegroundColor: Colors.white,
-              codeLinkPrefix: 'https://google.com?q=',
-              codeContent: '''
-              import 'package:flutter/material.dart';
-            
-              class FloatingActionButtonExample extends StatefulWidget {
-              const FloatingActionButtonExample({super.key});
-            
-              @override
-              State<FloatingActionButtonExample> createState() =>
-            _FloatingActionButtonExampleState();
-            }
-            
-            class _FloatingActionButtonExampleState
-                extends State<FloatingActionButtonExample> {
-              int i = 0;
-            
-              @override
-              Widget build(BuildContext context) {
-                return Scaffold(
-            body: Center(
-              child: SingleChildScrollView(
-                scrollDirection: Axis.vertical,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    const Center(
-                      child: Text(
-                        'Button Pressed this many Times:',
-                        style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    Center(
-                      child: Text(
-                        "i",                //put dollar symbol before i
-                        style: const TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            floatingActionButtonLocation: FloatingActionButtonLocation.miniEndFloat,
-            floatingActionButton: FloatingActionButton(
-              backgroundColor: Colors.black,
-              onPressed: () {
-                setState(() {
-                  i++;
-                });
-              },
-              child: const Icon(
-                Icons.add,
-                color: Colors.white,
-                weight: 30.0,
-              ),
-            ),
-                );
-              }
-            }''',
-              child: FloatingActionButtonExample(),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class FloatingActionButtonExample extends StatefulWidget {
-  const FloatingActionButtonExample({super.key});
-
-  @override
-  State<FloatingActionButtonExample> createState() =>
-      _FloatingActionButtonExampleState();
-}
-
-class _FloatingActionButtonExampleState
-    extends State<FloatingActionButtonExample> {
   int i = 0;
   int j = 100;
 
@@ -166,6 +153,13 @@ class _FloatingActionButtonExampleState
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
+              YoutubePlayer(
+                controller: controller!,
+                progressColors: const ProgressBarColors(
+                  backgroundColor: Colors.black,
+                  handleColor: Colors.white,
+                ),
+              ),
               const Padding(
                 padding: EdgeInsets.only(top: 18, left: 15),
                 child: Text(

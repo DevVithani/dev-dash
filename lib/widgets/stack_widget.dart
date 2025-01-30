@@ -11,6 +11,128 @@ class StackWidget extends StatefulWidget {
 }
 
 class _StackWidgetState extends State<StackWidget> {
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        backgroundColor: Colors.black,
+        title: const Text(
+          'Stack',
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+      body: const Expanded(
+        flex: 1,
+        child: WidgetWithCodeView(
+          filePath: 'lib/widgets/stack_widget.dart',
+          iconForegroundColor: Colors.white,
+          iconBackgroundColor: Colors.black,
+          codeLinkPrefix: 'https://google.com?q=',
+          codeContent: '''
+        import 'package:flutter/material.dart';
+          
+          class StackExample extends StatefulWidget {
+          const StackExample({super.key});
+        
+          @override
+          State<StackExample> createState() => _StackExampleState();
+        }
+        
+        class _StackExampleState extends State<StackExample> {
+        
+          @override
+          Widget build(BuildContext context) {
+            return SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 18),
+              child: Center(
+                child: Stack(
+                  children: [
+                    Container(
+                      height: 300,
+                      width: 300,
+                      color: Colors.red,
+                    ),
+                    Container(
+                      height: 250,
+                      width: 250,
+                      color: Colors.blue,
+                    ),
+                    Container(
+                      height: 200,
+                      width: 200,
+                      color: Colors.green,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            
+            // Example 2 Code
+            
+            Stack(
+                alignment: Alignment.center,
+                children: [
+                  Container(
+                    height: 300,
+                    width: 300,
+                    color: Colors.red,
+                  ),
+                  Container(
+                    height: 250,
+                    width: 250,
+                    color: Colors.blue,
+                  ),
+                  Container(
+                    height: 200,
+                    width: 200,
+                    color: Colors.green,
+                  ),
+                  Container(
+                    height: 150,
+                    width: 150,
+                    color: Colors.deepOrange,
+                  ),
+                  Container(
+                    height: 100,
+                    width: 100,
+                    color: Colors.yellow,
+          ),
+        ],
+      ),
+              ],
+            ),
+          );
+        }
+      }''',
+          child: StackExample(),
+        ),
+      ),
+    );
+  }
+}
+
+class StackExample extends StatefulWidget {
+  const StackExample({super.key});
+
+  @override
+  State<StackExample> createState() => _StackExampleState();
+}
+
+class _StackExampleState extends State<StackExample> {
+
   String url = 'https://www.youtube.com/watch?v=liEGSeD3Zt8';
 
   YoutubePlayerController? controller;
@@ -34,146 +156,19 @@ class _StackWidgetState extends State<StackWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-        backgroundColor: Colors.black,
-        title: const Text(
-          'Stack',
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 8),
-            child: YoutubePlayer(
-              controller: controller!,
-              progressColors: const ProgressBarColors(
-                backgroundColor: Colors.black,
-                handleColor: Colors.white,
-              ),
-            ),
-          ),
-          const Expanded(
-            flex: 1,
-            child: WidgetWithCodeView(
-              filePath: 'lib/widgets/stack_widget.dart',
-              iconForegroundColor: Colors.white,
-              iconBackgroundColor: Colors.black,
-              codeLinkPrefix: 'https://google.com?q=',
-              codeContent: '''
-            import 'package:flutter/material.dart';
-              
-              class StackExample extends StatefulWidget {
-              const StackExample({super.key});
-            
-              @override
-              State<StackExample> createState() => _StackExampleState();
-            }
-            
-            class _StackExampleState extends State<StackExample> {
-            
-              @override
-              Widget build(BuildContext context) {
-                return SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 18),
-                  child: Center(
-                    child: Stack(
-                      children: [
-                        Container(
-                          height: 300,
-                          width: 300,
-                          color: Colors.red,
-                        ),
-                        Container(
-                          height: 250,
-                          width: 250,
-                          color: Colors.blue,
-                        ),
-                        Container(
-                          height: 200,
-                          width: 200,
-                          color: Colors.green,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                
-                // Example 2 Code
-                
-                Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      Container(
-                        height: 300,
-                        width: 300,
-                        color: Colors.red,
-                      ),
-                      Container(
-                        height: 250,
-                        width: 250,
-                        color: Colors.blue,
-                      ),
-                      Container(
-                        height: 200,
-                        width: 200,
-                        color: Colors.green,
-                      ),
-                      Container(
-                        height: 150,
-                        width: 150,
-                        color: Colors.deepOrange,
-                      ),
-                      Container(
-                        height: 100,
-                        width: 100,
-                        color: Colors.yellow,
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}''',
-              child: StackExample(),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class StackExample extends StatefulWidget {
-  const StackExample({super.key});
-
-  @override
-  State<StackExample> createState() => _StackExampleState();
-}
-
-class _StackExampleState extends State<StackExample> {
-  @override
-  Widget build(BuildContext context) {
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          YoutubePlayer(
+            controller: controller!,
+            progressColors: const ProgressBarColors(
+              backgroundColor: Colors.black,
+              handleColor: Colors.white,
+            ),
+          ),
           const Padding(
             padding: EdgeInsets.only(top: 18, left: 15),
             child: Text(

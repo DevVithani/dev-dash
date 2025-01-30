@@ -12,6 +12,95 @@ class SliverAppBarWidget extends StatefulWidget {
 
 class _SliverAppBarWidgetState extends State<SliverAppBarWidget> {
 
+  @override
+  Widget build(BuildContext context) {
+    return const SafeArea(
+      child: Scaffold(
+        body: Expanded(
+          flex: 1,
+          child: WidgetWithCodeView(
+            filePath: 'lib/widgets/silver_appbar_widget.dart',
+            iconBackgroundColor: Colors.black,
+            iconForegroundColor: Colors.white,
+            codeLinkPrefix: 'https://google.com?q=',
+            codeContent: '''
+            import 'package:flutter/material.dart';
+          
+            class SliverAppbarExample extends StatefulWidget {
+            const SliverAppbarExample({super.key});
+          
+            @override
+            State<SliverAppbarExample> createState() => _SliverAppbarExampleState();
+          }
+          
+          class _SliverAppbarExampleState extends State<SliverAppbarExample> {
+            
+            @override
+            Widget build(BuildContext context) {
+              return CustomScrollView(
+                slivers: <Widget>[
+          SliverAppBar(
+            pinned: true,
+            floating: true,
+            flexibleSpace: FlexibleSpaceBar(
+              title: const Text(
+                "Sliver AppBar",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              background: Image.network(
+                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTkwS4plhmRHFyTuBM5LcRE92T1nGUwGun4w&s',
+          
+                fit: BoxFit.cover,
+              ),
+            ),
+            expandedHeight: 230,
+            backgroundColor: Colors.black,
+            leading: IconButton(
+              color: Colors.white,
+              icon: const Icon(Icons.menu),
+              tooltip: 'Menu',
+              onPressed: () {},
+            ),
+            actions: <Widget>[
+              IconButton(
+                color: Colors.white,
+                icon: const Icon(Icons.comment),
+                tooltip: 'Comment icon',
+                onPressed: () {},
+              ),
+              IconButton(
+                color: Colors.white,
+                icon: const Icon(Icons.settings),
+                tooltip: 'Setting Icon',
+                onPressed: () {},
+              ),
+            ],
+          ),
+                ],
+              );
+            }
+          }''',
+            child: SliverAppbarExample(),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class SliverAppbarExample extends StatefulWidget {
+  const SliverAppbarExample({super.key});
+
+  @override
+  State<SliverAppbarExample> createState() => _SliverAppbarExampleState();
+}
+
+class _SliverAppbarExampleState extends State<SliverAppbarExample> {
+
   String url = 'https://youtu.be/R9C5KMJKluE';
 
   YoutubePlayerController? controller;
@@ -39,110 +128,6 @@ class _SliverAppBarWidgetState extends State<SliverAppBarWidget> {
     controller?.dispose();
     super.dispose();
   }
-
-  @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(bottom: 8),
-              child: YoutubePlayer(
-                controller: controller!,
-                showVideoProgressIndicator: true,
-                progressColors: const ProgressBarColors(
-                  backgroundColor: Colors.white,
-                  handleColor: Colors.black,
-                ),
-              ),
-            ),
-            const Expanded(
-              flex: 1,
-              child: WidgetWithCodeView(
-                filePath: 'lib/widgets/silver_appbar_widget.dart',
-                iconBackgroundColor: Colors.black,
-                iconForegroundColor: Colors.white,
-                codeLinkPrefix: 'https://google.com?q=',
-                codeContent: '''
-                import 'package:flutter/material.dart';
-              
-                class SliverAppbarExample extends StatefulWidget {
-                const SliverAppbarExample({super.key});
-              
-                @override
-                State<SliverAppbarExample> createState() => _SliverAppbarExampleState();
-              }
-              
-              class _SliverAppbarExampleState extends State<SliverAppbarExample> {
-                
-                @override
-                Widget build(BuildContext context) {
-                  return CustomScrollView(
-                    slivers: <Widget>[
-              SliverAppBar(
-                pinned: true,
-                floating: true,
-                flexibleSpace: FlexibleSpaceBar(
-                  title: const Text(
-                    "Sliver AppBar",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  background: Image.network(
-                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTkwS4plhmRHFyTuBM5LcRE92T1nGUwGun4w&s',
-              
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                expandedHeight: 230,
-                backgroundColor: Colors.black,
-                leading: IconButton(
-                  color: Colors.white,
-                  icon: const Icon(Icons.menu),
-                  tooltip: 'Menu',
-                  onPressed: () {},
-                ),
-                actions: <Widget>[
-                  IconButton(
-                    color: Colors.white,
-                    icon: const Icon(Icons.comment),
-                    tooltip: 'Comment icon',
-                    onPressed: () {},
-                  ),
-                  IconButton(
-                    color: Colors.white,
-                    icon: const Icon(Icons.settings),
-                    tooltip: 'Setting Icon',
-                    onPressed: () {},
-                  ),
-                ],
-              ),
-                    ],
-                  );
-                }
-              }''',
-                child: SliverAppbarExample(),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class SliverAppbarExample extends StatefulWidget {
-  const SliverAppbarExample({super.key});
-
-  @override
-  State<SliverAppbarExample> createState() => _SliverAppbarExampleState();
-}
-
-class _SliverAppbarExampleState extends State<SliverAppbarExample> {
 
   @override
   Widget build(BuildContext context) {
@@ -188,20 +173,28 @@ class _SliverAppbarExampleState extends State<SliverAppbarExample> {
             ),
           ],
         ),
-        const SliverToBoxAdapter(
+        SliverToBoxAdapter(
           child: SingleChildScrollView(
             scrollDirection: Axis.vertical,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Padding(
+                YoutubePlayer(
+                  controller: controller!,
+                  showVideoProgressIndicator: true,
+                  progressColors: const ProgressBarColors(
+                    backgroundColor: Colors.white,
+                    handleColor: Colors.black,
+                  ),
+                ),
+                const Padding(
                   padding: EdgeInsets.only(top: 18, left: 15),
                   child: Text(
                     'properties of SliverAppbar Widget:',
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                   ),
                 ),
-                Padding(
+                const Padding(
                   padding: EdgeInsets.only(top: 18, left: 15),
                   child: Text(
                     '1.actions\n'
@@ -242,7 +235,7 @@ class _SliverAppbarExampleState extends State<SliverAppbarExample> {
                     style: TextStyle(fontSize: 18),
                   ),
                 ),
-                Padding(
+                const Padding(
                   padding: EdgeInsets.only(top: 18, left: 15),
                   child: Text(
                     'Example: black or image Appbar',

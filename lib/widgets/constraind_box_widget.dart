@@ -12,6 +12,119 @@ class ConstrainedBoxWidget extends StatefulWidget {
 
 class _ConstrainedBoxWidgetState extends State<ConstrainedBoxWidget> {
 
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        backgroundColor: Colors.black,
+        title: const Text(
+          'Constrained Box',
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+      body: const Expanded(
+        flex: 1,
+        child: WidgetWithCodeView(
+          filePath: 'lib/widgets/constrained_box_widget.dart',
+          iconBackgroundColor: Colors.black,
+          iconForegroundColor: Colors.white,
+          codeLinkPrefix: 'https://google.com?q=',
+          codeContent: '''
+          import 'package:flutter/material.dart';
+        
+          class ConstrainedBoxExample extends StatefulWidget {
+          const ConstrainedBoxExample({super.key});
+        
+          @override
+          State<ConstrainedBoxExample> createState() => _ConstrainedBoxExampleState();
+        }
+        
+        class _ConstrainedBoxExampleState extends State<ConstrainedBoxExample> {
+        
+          @override
+          Widget build(BuildContext context) {
+            return SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+          
+          // Example 1 Code
+          
+            Center(
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(
+                  maxHeight: 200,
+                  maxWidth: 700,
+                ),
+                child: const Card(
+                  color: Colors.white,
+                  child: Center(
+                    child: Text(
+                      'Hello!',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            
+            // Example 2 Code
+            
+            Center(
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(
+                  minHeight: 175,
+                  minWidth: 350,
+                  maxHeight: 350,
+                  maxWidth: 700,
+                ),
+                child: const Card(
+                  color: Colors.blue,
+                  child: Center(
+                    child: Text(
+                      'Hello!',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+            );
+          }
+        }''',
+          child: ConstrainedBoxExample(),
+        ),
+      ),
+    );
+  }
+}
+
+class ConstrainedBoxExample extends StatefulWidget {
+  const ConstrainedBoxExample({super.key});
+
+  @override
+  State<ConstrainedBoxExample> createState() => _ConstrainedBoxExampleState();
+}
+
+class _ConstrainedBoxExampleState extends State<ConstrainedBoxExample> {
+
   String url = 'https://www.youtube.com/watch?v=o2KveVr7adg';
 
   YoutubePlayerController? controller;
@@ -35,138 +148,18 @@ class _ConstrainedBoxWidgetState extends State<ConstrainedBoxWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-        backgroundColor: Colors.black,
-        title: const Text(
-          'Constrained Box',
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 8),
-            child: YoutubePlayer(
-              controller: controller!,
-              progressColors: const ProgressBarColors(
-                backgroundColor: Colors.black,
-                handleColor: Colors.white,
-              ),
-            ),
-          ),
-          const Expanded(
-            flex: 1,
-            child: WidgetWithCodeView(
-              filePath: 'lib/widgets/constrained_box_widget.dart',
-              iconBackgroundColor: Colors.black,
-              iconForegroundColor: Colors.white,
-              codeLinkPrefix: 'https://google.com?q=',
-              codeContent: '''
-              import 'package:flutter/material.dart';
-            
-              class ConstrainedBoxExample extends StatefulWidget {
-              const ConstrainedBoxExample({super.key});
-            
-              @override
-              State<ConstrainedBoxExample> createState() => _ConstrainedBoxExampleState();
-            }
-            
-            class _ConstrainedBoxExampleState extends State<ConstrainedBoxExample> {
-            
-              @override
-              Widget build(BuildContext context) {
-                return SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-              
-              // Example 1 Code
-              
-                Center(
-                  child: ConstrainedBox(
-                    constraints: const BoxConstraints(
-                      maxHeight: 200,
-                      maxWidth: 700,
-                    ),
-                    child: const Card(
-                      color: Colors.white,
-                      child: Center(
-                        child: Text(
-                          'Hello!',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                
-                // Example 2 Code
-                
-                Center(
-                  child: ConstrainedBox(
-                    constraints: const BoxConstraints(
-                      minHeight: 175,
-                      minWidth: 350,
-                      maxHeight: 350,
-                      maxWidth: 700,
-                    ),
-                    child: const Card(
-                      color: Colors.blue,
-                      child: Center(
-                        child: Text(
-                          'Hello!',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-                );
-              }
-            }''',
-              child: ConstrainedBoxExample(),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class ConstrainedBoxExample extends StatefulWidget {
-  const ConstrainedBoxExample({super.key});
-
-  @override
-  State<ConstrainedBoxExample> createState() => _ConstrainedBoxExampleState();
-}
-
-class _ConstrainedBoxExampleState extends State<ConstrainedBoxExample> {
-
-  @override
-  Widget build(BuildContext context) {
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          YoutubePlayer(
+            controller: controller!,
+            progressColors: const ProgressBarColors(
+              backgroundColor: Colors.black,
+              handleColor: Colors.white,
+            ),
+          ),
           const Padding(
             padding: EdgeInsets.only(top: 18, left: 15),
             child: Text(

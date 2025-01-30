@@ -12,6 +12,144 @@ class RichTextWidget extends StatefulWidget {
 
 class _RichTextWidgetState extends State<RichTextWidget> {
 
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        title: const Text(
+          'Rich Text',
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        backgroundColor: Colors.black,
+      ),
+      body: const Expanded(
+        flex: 1,
+        child: WidgetWithCodeView(
+          filePath: 'lib/widgets/rich_text_widget.dart',
+          iconBackgroundColor: Colors.black,
+          iconForegroundColor: Colors.white,
+          codeLinkPrefix: 'https://google.com?q=',
+          codeContent: '''
+            import 'package:flutter/material.dart';
+          
+          class RichTextExample extends StatefulWidget {
+          const RichTextExample({super.key});
+        
+          @override
+          State<RichTextExample> createState() => _RichTextExampleState();
+        }
+        
+        class _RichTextExampleState extends State<RichTextExample> {
+        
+          @override
+          Widget build(BuildContext context) {
+            return SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+          
+          // Example 1 Code
+          
+            Padding(
+              padding: const EdgeInsets.only(top: 18),
+              child: Center(
+                child: RichText(
+                  text: const TextSpan(
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 21,
+                    ),
+                    children: <TextSpan>[
+                      TextSpan(
+                        text: "Hello ",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      TextSpan(
+                        text: "There, ",
+                        style: TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.blue,
+                        ),
+                      ),
+                      TextSpan(
+                          text: "This is ",
+                          style: TextStyle(fontFamily: 'Montserrat')),
+                      TextSpan(
+                        text: "Flutter",
+                        style: TextStyle(
+                          fontSize: 43,
+                          fontWeight: FontWeight.bold,
+                          fontStyle: FontStyle.italic,
+                          fontFamily: 'Montserrat',
+                          color: Colors.orange,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            
+            // Example 2 Code
+            
+            Padding(
+              padding: const EdgeInsets.only(top: 18),
+              child: Center(
+                child: RichText(
+                  text: const TextSpan(
+                    style: TextStyle(
+                      color: Colors.blue,
+                      fontSize: 25,
+                    ),
+                    children: <TextSpan>[
+                      TextSpan(
+                        text: "Dev",
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+                      ),
+                      TextSpan(
+                        text: "Dash",
+                        style: TextStyle(
+                          fontSize: 40,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'Roboto',
+                          color: Colors.black,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+            );
+          }
+        }''',
+          child: RichTextExample(),
+        ),
+      ),
+    );
+  }
+}
+
+class RichTextExample extends StatefulWidget {
+  const RichTextExample({super.key});
+
+  @override
+  State<RichTextExample> createState() => _RichTextExampleState();
+}
+
+class _RichTextExampleState extends State<RichTextExample> {
+
   String url = 'https://www.youtube.com/watch?v=rykDVh-QFfw';
 
   YoutubePlayerController? controller;
@@ -35,163 +173,18 @@ class _RichTextWidgetState extends State<RichTextWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-        title: const Text(
-          'Rich Text',
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        backgroundColor: Colors.black,
-      ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 8),
-            child: YoutubePlayer(
-              controller: controller!,
-              progressColors: const ProgressBarColors(
-                backgroundColor: Colors.black,
-                handleColor: Colors.white,
-              ),
-            ),
-          ),
-          const Expanded(
-            flex: 1,
-            child: WidgetWithCodeView(
-              filePath: 'lib/widgets/rich_text_widget.dart',
-              iconBackgroundColor: Colors.black,
-              iconForegroundColor: Colors.white,
-              codeLinkPrefix: 'https://google.com?q=',
-              codeContent: '''
-                import 'package:flutter/material.dart';
-              
-              class RichTextExample extends StatefulWidget {
-              const RichTextExample({super.key});
-            
-              @override
-              State<RichTextExample> createState() => _RichTextExampleState();
-            }
-            
-            class _RichTextExampleState extends State<RichTextExample> {
-            
-              @override
-              Widget build(BuildContext context) {
-                return SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-              
-              // Example 1 Code
-              
-                Padding(
-                  padding: const EdgeInsets.only(top: 18),
-                  child: Center(
-                    child: RichText(
-                      text: const TextSpan(
-                        style: TextStyle(
-                          color: Colors.grey,
-                          fontSize: 21,
-                        ),
-                        children: <TextSpan>[
-                          TextSpan(
-                            text: "Hello ",
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          TextSpan(
-                            text: "There, ",
-                            style: TextStyle(
-                              fontSize: 25,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.blue,
-                            ),
-                          ),
-                          TextSpan(
-                              text: "This is ",
-                              style: TextStyle(fontFamily: 'Montserrat')),
-                          TextSpan(
-                            text: "Flutter",
-                            style: TextStyle(
-                              fontSize: 43,
-                              fontWeight: FontWeight.bold,
-                              fontStyle: FontStyle.italic,
-                              fontFamily: 'Montserrat',
-                              color: Colors.orange,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                
-                // Example 2 Code
-                
-                Padding(
-                  padding: const EdgeInsets.only(top: 18),
-                  child: Center(
-                    child: RichText(
-                      text: const TextSpan(
-                        style: TextStyle(
-                          color: Colors.blue,
-                          fontSize: 25,
-                        ),
-                        children: <TextSpan>[
-                          TextSpan(
-                            text: "Dev",
-                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
-                          ),
-                          TextSpan(
-                            text: "Dash",
-                            style: TextStyle(
-                              fontSize: 40,
-                              fontWeight: FontWeight.bold,
-                              fontFamily: 'Roboto',
-                              color: Colors.black,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-                );
-              }
-            }''',
-              child: RichTextExample(),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class RichTextExample extends StatefulWidget {
-  const RichTextExample({super.key});
-
-  @override
-  State<RichTextExample> createState() => _RichTextExampleState();
-}
-
-class _RichTextExampleState extends State<RichTextExample> {
-
-  @override
-  Widget build(BuildContext context) {
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          YoutubePlayer(
+            controller: controller!,
+            progressColors: const ProgressBarColors(
+              backgroundColor: Colors.black,
+              handleColor: Colors.white,
+            ),
+          ),
           const Padding(
             padding: EdgeInsets.only(top: 18, left: 15),
             child: Text(

@@ -12,6 +12,107 @@ class RawMagnifierWidget extends StatefulWidget {
 
 class _RawMagnifierWidgetState extends State<RawMagnifierWidget> {
 
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        backgroundColor: Colors.black,
+        title: const Text(
+          'Raw Magnifier',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
+      ),
+      body: const Expanded(
+        flex: 1,
+        child: WidgetWithCodeView(
+          filePath: 'lib/widgets/raw_magnifier_widget.dart',
+          iconForegroundColor: Colors.white,
+          iconBackgroundColor: Colors.black,
+          codeLinkPrefix: 'https://google.com?q=',
+          codeContent: '''
+          import 'package:flutter/material.dart';
+        
+          class RawMagnifierExample extends StatefulWidget {
+          const RawMagnifierExample({super.key});
+        
+          @override
+          State<RawMagnifierExample> createState() => _RawMagnifierExampleState();
+        }
+        
+        class _RawMagnifierExampleState extends State<RawMagnifierExample> {
+          Offset dragGesturePosition = Offset.zero;
+        
+          @override
+          Widget build(BuildContext context) {
+            return SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [      
+            Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  const Text('Drag on the logo!'),
+                  RepaintBoundary(
+                    child: Stack(
+                      children: <Widget>[
+                        GestureDetector(
+                          onPanUpdate: (DragUpdateDetails details) => setState(
+                            () {
+                              dragGesturePosition = details.localPosition;
+                            },
+                          ),
+                          child: const FlutterLogo(size: 200),
+                        ),
+                        const Positioned(
+                          left: 50,
+                          top: 50,
+                          child: RawMagnifier(
+                            decoration: MagnifierDecoration(
+                              shape: CircleBorder(
+                                side: BorderSide(color: Colors.black, width: 2),
+                              ),
+                            ),
+                            size: Size(100, 100),
+                            magnificationScale: 3,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+            );
+          }
+        }''',
+          child: RawMagnifierExample(),
+        ),
+      ),
+    );
+  }
+}
+
+class RawMagnifierExample extends StatefulWidget {
+  const RawMagnifierExample({super.key});
+
+  @override
+  State<RawMagnifierExample> createState() => _RawMagnifierExampleState();
+}
+
+class _RawMagnifierExampleState extends State<RawMagnifierExample> {
+  Offset dragGesturePosition = Offset.zero;
+
   String url = 'https://www.youtube.com/watch?v=YBRkVCRP1Gw';
 
   YoutubePlayerController? controller;
@@ -35,126 +136,18 @@ class _RawMagnifierWidgetState extends State<RawMagnifierWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-        backgroundColor: Colors.black,
-        title: const Text(
-          'Raw Magnifier',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
-        ),
-      ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 8),
-            child: YoutubePlayer(
-              controller: controller!,
-              progressColors: const ProgressBarColors(
-                backgroundColor: Colors.black,
-                handleColor: Colors.white,
-              ),
-            ),
-          ),
-          const Expanded(
-            flex: 1,
-            child: WidgetWithCodeView(
-              filePath: 'lib/widgets/raw_magnifier_widget.dart',
-              iconForegroundColor: Colors.white,
-              iconBackgroundColor: Colors.black,
-              codeLinkPrefix: 'https://google.com?q=',
-              codeContent: '''
-              import 'package:flutter/material.dart';
-            
-              class RawMagnifierExample extends StatefulWidget {
-              const RawMagnifierExample({super.key});
-            
-              @override
-              State<RawMagnifierExample> createState() => _RawMagnifierExampleState();
-            }
-            
-            class _RawMagnifierExampleState extends State<RawMagnifierExample> {
-              Offset dragGesturePosition = Offset.zero;
-            
-              @override
-              Widget build(BuildContext context) {
-                return SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [      
-                Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      const Text('Drag on the logo!'),
-                      RepaintBoundary(
-                        child: Stack(
-                          children: <Widget>[
-                            GestureDetector(
-                              onPanUpdate: (DragUpdateDetails details) => setState(
-                                () {
-                                  dragGesturePosition = details.localPosition;
-                                },
-                              ),
-                              child: const FlutterLogo(size: 200),
-                            ),
-                            const Positioned(
-                              left: 50,
-                              top: 50,
-                              child: RawMagnifier(
-                                decoration: MagnifierDecoration(
-                                  shape: CircleBorder(
-                                    side: BorderSide(color: Colors.black, width: 2),
-                                  ),
-                                ),
-                                size: Size(100, 100),
-                                magnificationScale: 3,
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-                );
-              }
-            }''',
-              child: RawMagnifierExample(),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class RawMagnifierExample extends StatefulWidget {
-  const RawMagnifierExample({super.key});
-
-  @override
-  State<RawMagnifierExample> createState() => _RawMagnifierExampleState();
-}
-
-class _RawMagnifierExampleState extends State<RawMagnifierExample> {
-  Offset dragGesturePosition = Offset.zero;
-
-  @override
-  Widget build(BuildContext context) {
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          YoutubePlayer(
+            controller: controller!,
+            progressColors: const ProgressBarColors(
+              backgroundColor: Colors.black,
+              handleColor: Colors.white,
+            ),
+          ),
           const Padding(
               padding: EdgeInsets.only(top: 18, left: 15),
               child: Text(

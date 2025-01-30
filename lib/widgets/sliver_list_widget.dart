@@ -12,6 +12,100 @@ class SliverListWidget extends StatefulWidget {
 
 class _SliverListWidgetState extends State<SliverListWidget> {
 
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        backgroundColor: Colors.black,
+        title: const Text(
+          'SliverList',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
+      ),
+      body: const Expanded(
+        flex: 1,
+        child: WidgetWithCodeView(
+          filePath: 'lib/widgets/sliver_list_widget.dart',
+          iconBackgroundColor: Colors.black,
+          iconForegroundColor: Colors.white,
+          codeLinkPrefix: 'https://google.com?q=',
+          codeContent: '''
+          import 'package:flutter/material.dart';
+          
+          class SliverListExample extends StatefulWidget {
+          const SliverListExample({super.key});
+        
+          @override
+          State<SliverListExample> createState() => _SliverListExampleState();
+        }
+        
+          class _SliverListExampleState extends State<SliverListExample> {
+        
+          @override
+          Widget build(BuildContext context) {
+            return CustomScrollView(
+        slivers: <Widget>[
+          SliverToBoxAdapter(
+            child: SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [        
+                ],
+              ),
+            ),
+          ),
+          SliverList(
+            delegate: SliverChildBuilderDelegate(
+              (BuildContext context, int index) {
+                return ListTile(
+                  title: Text('Item {index + 1}'),    // put dollar symbol before {}.
+                  tileColor: Colors.blue[100 * (index % 9 + 1)],
+                );
+              },
+              childCount: 10,
+            ),
+          ),
+          // Example 2 Code
+          
+          SliverList(
+            delegate: SliverChildBuilderDelegate(
+                  (BuildContext context, int index) {
+                return ListTile(
+                  title: Text('Item {index + 1}'),   // put dollar symbol before {}
+                  tileColor: Colors.red[100 * (index % 9 + 1)],
+                );
+              },
+              childCount: 10,
+            ),
+          ),
+        ],
+            );
+          }
+        }''',
+          child: SliverListExample(),
+        ),
+      ),
+    );
+  }
+}
+
+class SliverListExample extends StatefulWidget {
+  const SliverListExample({super.key});
+
+  @override
+  State<SliverListExample> createState() => _SliverListExampleState();
+}
+
+class _SliverListExampleState extends State<SliverListExample> {
+
   String url = 'https://www.youtube.com/watch?v=ORiTTaVY6mM';
 
   YoutubePlayerController? controller;
@@ -35,141 +129,40 @@ class _SliverListWidgetState extends State<SliverListWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-        backgroundColor: Colors.black,
-        title: const Text(
-          'SliverList',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
-        ),
-      ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 8),
-            child: YoutubePlayer(
-              controller: controller!,
-              progressColors: const ProgressBarColors(
-                backgroundColor: Colors.black,
-                handleColor: Colors.white,
-              ),
-            ),
-          ),
-          const Expanded(
-            flex: 1,
-            child: WidgetWithCodeView(
-              filePath: 'lib/widgets/sliver_list_widget.dart',
-              iconBackgroundColor: Colors.black,
-              iconForegroundColor: Colors.white,
-              codeLinkPrefix: 'https://google.com?q=',
-              codeContent: '''
-              import 'package:flutter/material.dart';
-              
-              class SliverListExample extends StatefulWidget {
-              const SliverListExample({super.key});
-            
-              @override
-              State<SliverListExample> createState() => _SliverListExampleState();
-            }
-            
-              class _SliverListExampleState extends State<SliverListExample> {
-            
-              @override
-              Widget build(BuildContext context) {
-                return CustomScrollView(
-            slivers: <Widget>[
-              SliverToBoxAdapter(
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.vertical,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [        
-                    ],
-                  ),
-                ),
-              ),
-              SliverList(
-                delegate: SliverChildBuilderDelegate(
-                  (BuildContext context, int index) {
-                    return ListTile(
-                      title: Text('Item {index + 1}'),    // put dollar symbol before {}.
-                      tileColor: Colors.blue[100 * (index % 9 + 1)],
-                    );
-                  },
-                  childCount: 10,
-                ),
-              ),
-              // Example 2 Code
-              
-              SliverList(
-                delegate: SliverChildBuilderDelegate(
-                      (BuildContext context, int index) {
-                    return ListTile(
-                      title: Text('Item {index + 1}'),   // put dollar symbol before {}
-                      tileColor: Colors.red[100 * (index % 9 + 1)],
-                    );
-                  },
-                  childCount: 10,
-                ),
-              ),
-            ],
-                );
-              }
-            }''',
-              child: SliverListExample(),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class SliverListExample extends StatefulWidget {
-  const SliverListExample({super.key});
-
-  @override
-  State<SliverListExample> createState() => _SliverListExampleState();
-}
-
-class _SliverListExampleState extends State<SliverListExample> {
-
-  @override
-  Widget build(BuildContext context) {
     return CustomScrollView(
       slivers: <Widget>[
-        const SliverToBoxAdapter(
+        SliverToBoxAdapter(
           child: SingleChildScrollView(
             scrollDirection: Axis.vertical,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Padding(
+                YoutubePlayer(
+                  controller: controller!,
+                  progressColors: const ProgressBarColors(
+                    backgroundColor: Colors.black,
+                    handleColor: Colors.white,
+                  ),
+                ),
+                const Padding(
                   padding: EdgeInsets.only(top: 18, left: 15),
                   child: Text(
                     'Property of SliverList Widget: ',
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                 ),
-                Padding(
+                const Padding(
                   padding: EdgeInsets.only(top: 18, left: 15),
                   child: Text(
                     '1.delegate',
                     style: TextStyle(fontSize: 18),
                   ),
                 ),
-                Divider(
+                const Divider(
                   thickness: 2,
                   height: 50,
                 ),
-                Padding(
+                const Padding(
                   padding: EdgeInsets.only(left: 15),
                   child: Text(
                     'Example 1: ',
@@ -179,7 +172,7 @@ class _SliverListExampleState extends State<SliverListExample> {
                         fontSize: 17),
                   ),
                 ),
-                Padding(
+                const Padding(
                   padding: EdgeInsets.only(top: 18),
                 ),
               ],

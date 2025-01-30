@@ -1,7 +1,5 @@
 import 'package:dev_dash/ui/settings/privacy_page.dart';
 import 'package:dev_dash/ui/settings/profile_page.dart';
-import 'package:dev_dash/ui/settings/rate_app.dart';
-import 'package:dev_dash/ui/settings/share_app.dart';
 import 'package:dev_dash/ui/theme.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -158,65 +156,6 @@ class _SettingsPageState extends State<SettingsPage> {
                       if (context.mounted) {
                         Navigator.pushReplacementNamed(context, 'phone');
                       }
-                    },
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Text(
-                      'Feedback',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                  ListTile(
-                    leading: Container(
-                      padding: const EdgeInsets.all(5),
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Colors.lightBlueAccent,
-                      ),
-                      child: const Icon(
-                        Icons.thumb_up,
-                        color: Colors.white,
-                        size: 25,
-                      ),
-                    ),
-                    title: const Text('Rate App'),
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const RateApp(),
-                        ),
-                      );
-                    },
-                  ),
-                  const Divider(),
-                  ListTile(
-                    leading: Container(
-                      padding: const EdgeInsets.all(5),
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Colors.green,
-                      ),
-                      child: const Icon(
-                        Icons.share,
-                        color: Colors.white,
-                        size: 25,
-                      ),
-                    ),
-                    title: const Text('Share App'),
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const ShareApp()),
-                      );
                     },
                   ),
                 ],

@@ -11,6 +11,95 @@ class FlutterLogoWidget extends StatefulWidget {
 }
 
 class _FlutterLogoWidgetState extends State<FlutterLogoWidget> {
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        backgroundColor: Colors.black,
+        title: const Text(
+          'Flutter Logo',
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+      body: const Expanded(
+        flex: 1,
+        child: WidgetWithCodeView(
+          filePath: 'lib/widgets/flutter_logo_widget.dart',
+          iconBackgroundColor: Colors.black,
+          iconForegroundColor: Colors.white,
+          codeLinkPrefix: 'https://google.com?q=',
+          codeContent: '''
+          import 'package:flutter/material.dart';
+        
+          class FlutterLogoExample extends StatefulWidget {
+          const FlutterLogoExample({super.key});
+        
+          @override
+          State<FlutterLogoExample> createState() => _FlutterLogoExampleState();
+        }
+        
+        class _FlutterLogoExampleState extends State<FlutterLogoExample> {
+        
+          @override
+          Widget build(BuildContext context) {
+            return SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+          
+          // Example 1 Code
+          
+          const Padding(
+              padding: EdgeInsets.only(top: 18),
+              child: Center(
+                child: FlutterLogo(
+                  curve: Curves.elasticInOut,
+                  size: 100,
+                ),
+              ),
+            ),
+            
+            // Example 2 Code
+            
+            const Padding(
+              padding: EdgeInsets.only(top: 18),
+              child: Center(
+                child: FlutterLogo(
+                  curve: Curves.elasticInOut,
+                  style: FlutterLogoStyle.stacked,
+                ),
+              ),
+            ),
+          ],
+        ),
+            );
+          }
+        }''',
+          child: FlutterLogoExample(),
+        ),
+      ),
+    );
+  }
+}
+
+class FlutterLogoExample extends StatefulWidget {
+  const FlutterLogoExample({super.key});
+
+  @override
+  State<FlutterLogoExample> createState() => _FlutterLogoExampleState();
+}
+
+class _FlutterLogoExampleState extends State<FlutterLogoExample> {
+
   String url =
       'https://www.youtube.com/watch?v=aAmP-WcI6dg&pp=ygUOI2ZsdXRlcndpZGdldHM%3D';
 
@@ -35,120 +124,26 @@ class _FlutterLogoWidgetState extends State<FlutterLogoWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-        backgroundColor: Colors.black,
-        title: const Text(
-          'Flutter Logo',
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 8),
-            child: YoutubePlayer(
-              controller: controller!,
-              progressColors: const ProgressBarColors(
-                backgroundColor: Colors.black,
-                handleColor: Colors.white,
-              ),
-            ),
-          ),
-          const Expanded(
-            flex: 1,
-            child: WidgetWithCodeView(
-              filePath: 'lib/widgets/flutter_logo_widget.dart',
-              iconBackgroundColor: Colors.black,
-              iconForegroundColor: Colors.white,
-              codeLinkPrefix: 'https://google.com?q=',
-              codeContent: '''
-              import 'package:flutter/material.dart';
-            
-              class FlutterLogoExample extends StatefulWidget {
-              const FlutterLogoExample({super.key});
-            
-              @override
-              State<FlutterLogoExample> createState() => _FlutterLogoExampleState();
-            }
-            
-            class _FlutterLogoExampleState extends State<FlutterLogoExample> {
-            
-              @override
-              Widget build(BuildContext context) {
-                return SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-              
-              // Example 1 Code
-              
-              const Padding(
-                  padding: EdgeInsets.only(top: 18),
-                  child: Center(
-                    child: FlutterLogo(
-                      curve: Curves.elasticInOut,
-                      size: 100,
-                    ),
-                  ),
-                ),
-                
-                // Example 2 Code
-                
-                const Padding(
-                  padding: EdgeInsets.only(top: 18),
-                  child: Center(
-                    child: FlutterLogo(
-                      curve: Curves.elasticInOut,
-                      style: FlutterLogoStyle.stacked,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-                );
-              }
-            }''',
-              child: FlutterLogoExample(),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class FlutterLogoExample extends StatefulWidget {
-  const FlutterLogoExample({super.key});
-
-  @override
-  State<FlutterLogoExample> createState() => _FlutterLogoExampleState();
-}
-
-class _FlutterLogoExampleState extends State<FlutterLogoExample> {
-  @override
-  Widget build(BuildContext context) {
-    return const SingleChildScrollView(
+    return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
+          YoutubePlayer(
+            controller: controller!,
+            progressColors: const ProgressBarColors(
+              backgroundColor: Colors.black,
+              handleColor: Colors.white,
+            ),
+          ),
+          const Padding(
             padding: EdgeInsets.only(top: 18, left: 15),
             child: Text(
               'Properties of FlutterLogo Widget:',
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
             ),
           ),
-          Padding(
+          const Padding(
             padding: EdgeInsets.only(top: 18, left: 15),
             child: Text(
               '1.curve\n'
@@ -159,11 +154,11 @@ class _FlutterLogoExampleState extends State<FlutterLogoExample> {
               style: TextStyle(fontSize: 18),
             ),
           ),
-          Divider(
+          const Divider(
             thickness: 2,
             height: 50,
           ),
-          Padding(
+          const Padding(
             padding: EdgeInsets.only(left: 15),
             child: Text(
               'Example 1: size',
@@ -174,7 +169,7 @@ class _FlutterLogoExampleState extends State<FlutterLogoExample> {
               ),
             ),
           ),
-          Padding(
+          const Padding(
             padding: EdgeInsets.only(top: 18),
             child: Center(
               child: FlutterLogo(
@@ -183,11 +178,11 @@ class _FlutterLogoExampleState extends State<FlutterLogoExample> {
               ),
             ),
           ),
-          Divider(
+          const Divider(
             thickness: 2,
             height: 50,
           ),
-          Padding(
+          const Padding(
             padding: EdgeInsets.only(left: 15),
             child: Text(
               'Example 2: style',
@@ -198,7 +193,7 @@ class _FlutterLogoExampleState extends State<FlutterLogoExample> {
               ),
             ),
           ),
-          Padding(
+          const Padding(
             padding: EdgeInsets.only(top: 18),
             child: Center(
               child: FlutterLogo(
@@ -207,7 +202,7 @@ class _FlutterLogoExampleState extends State<FlutterLogoExample> {
               ),
             ),
           ),
-          Divider(
+          const Divider(
             thickness: 2,
             height: 50,
           ),

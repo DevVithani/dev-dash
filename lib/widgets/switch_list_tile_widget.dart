@@ -12,6 +12,146 @@ class SwitchListTileWidget extends StatefulWidget {
 
 class _SwitchListTileWidgetState extends State<SwitchListTileWidget> {
 
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        backgroundColor: Colors.black,
+        title: const Text(
+          'Switch ListTile',
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+      body: const Expanded(
+        flex: 1,
+        child: WidgetWithCodeView(
+          filePath: 'lib/widgets/switch_list_tile_widget.dart',
+          iconBackgroundColor: Colors.black,
+          iconForegroundColor: Colors.white,
+          codeLinkPrefix: 'https://google.com?q=',
+          codeContent: '''
+          import 'package:flutter/material.dart';
+         
+          class SwitchListTileExample extends StatefulWidget {
+          const SwitchListTileExample({super.key});
+        
+          @override
+          State<SwitchListTileExample> createState() => _SwitchListTileExampleState();
+        }
+        
+        class _SwitchListTileExampleState extends State<SwitchListTileExample> {
+        
+          bool switchValue1 = true;
+          bool switchValue2 = false;
+          bool switchValue3 = false;
+        
+          @override
+          Widget build(BuildContext context) {
+            return SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 18),
+              child: Column(
+                children: [
+                  const Divider(
+              height: 50,
+              thickness: 2,
+            ),
+            
+            // Example 1 Code
+            
+            Padding(
+              padding: const EdgeInsets.only(top: 18),
+              child: SwitchListTile(
+                activeColor: Colors.white,
+                activeTrackColor: Colors.black,
+                value: switchValue1,
+                onChanged: (bool? value) {
+                  setState(() {
+                    switchValue1 = value!;
+                  });
+                },
+                title: const Text('Headline'),
+                subtitle: const Text('Supporting Text'),
+              ),
+            ),
+            
+            
+            // Example 2 Code
+            
+            Padding(
+              padding: const EdgeInsets.only(top: 18),
+              child: SwitchListTile(
+                activeColor: Colors.white,
+                activeTrackColor: Colors.black,
+                value: switchValue2,
+                onChanged: (bool? value) {
+                  setState(() {
+                    switchValue2 = value!;
+                  });
+                },
+                title: const Text('Headline'),
+                subtitle: const Text(
+                    'Longer supporting text to demonstrate how the text wraps and the switch is centered vertically with the text.'),
+              ),
+            ),
+            
+            // Example 3 code
+            
+            Padding(
+              padding: const EdgeInsets.only(top: 18),
+              child: SwitchListTile(
+                activeColor: Colors.white,
+                activeTrackColor: Colors.black,
+                value: switchValue3,
+                onChanged: (bool? value) {
+                  setState(() {
+                    switchValue3 = value!;
+                  });
+                },
+                title: const Text('Headline'),
+                subtitle: const Text(
+                    "Longer supporting text to demonstrate how the text wraps and how setting 'SwitchListTile.isThreeLine = true' aligns the switch to the top vertically with the text."),
+                isThreeLine: true,
+              ),
+            ),
+                ],
+              ),
+            ),
+          ],
+        ),
+            );
+          }
+        }''',
+          child: SwitchListTileExample(),
+        ),
+      ),
+    );
+  }
+}
+
+class SwitchListTileExample extends StatefulWidget {
+  const SwitchListTileExample({super.key});
+
+  @override
+  State<SwitchListTileExample> createState() => _SwitchListTileExampleState();
+}
+
+class _SwitchListTileExampleState extends State<SwitchListTileExample> {
+  bool switchValue1 = true;
+  bool switchValue2 = false;
+  bool switchValue3 = false;
+
   String url = 'https://www.youtube.com/watch?v=0igIjvtEWNU';
 
   YoutubePlayerController? controller;
@@ -41,165 +181,18 @@ class _SwitchListTileWidgetState extends State<SwitchListTileWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-        backgroundColor: Colors.black,
-        title: const Text(
-          'Switch ListTile',
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 8),
-            child: YoutubePlayer(
-              controller: controller!,
-              progressColors: const ProgressBarColors(
-                backgroundColor: Colors.black,
-                handleColor: Colors.white,
-              ),
-            ),
-          ),
-          const Expanded(
-            flex: 1,
-            child: WidgetWithCodeView(
-              filePath: 'lib/widgets/switch_list_tile_widget.dart',
-              iconBackgroundColor: Colors.black,
-              iconForegroundColor: Colors.white,
-              codeLinkPrefix: 'https://google.com?q=',
-              codeContent: '''
-              import 'package:flutter/material.dart';
-             
-              class SwitchListTileExample extends StatefulWidget {
-              const SwitchListTileExample({super.key});
-            
-              @override
-              State<SwitchListTileExample> createState() => _SwitchListTileExampleState();
-            }
-            
-            class _SwitchListTileExampleState extends State<SwitchListTileExample> {
-            
-              bool switchValue1 = true;
-              bool switchValue2 = false;
-              bool switchValue3 = false;
-            
-              @override
-              Widget build(BuildContext context) {
-                return SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 18),
-                  child: Column(
-                    children: [
-                      const Divider(
-                  height: 50,
-                  thickness: 2,
-                ),
-                
-                // Example 1 Code
-                
-                Padding(
-                  padding: const EdgeInsets.only(top: 18),
-                  child: SwitchListTile(
-                    activeColor: Colors.white,
-                    activeTrackColor: Colors.black,
-                    value: switchValue1,
-                    onChanged: (bool? value) {
-                      setState(() {
-                        switchValue1 = value!;
-                      });
-                    },
-                    title: const Text('Headline'),
-                    subtitle: const Text('Supporting Text'),
-                  ),
-                ),
-                
-                
-                // Example 2 Code
-                
-                Padding(
-                  padding: const EdgeInsets.only(top: 18),
-                  child: SwitchListTile(
-                    activeColor: Colors.white,
-                    activeTrackColor: Colors.black,
-                    value: switchValue2,
-                    onChanged: (bool? value) {
-                      setState(() {
-                        switchValue2 = value!;
-                      });
-                    },
-                    title: const Text('Headline'),
-                    subtitle: const Text(
-                        'Longer supporting text to demonstrate how the text wraps and the switch is centered vertically with the text.'),
-                  ),
-                ),
-                
-                // Example 3 code
-                
-                Padding(
-                  padding: const EdgeInsets.only(top: 18),
-                  child: SwitchListTile(
-                    activeColor: Colors.white,
-                    activeTrackColor: Colors.black,
-                    value: switchValue3,
-                    onChanged: (bool? value) {
-                      setState(() {
-                        switchValue3 = value!;
-                      });
-                    },
-                    title: const Text('Headline'),
-                    subtitle: const Text(
-                        "Longer supporting text to demonstrate how the text wraps and how setting 'SwitchListTile.isThreeLine = true' aligns the switch to the top vertically with the text."),
-                    isThreeLine: true,
-                  ),
-                ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-                );
-              }
-            }''',
-              child: SwitchListTileExample(),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class SwitchListTileExample extends StatefulWidget {
-  const SwitchListTileExample({super.key});
-
-  @override
-  State<SwitchListTileExample> createState() => _SwitchListTileExampleState();
-}
-
-class _SwitchListTileExampleState extends State<SwitchListTileExample> {
-  bool switchValue1 = true;
-  bool switchValue2 = false;
-  bool switchValue3 = false;
-
-  @override
-  Widget build(BuildContext context) {
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          YoutubePlayer(
+            controller: controller!,
+            progressColors: const ProgressBarColors(
+              backgroundColor: Colors.black,
+              handleColor: Colors.white,
+            ),
+          ),
           const Padding(
             padding: EdgeInsets.only(top: 18, left: 15),
             child: Text(

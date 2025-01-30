@@ -12,6 +12,104 @@ class GestureDetectorWidget extends StatefulWidget {
 
 class _GestureDetectorWidgetState extends State<GestureDetectorWidget> {
 
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        backgroundColor: Colors.black,
+        title: const Text(
+          'GestureDetector',
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+      body: const Expanded(
+        flex: 1,
+        child: WidgetWithCodeView(
+          filePath: 'lib/widgets/gesture_detector_widget.dart',
+          iconForegroundColor: Colors.white,
+          iconBackgroundColor: Colors.black,
+          codeLinkPrefix: 'https://google.com?q=',
+          codeContent: '''
+          import 'package:flutter/material.dart';
+          
+          class GestureDetectorExample extends StatefulWidget {
+          const GestureDetectorExample({super.key});
+        
+          @override
+          State<GestureDetectorExample> createState() => _GestureDetectorExampleState();
+        }
+        
+        class _GestureDetectorExampleState extends State<GestureDetectorExample> {
+         
+          bool _lightIsOn = false;
+        
+          @override
+          Widget build(BuildContext context) {
+            return SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              alignment: FractionalOffset.center,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Icon(
+                      Icons.lightbulb_outline,
+                      color: _lightIsOn ? Colors.yellow.shade600 : Colors.black,
+                      size: 60,
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        _lightIsOn = !_lightIsOn;
+                      });
+                    },
+                    child: Container(
+                      color: Colors.yellow.shade600,
+                      padding: const EdgeInsets.all(8),
+                      child:
+                          Text(_lightIsOn ? 'TURN LIGHT OFF' : 'TURN LIGHT ON'),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+            );
+          }
+        }''',
+          child: GestureDetectorExample(),
+        ),
+      ),
+    );
+  }
+}
+
+class GestureDetectorExample extends StatefulWidget {
+  const GestureDetectorExample({super.key});
+
+  @override
+  State<GestureDetectorExample> createState() => _GestureDetectorExampleState();
+}
+
+class _GestureDetectorExampleState extends State<GestureDetectorExample> {
+  bool _lightIsOn = false;
+  bool _lightIsoN = true;
+  bool _lIGHTISON = false;
+
   String url = 'https://www.youtube.com/watch?v=WhVXkCFPmK4';
 
   YoutubePlayerController? controller;
@@ -33,118 +131,6 @@ class _GestureDetectorWidgetState extends State<GestureDetectorWidget> {
     super.initState();
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-        backgroundColor: Colors.black,
-        title: const Text(
-          'GestureDetector',
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 8),
-            child: YoutubePlayer(
-              controller: controller!,
-              progressColors: const ProgressBarColors(
-                backgroundColor: Colors.black,
-                handleColor: Colors.white,
-              ),
-            ),
-          ),
-          const Expanded(
-            flex: 1,
-            child: WidgetWithCodeView(
-              filePath: 'lib/widgets/gesture_detector_widget.dart',
-              iconForegroundColor: Colors.white,
-              iconBackgroundColor: Colors.black,
-              codeLinkPrefix: 'https://google.com?q=',
-              codeContent: '''
-              import 'package:flutter/material.dart';
-              
-              class GestureDetectorExample extends StatefulWidget {
-              const GestureDetectorExample({super.key});
-            
-              @override
-              State<GestureDetectorExample> createState() => _GestureDetectorExampleState();
-            }
-            
-            class _GestureDetectorExampleState extends State<GestureDetectorExample> {
-             
-              bool _lightIsOn = false;
-            
-              @override
-              Widget build(BuildContext context) {
-                return SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  alignment: FractionalOffset.center,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Icon(
-                          Icons.lightbulb_outline,
-                          color: _lightIsOn ? Colors.yellow.shade600 : Colors.black,
-                          size: 60,
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            _lightIsOn = !_lightIsOn;
-                          });
-                        },
-                        child: Container(
-                          color: Colors.yellow.shade600,
-                          padding: const EdgeInsets.all(8),
-                          child:
-                              Text(_lightIsOn ? 'TURN LIGHT OFF' : 'TURN LIGHT ON'),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-                );
-              }
-            }''',
-              child: GestureDetectorExample(),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class GestureDetectorExample extends StatefulWidget {
-  const GestureDetectorExample({super.key});
-
-  @override
-  State<GestureDetectorExample> createState() => _GestureDetectorExampleState();
-}
-
-class _GestureDetectorExampleState extends State<GestureDetectorExample> {
-  bool _lightIsOn = false;
-  bool _lightIsoN = true;
-  bool _lIGHTISON = false;
-
 
   @override
   Widget build(BuildContext context) {
@@ -153,6 +139,13 @@ class _GestureDetectorExampleState extends State<GestureDetectorExample> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          YoutubePlayer(
+            controller: controller!,
+            progressColors: const ProgressBarColors(
+              backgroundColor: Colors.black,
+              handleColor: Colors.white,
+            ),
+          ),
           const Padding(
             padding: EdgeInsets.only(top: 18, left: 15),
             child: Text(

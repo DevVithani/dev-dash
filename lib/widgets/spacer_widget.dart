@@ -12,6 +12,97 @@ class SpacerWidget extends StatefulWidget {
 
 class _SpacerWidgetState extends State<SpacerWidget> {
 
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        title: const Text(
+          'Spacer',
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        backgroundColor: Colors.black,
+      ),
+      body: const Expanded(
+        flex: 1,
+        child: WidgetWithCodeView(
+          filePath: 'lib/widgets/spacer_widget.dart',
+          iconForegroundColor: Colors.white,
+          iconBackgroundColor: Colors.black,
+          codeLinkPrefix: 'https://google.com?q=',
+          codeContent: '''
+          import 'package:flutter/material.dart';
+        
+          class SpacerExample extends StatefulWidget {
+          const SpacerExample({super.key});
+        
+          @override
+          State<SpacerExample> createState() => _SpacerExampleState();
+        }
+        
+        class _SpacerExampleState extends State<SpacerExample> {
+        
+          @override
+          Widget build(BuildContext context) {
+            return SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 18, left: 15),
+              child: Row(
+                children: [
+                  Container(color: Colors.red, height: 100, width: 100),
+                  const Spacer(),
+                  Container(color: Colors.yellow, height: 100, width: 100),
+                  const Spacer(
+                    flex: 2,
+                  ),
+                  Container(color: Colors.blue, height: 100, width: 100),
+                ],
+              ),
+            ),
+            // Example 2 Code
+            
+            Column(
+        children: [
+          Container(color: Colors.red, height: 100, width: 100),
+          const Spacer(flex: 2,),
+          Container(color: Colors.yellow, height: 100, width: 100),
+          const Spacer(
+            flex: 3,
+          ),
+          Container(color: Colors.blue, height: 100, width: 100),
+        ],
+            );
+          ],
+        ),
+            );
+          }
+        }''',
+          child: SpacerExample(),
+        ),
+      ),
+    );
+  }
+}
+
+class SpacerExample extends StatefulWidget {
+  const SpacerExample({super.key});
+
+  @override
+  State<SpacerExample> createState() => _SpacerExampleState();
+}
+
+class _SpacerExampleState extends State<SpacerExample> {
+
   String url = 'https://www.youtube.com/watch?v=7FJgd7QN1zI';
 
   YoutubePlayerController? controller;
@@ -35,116 +126,18 @@ class _SpacerWidgetState extends State<SpacerWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-        title: const Text(
-          'Spacer',
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        backgroundColor: Colors.black,
-      ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 8),
-            child: YoutubePlayer(
-              controller: controller!,
-              progressColors: const ProgressBarColors(
-                backgroundColor: Colors.black,
-                handleColor: Colors.white,
-              ),
-            ),
-          ),
-          const Expanded(
-            flex: 1,
-            child: WidgetWithCodeView(
-              filePath: 'lib/widgets/spacer_widget.dart',
-              iconForegroundColor: Colors.white,
-              iconBackgroundColor: Colors.black,
-              codeLinkPrefix: 'https://google.com?q=',
-              codeContent: '''
-              import 'package:flutter/material.dart';
-            
-              class SpacerExample extends StatefulWidget {
-              const SpacerExample({super.key});
-            
-              @override
-              State<SpacerExample> createState() => _SpacerExampleState();
-            }
-            
-            class _SpacerExampleState extends State<SpacerExample> {
-            
-              @override
-              Widget build(BuildContext context) {
-                return SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 18, left: 15),
-                  child: Row(
-                    children: [
-                      Container(color: Colors.red, height: 100, width: 100),
-                      const Spacer(),
-                      Container(color: Colors.yellow, height: 100, width: 100),
-                      const Spacer(
-                        flex: 2,
-                      ),
-                      Container(color: Colors.blue, height: 100, width: 100),
-                    ],
-                  ),
-                ),
-                // Example 2 Code
-                
-                Column(
-            children: [
-              Container(color: Colors.red, height: 100, width: 100),
-              const Spacer(flex: 2,),
-              Container(color: Colors.yellow, height: 100, width: 100),
-              const Spacer(
-                flex: 3,
-              ),
-              Container(color: Colors.blue, height: 100, width: 100),
-            ],
-                );
-              ],
-            ),
-                );
-              }
-            }''',
-              child: SpacerExample(),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class SpacerExample extends StatefulWidget {
-  const SpacerExample({super.key});
-
-  @override
-  State<SpacerExample> createState() => _SpacerExampleState();
-}
-
-class _SpacerExampleState extends State<SpacerExample> {
-
-  @override
-  Widget build(BuildContext context) {
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          YoutubePlayer(
+            controller: controller!,
+            progressColors: const ProgressBarColors(
+              backgroundColor: Colors.black,
+              handleColor: Colors.white,
+            ),
+          ),
           const Padding(
             padding: EdgeInsets.only(top: 18, left: 15),
             child: Text(

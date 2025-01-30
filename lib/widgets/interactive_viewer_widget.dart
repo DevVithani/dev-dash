@@ -13,6 +13,107 @@ class InteractiveViewerWidget extends StatefulWidget {
 
 class _InteractiveViewerWidgetState extends State<InteractiveViewerWidget> {
 
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        backgroundColor: Colors.black,
+        title: const Text(
+          'Interactive Viewer',
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+      body: const Expanded(
+        flex: 1,
+        child: WidgetWithCodeView(
+          filePath: 'lib/widgets/interactive_viewer_widget.dart',
+          iconBackgroundColor: Colors.black,
+          iconForegroundColor: Colors.white,
+          codeLinkPrefix: 'https://google.com?q=',
+          codeContent: '''
+          import 'package:flutter/material.dart';
+        
+          class InteractiveExample extends StatefulWidget {
+          const InteractiveExample({super.key});
+        
+          @override
+          State<InteractiveExample> createState() => _InteractiveExampleState();
+        }
+        
+        class _InteractiveExampleState extends State<InteractiveExample> {
+        
+          @override
+          Widget build(BuildContext context) {
+            return SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 18),
+              child: Center(
+                child: InteractiveViewer(
+                  boundaryMargin: const EdgeInsets.all(20.0),
+                  minScale: 0.1,
+                  maxScale: 1.6,
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: <Color>[Colors.orange, Colors.red],
+                        stops: <double>[0.0, 1.0],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            
+            // Example 2 Code
+            
+            Center(
+              child: InteractiveViewer(
+                boundaryMargin: const EdgeInsets.all(20.0),
+                minScale: 0.1,
+                maxScale: 1.6,
+                child: Container(
+                  height: 700,
+                  width: 500,
+                  // Using image from local storage
+                  child: Image.network(
+                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRatVzDGmEFyVULU8VupVmqasEG7Ia7fJxTcw&s",
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+            );
+          }
+        }''',
+          child: InteractiveExample(),
+        ),
+      ),
+    );
+  }
+}
+
+class InteractiveExample extends StatefulWidget {
+  const InteractiveExample({super.key});
+
+  @override
+  State<InteractiveExample> createState() => _InteractiveExampleState();
+}
+
+class _InteractiveExampleState extends State<InteractiveExample> {
+
   String url = 'https://www.youtube.com/watch?v=zrn7V3bMJvg';
 
   YoutubePlayerController? controller;
@@ -36,126 +137,18 @@ class _InteractiveViewerWidgetState extends State<InteractiveViewerWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-        backgroundColor: Colors.black,
-        title: const Text(
-          'Interactive Viewer',
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 8),
-            child: YoutubePlayer(
-              controller: controller!,
-              progressColors: const ProgressBarColors(
-                backgroundColor: Colors.black,
-                handleColor: Colors.white,
-              ),
-            ),
-          ),
-          const Expanded(
-            flex: 1,
-            child: WidgetWithCodeView(
-              filePath: 'lib/widgets/interactive_viewer_widget.dart',
-              iconBackgroundColor: Colors.black,
-              iconForegroundColor: Colors.white,
-              codeLinkPrefix: 'https://google.com?q=',
-              codeContent: '''
-              import 'package:flutter/material.dart';
-            
-              class InteractiveExample extends StatefulWidget {
-              const InteractiveExample({super.key});
-            
-              @override
-              State<InteractiveExample> createState() => _InteractiveExampleState();
-            }
-            
-            class _InteractiveExampleState extends State<InteractiveExample> {
-            
-              @override
-              Widget build(BuildContext context) {
-                return SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 18),
-                  child: Center(
-                    child: InteractiveViewer(
-                      boundaryMargin: const EdgeInsets.all(20.0),
-                      minScale: 0.1,
-                      maxScale: 1.6,
-                      child: Container(
-                        decoration: const BoxDecoration(
-                          gradient: LinearGradient(
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                            colors: <Color>[Colors.orange, Colors.red],
-                            stops: <double>[0.0, 1.0],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                
-                // Example 2 Code
-                
-                Center(
-                  child: InteractiveViewer(
-                    boundaryMargin: const EdgeInsets.all(20.0),
-                    minScale: 0.1,
-                    maxScale: 1.6,
-                    child: Container(
-                      height: 700,
-                      width: 500,
-                      // Using image from local storage
-                      child: Image.network(
-                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRatVzDGmEFyVULU8VupVmqasEG7Ia7fJxTcw&s",
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-                );
-              }
-            }''',
-              child: InteractiveExample(),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class InteractiveExample extends StatefulWidget {
-  const InteractiveExample({super.key});
-
-  @override
-  State<InteractiveExample> createState() => _InteractiveExampleState();
-}
-
-class _InteractiveExampleState extends State<InteractiveExample> {
-
-  @override
-  Widget build(BuildContext context) {
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          YoutubePlayer(
+            controller: controller!,
+            progressColors: const ProgressBarColors(
+              backgroundColor: Colors.black,
+              handleColor: Colors.white,
+            ),
+          ),
           const Padding(
             padding: EdgeInsets.only(top: 18, left: 15),
             child: Text(

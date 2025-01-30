@@ -12,6 +12,150 @@ class PhysicalModelWidget extends StatefulWidget {
 
 class _PhysicalModelWidgetState extends State<PhysicalModelWidget> {
 
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        backgroundColor: Colors.black,
+        title: const Text(
+          'Physical Model',
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+      body: const Expanded(
+        flex: 1,
+        child: WidgetWithCodeView(
+          filePath: 'lib/widgets/physical_model_widget.dart',
+          iconForegroundColor: Colors.white,
+          iconBackgroundColor: Colors.black,
+          codeLinkPrefix: 'https://google.com?q=',
+          codeContent: '''
+          import 'package:flutter/material.dart';
+        
+          class PhysicalModelExample extends StatefulWidget {
+          const PhysicalModelExample({super.key});
+        
+          @override
+          State<PhysicalModelExample> createState() => _PhysicalModelExampleState();
+        }
+        
+        class _PhysicalModelExampleState extends State<PhysicalModelExample> {
+        
+          @override
+          Widget build(BuildContext context) {
+            return SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+          
+          // Example 1 code
+          
+            Padding(
+              padding: const EdgeInsets.only(top: 18),
+              child: Center(
+                child: PhysicalModel(
+                  borderRadius: BorderRadius.circular(15),
+                  color: Colors.black,
+                  child: Container(
+                    height: 100,
+                    width: 100,
+                  ),
+                ),
+              ),
+            ),
+            
+            // Example 2 code
+            
+            Padding(
+              padding: const EdgeInsets.only(top: 18),
+              child: Center(
+                child: PhysicalModel(
+                  color: Colors.black,
+                  child: Container(
+                    height: 100,
+                    width: 100,
+                  ),
+                ),
+              ),
+            ),
+            
+            // Example 3 code
+            
+            Padding(
+              padding: const EdgeInsets.only(top: 18),
+              child: Center(
+                child: PhysicalModel(
+                  color: Colors.black,
+                  child: Container(
+                    height: 100,
+                    width: 100,
+                  ),
+                ),
+              ),
+            ),
+           ),
+            
+            // Example 4 code
+            
+            Padding(
+              padding: const EdgeInsets.only(top: 18),
+              child: Center(
+                child: PhysicalModel(
+                  shape: BoxShape.circle,
+                  color: Colors.black,
+                  child: Container(
+                    height: 100,
+                    width: 100,
+                  ),
+                ),
+              ),
+            ),
+            
+            // Example 5 code
+                
+            Padding(
+              padding: const EdgeInsets.only(top: 18),
+              child: Center(
+                child: PhysicalModel(
+                  shadowColor: Colors.black,
+                  elevation: 25,
+                  color: Colors.black,
+                  child: Container(
+                    height: 100,
+                    width: 100,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+            );
+          }
+        }''',
+          child: PhysicalModelExample(),
+        ),
+      ),
+    );
+  }
+}
+
+class PhysicalModelExample extends StatefulWidget {
+  const PhysicalModelExample({super.key});
+
+  @override
+  State<PhysicalModelExample> createState() => _PhysicalModelExampleState();
+}
+
+class _PhysicalModelExampleState extends State<PhysicalModelExample> {
+
   String videoURL = 'https://www.youtube.com/watch?v=XgUOSS30OQk';
 
   YoutubePlayerController? controller;
@@ -35,169 +179,18 @@ class _PhysicalModelWidgetState extends State<PhysicalModelWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-        backgroundColor: Colors.black,
-        title: const Text(
-          'Physical Model',
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 8),
-            child: YoutubePlayer(
-              controller: controller!,
-              progressColors: const ProgressBarColors(
-                backgroundColor: Colors.black,
-                handleColor: Colors.white,
-              ),
-            ),
-          ),
-          const Expanded(
-            flex: 1,
-            child: WidgetWithCodeView(
-              filePath: 'lib/widgets/physical_model_widget.dart',
-              iconForegroundColor: Colors.white,
-              iconBackgroundColor: Colors.black,
-              codeLinkPrefix: 'https://google.com?q=',
-              codeContent: '''
-              import 'package:flutter/material.dart';
-            
-              class PhysicalModelExample extends StatefulWidget {
-              const PhysicalModelExample({super.key});
-            
-              @override
-              State<PhysicalModelExample> createState() => _PhysicalModelExampleState();
-            }
-            
-            class _PhysicalModelExampleState extends State<PhysicalModelExample> {
-            
-              @override
-              Widget build(BuildContext context) {
-                return SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-              
-              // Example 1 code
-              
-                Padding(
-                  padding: const EdgeInsets.only(top: 18),
-                  child: Center(
-                    child: PhysicalModel(
-                      borderRadius: BorderRadius.circular(15),
-                      color: Colors.black,
-                      child: Container(
-                        height: 100,
-                        width: 100,
-                      ),
-                    ),
-                  ),
-                ),
-                
-                // Example 2 code
-                
-                Padding(
-                  padding: const EdgeInsets.only(top: 18),
-                  child: Center(
-                    child: PhysicalModel(
-                      color: Colors.black,
-                      child: Container(
-                        height: 100,
-                        width: 100,
-                      ),
-                    ),
-                  ),
-                ),
-                
-                // Example 3 code
-                
-                Padding(
-                  padding: const EdgeInsets.only(top: 18),
-                  child: Center(
-                    child: PhysicalModel(
-                      color: Colors.black,
-                      child: Container(
-                        height: 100,
-                        width: 100,
-                      ),
-                    ),
-                  ),
-                ),
-               ),
-                
-                // Example 4 code
-                
-                Padding(
-                  padding: const EdgeInsets.only(top: 18),
-                  child: Center(
-                    child: PhysicalModel(
-                      shape: BoxShape.circle,
-                      color: Colors.black,
-                      child: Container(
-                        height: 100,
-                        width: 100,
-                      ),
-                    ),
-                  ),
-                ),
-                
-                // Example 5 code
-                    
-                Padding(
-                  padding: const EdgeInsets.only(top: 18),
-                  child: Center(
-                    child: PhysicalModel(
-                      shadowColor: Colors.black,
-                      elevation: 25,
-                      color: Colors.black,
-                      child: Container(
-                        height: 100,
-                        width: 100,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-                );
-              }
-            }''',
-              child: PhysicalModelExample(),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class PhysicalModelExample extends StatefulWidget {
-  const PhysicalModelExample({super.key});
-
-  @override
-  State<PhysicalModelExample> createState() => _PhysicalModelExampleState();
-}
-
-class _PhysicalModelExampleState extends State<PhysicalModelExample> {
-
-  @override
-  Widget build(BuildContext context) {
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          YoutubePlayer(
+            controller: controller!,
+            progressColors: const ProgressBarColors(
+              backgroundColor: Colors.black,
+              handleColor: Colors.white,
+            ),
+          ),
           const Padding(
             padding: EdgeInsets.only(top: 18, left: 15),
             child: Text(
@@ -244,7 +237,7 @@ class _PhysicalModelExampleState extends State<PhysicalModelExample> {
               child: PhysicalModel(
                 borderRadius: BorderRadius.circular(15),
                 color: Colors.black,
-                child: Container(
+                child: const SizedBox(
                   height: 100,
                   width: 100,
                 ),
@@ -265,12 +258,12 @@ class _PhysicalModelExampleState extends State<PhysicalModelExample> {
                   fontWeight: FontWeight.w600),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: 18),
+          const Padding(
+            padding: EdgeInsets.only(top: 18),
             child: Center(
               child: PhysicalModel(
                 color: Colors.black,
-                child: Container(
+                child: SizedBox(
                   height: 100,
                   width: 100,
                 ),
@@ -291,12 +284,12 @@ class _PhysicalModelExampleState extends State<PhysicalModelExample> {
                   fontWeight: FontWeight.w600),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: 18),
+          const Padding(
+            padding: EdgeInsets.only(top: 18),
             child: Center(
               child: PhysicalModel(
                 color: Colors.black,
-                child: Container(
+                child: SizedBox(
                   height: 100,
                   width: 100,
                 ),
@@ -317,13 +310,13 @@ class _PhysicalModelExampleState extends State<PhysicalModelExample> {
                   fontWeight: FontWeight.w600),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: 18),
+          const Padding(
+            padding: EdgeInsets.only(top: 18),
             child: Center(
               child: PhysicalModel(
                 shape: BoxShape.circle,
                 color: Colors.black,
-                child: Container(
+                child: SizedBox(
                   height: 100,
                   width: 100,
                 ),
@@ -344,14 +337,14 @@ class _PhysicalModelExampleState extends State<PhysicalModelExample> {
                   fontWeight: FontWeight.w600),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: 18),
+          const Padding(
+            padding: EdgeInsets.only(top: 18),
             child: Center(
               child: PhysicalModel(
                 shadowColor: Colors.black,
                 elevation: 25,
                 color: Colors.black,
-                child: Container(
+                child: SizedBox(
                   height: 100,
                   width: 100,
                 ),

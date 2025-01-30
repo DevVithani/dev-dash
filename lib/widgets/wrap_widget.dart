@@ -10,6 +10,177 @@ class WrapWidget extends StatefulWidget {
 }
 
 class _WrapWidgetState extends State<WrapWidget> {
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        backgroundColor: Colors.black,
+        title: const Text(
+          'Wrap',
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        ),
+      ),
+      body: const Expanded(
+        flex: 1,
+        child: WidgetWithCodeView(
+          iconBackgroundColor: Colors.black,
+          iconForegroundColor: Colors.white,
+          codeLinkPrefix: 'https://google.com?q=',
+          codeContent: '''
+        import 'package:flutter/material.dart';
+        
+            class WrapWidget extends StatefulWidget {
+          const WrapWidget({super.key});
+        
+          @override
+          State<WrapWidget> createState() => _WrapWidgetState();
+        }
+        
+        class _WrapWidgetState extends State<WrapWidget> {
+        
+        
+          @override
+          Widget build(BuildContext context) {
+            return Scaffold(
+        appBar: AppBar(
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back, color: Colors.white),
+            onPressed: () => Navigator.of(context).pop(),
+          ),
+          backgroundColor: Colors.black,
+          title: const Text(
+            'Wrap Widget',
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          ),
+        ),
+        body WrapWidgetExample(),
+        ),
+            );
+          }
+        }
+        
+        class WrapWidgetExample extends StatefulWidget {
+          const WrapWidgetExample({super.key});
+        
+          @override
+          State<WrapWidgetExample> createState() => _WrapWidgetExampleState();
+        }
+        
+        class _WrapWidgetExampleState extends State<WrapWidgetExample> {
+        
+          @override
+          Widget build(BuildContext context) {
+            return SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Wrap(
+              spacing: 8.0,
+              runSpacing: 4.0,
+              children: <Widget>[
+                Chip(
+                  avatar: CircleAvatar(
+                      backgroundColor: Colors.blue.shade900,
+                      child: const Text('1')),
+                  label: const Text('Hamilton'),
+                ),
+                Chip(
+                  avatar: CircleAvatar(
+                      backgroundColor: Colors.blue.shade900,
+                      child: const Text('2')),
+                  label: const Text('Lafayette'),
+                ),
+                Chip(
+                  avatar: CircleAvatar(
+                      backgroundColor: Colors.blue.shade900,
+                      child: const Text('3')),
+                  label: const Text('Mulligan'),
+                ),
+                Chip(
+                  avatar: CircleAvatar(
+                      backgroundColor: Colors.blue.shade900,
+                      child: const Text('4')),
+                  label: const Text('Laurens'),
+                ),
+              ],
+            ),
+          ],
+        ),
+            );
+          }
+        },
+        
+         // Example 2 code
+         
+         class WrapW extends StatelessWidget {
+          @override
+          Widget build(BuildContext context) {
+            return Scaffold(
+        appBar:AppBar(
+        backgroundColor: Colors.black,
+          title: Text("Wrap Widget"),
+        ),
+        body: Wrap(
+          children: <Widget>[
+            Container(
+              color: Colors.blue,
+              width: 100,
+              height: 100,
+              child:Center(child: Text("W1",))
+            ),
+            Container(
+              color: Colors.red,
+              width: 100,
+              height: 100,
+              child:Center(child: Text("W2",))
+            ),
+            Container(
+              color: Colors.teal,
+              width: 100,
+              height: 100,
+              child:Center(child: Text("W3",))
+            ),
+            Container(
+              color: Colors.indigo,
+              width: 100,
+              height: 100,
+              child:Center(child: Text("W4",))
+            ),
+            Container(
+              color: Colors.orange,
+              width: 100,
+              height: 100,
+              child:Center(child: Text("W5",))
+            ),
+          ],
+        ),
+            );
+          }
+        }''',
+          labelBackgroundColor: Colors.black,
+          filePath: 'lib/widgets/wrap_widget.dart',
+          child: WrapWidgetExample(),
+        ),
+      ),
+    );
+  }
+}
+
+class WrapWidgetExample extends StatefulWidget {
+  const WrapWidgetExample({super.key});
+
+  @override
+  State<WrapWidgetExample> createState() => _WrapWidgetExampleState();
+}
+
+class _WrapWidgetExampleState extends State<WrapWidgetExample> {
+
   String url = 'https://www.youtube.com/watch?v=z5iw2SeFx2M';
 
   YoutubePlayerController? controller;
@@ -33,195 +204,19 @@ class _WrapWidgetState extends State<WrapWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-        backgroundColor: Colors.black,
-        title: const Text(
-          'Wrap',
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-        ),
-      ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 8),
-            child: YoutubePlayer(
-              controller: controller!,
-              showVideoProgressIndicator: true,
-              progressColors: const ProgressBarColors(
-                backgroundColor: Colors.white,
-                handleColor: Colors.black,
-              ),
-            ),
-          ),
-          const Expanded(
-            flex: 1,
-            child: WidgetWithCodeView(
-              iconBackgroundColor: Colors.black,
-              iconForegroundColor: Colors.white,
-              codeLinkPrefix: 'https://google.com?q=',
-              codeContent: '''
-            import 'package:flutter/material.dart';
-            
-                class WrapWidget extends StatefulWidget {
-              const WrapWidget({super.key});
-            
-              @override
-              State<WrapWidget> createState() => _WrapWidgetState();
-            }
-            
-            class _WrapWidgetState extends State<WrapWidget> {
-            
-            
-              @override
-              Widget build(BuildContext context) {
-                return Scaffold(
-            appBar: AppBar(
-              leading: IconButton(
-                icon: const Icon(Icons.arrow_back, color: Colors.white),
-                onPressed: () => Navigator.of(context).pop(),
-              ),
-              backgroundColor: Colors.black,
-              title: const Text(
-                'Wrap Widget',
-                style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-              ),
-            ),
-            body WrapWidgetExample(),
-            ),
-                );
-              }
-            }
-            
-            class WrapWidgetExample extends StatefulWidget {
-              const WrapWidgetExample({super.key});
-            
-              @override
-              State<WrapWidgetExample> createState() => _WrapWidgetExampleState();
-            }
-            
-            class _WrapWidgetExampleState extends State<WrapWidgetExample> {
-            
-              @override
-              Widget build(BuildContext context) {
-                return SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Wrap(
-                  spacing: 8.0,
-                  runSpacing: 4.0,
-                  children: <Widget>[
-                    Chip(
-                      avatar: CircleAvatar(
-                          backgroundColor: Colors.blue.shade900,
-                          child: const Text('1')),
-                      label: const Text('Hamilton'),
-                    ),
-                    Chip(
-                      avatar: CircleAvatar(
-                          backgroundColor: Colors.blue.shade900,
-                          child: const Text('2')),
-                      label: const Text('Lafayette'),
-                    ),
-                    Chip(
-                      avatar: CircleAvatar(
-                          backgroundColor: Colors.blue.shade900,
-                          child: const Text('3')),
-                      label: const Text('Mulligan'),
-                    ),
-                    Chip(
-                      avatar: CircleAvatar(
-                          backgroundColor: Colors.blue.shade900,
-                          child: const Text('4')),
-                      label: const Text('Laurens'),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-                );
-              }
-            },
-            
-             // Example 2 code
-             
-             class WrapW extends StatelessWidget {
-              @override
-              Widget build(BuildContext context) {
-                return Scaffold(
-            appBar:AppBar(
-            backgroundColor: Colors.black,
-              title: Text("Wrap Widget"),
-            ),
-            body: Wrap(
-              children: <Widget>[
-                Container(
-                  color: Colors.blue,
-                  width: 100,
-                  height: 100,
-                  child:Center(child: Text("W1",))
-                ),
-                Container(
-                  color: Colors.red,
-                  width: 100,
-                  height: 100,
-                  child:Center(child: Text("W2",))
-                ),
-                Container(
-                  color: Colors.teal,
-                  width: 100,
-                  height: 100,
-                  child:Center(child: Text("W3",))
-                ),
-                Container(
-                  color: Colors.indigo,
-                  width: 100,
-                  height: 100,
-                  child:Center(child: Text("W4",))
-                ),
-                Container(
-                  color: Colors.orange,
-                  width: 100,
-                  height: 100,
-                  child:Center(child: Text("W5",))
-                ),
-              ],
-            ),
-                );
-              }
-            }''',
-              labelBackgroundColor: Colors.black,
-              filePath: 'lib/widgets/wrap_widget.dart',
-              child: WrapWidgetExample(),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class WrapWidgetExample extends StatefulWidget {
-  const WrapWidgetExample({super.key});
-
-  @override
-  State<WrapWidgetExample> createState() => _WrapWidgetExampleState();
-}
-
-class _WrapWidgetExampleState extends State<WrapWidgetExample> {
-  @override
-  Widget build(BuildContext context) {
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          YoutubePlayer(
+            controller: controller!,
+            showVideoProgressIndicator: true,
+            progressColors: const ProgressBarColors(
+              backgroundColor: Colors.white,
+              handleColor: Colors.black,
+            ),
+          ),
           const Padding(
             padding: EdgeInsets.only(top: 18, left: 15),
             child: Text(

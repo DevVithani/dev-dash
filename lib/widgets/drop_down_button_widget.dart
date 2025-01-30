@@ -12,6 +12,123 @@ class DropDownButtonWidget extends StatefulWidget {
 
 class _DropDownButtonWidgetState extends State<DropDownButtonWidget> {
 
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        backgroundColor: Colors.black,
+        title: const Text(
+          'DropDown Button',
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+      body: const Expanded(
+        flex: 1,
+        child: WidgetWithCodeView(
+          filePath: 'lib/widgets/drop_down_button_widget.dart',
+          iconForegroundColor: Colors.white,
+          iconBackgroundColor: Colors.black,
+          codeLinkPrefix: 'https://google.com?q=',
+          codeContent: '''
+          import 'package:flutter/material.dart';
+        
+          class DropDownButtonExample extends StatefulWidget {
+          const DropDownButtonExample({super.key});
+        
+          @override
+          State<DropDownButtonExample> createState() => _DropDownButtonExampleState();
+        }
+        
+        class _DropDownButtonExampleState extends State<DropDownButtonExample> {
+          static const List<String> list = <String>['One', 'Two', 'Three', 'Four'];
+           static const List<String> listTwo = <String>[
+            'Flutter',
+            'Java',
+            'Python',
+            'C++'
+          ];
+        
+          String dropdownValue = list.first;
+        
+          @override
+          Widget build(BuildContext context) {
+            return SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+          
+          // Example 1 Code
+          
+            Center(
+              child: DropdownMenu<String>(
+                initialSelection: list.first,
+                onSelected: (String? value) {
+                  setState(() {
+                    dropdownValue = value!;
+                  });
+                },
+                dropdownMenuEntries:
+                    list.map<DropdownMenuEntry<String>>((String value) {
+                  return DropdownMenuEntry<String>(value: value, label: value);
+                }).toList(),
+              ),
+            ),
+            
+            // Example 2 Code
+            
+            Center(
+              child: DropdownMenu<String>(
+                label: const Text('Select'),
+                initialSelection: listTwo.first,
+                onSelected: (String? value) {
+                  setState(() {
+                    dropdownValue = value!;
+                  });
+                },
+                dropdownMenuEntries:
+                    listTwo.map<DropdownMenuEntry<String>>((String value) {
+                  return DropdownMenuEntry<String>(value: value, label: value);
+                }).toList(),
+              ),
+            ),
+          ],
+        ),
+            );
+          }
+        }''',
+          child: DropDownButtonExample(),
+        ),
+      ),
+    );
+  }
+}
+
+class DropDownButtonExample extends StatefulWidget {
+  const DropDownButtonExample({super.key});
+
+  @override
+  State<DropDownButtonExample> createState() => _DropDownButtonExampleState();
+}
+
+class _DropDownButtonExampleState extends State<DropDownButtonExample> {
+  static const List<String> list = <String>['One', 'Two', 'Three', 'Four'];
+  static const List<String> listTwo = <String>[
+    'Flutter',
+    'Java',
+    'Python',
+    'C++'
+  ];
+
+  String dropdownValue = list.first;
+
   String url = 'https://www.youtube.com/watch?v=ZzQ_PWrFihg';
 
   YoutubePlayerController? controller;
@@ -41,142 +158,18 @@ class _DropDownButtonWidgetState extends State<DropDownButtonWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-        backgroundColor: Colors.black,
-        title: const Text(
-          'DropDown Button',
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 8),
-            child: YoutubePlayer(
-              controller: controller!,
-              progressColors: const ProgressBarColors(
-                backgroundColor: Colors.black,
-                handleColor: Colors.white,
-              ),
-            ),
-          ),
-          const Expanded(
-            flex: 1,
-            child: WidgetWithCodeView(
-              filePath: 'lib/widgets/drop_down_button_widget.dart',
-              iconForegroundColor: Colors.white,
-              iconBackgroundColor: Colors.black,
-              codeLinkPrefix: 'https://google.com?q=',
-              codeContent: '''
-              import 'package:flutter/material.dart';
-            
-              class DropDownButtonExample extends StatefulWidget {
-              const DropDownButtonExample({super.key});
-            
-              @override
-              State<DropDownButtonExample> createState() => _DropDownButtonExampleState();
-            }
-            
-            class _DropDownButtonExampleState extends State<DropDownButtonExample> {
-              static const List<String> list = <String>['One', 'Two', 'Three', 'Four'];
-               static const List<String> listTwo = <String>[
-                'Flutter',
-                'Java',
-                'Python',
-                'C++'
-              ];
-            
-              String dropdownValue = list.first;
-            
-              @override
-              Widget build(BuildContext context) {
-                return SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-              
-              // Example 1 Code
-              
-                Center(
-                  child: DropdownMenu<String>(
-                    initialSelection: list.first,
-                    onSelected: (String? value) {
-                      setState(() {
-                        dropdownValue = value!;
-                      });
-                    },
-                    dropdownMenuEntries:
-                        list.map<DropdownMenuEntry<String>>((String value) {
-                      return DropdownMenuEntry<String>(value: value, label: value);
-                    }).toList(),
-                  ),
-                ),
-                
-                // Example 2 Code
-                
-                Center(
-                  child: DropdownMenu<String>(
-                    label: const Text('Select'),
-                    initialSelection: listTwo.first,
-                    onSelected: (String? value) {
-                      setState(() {
-                        dropdownValue = value!;
-                      });
-                    },
-                    dropdownMenuEntries:
-                        listTwo.map<DropdownMenuEntry<String>>((String value) {
-                      return DropdownMenuEntry<String>(value: value, label: value);
-                    }).toList(),
-                  ),
-                ),
-              ],
-            ),
-                );
-              }
-            }''',
-              child: DropDownButtonExample(),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class DropDownButtonExample extends StatefulWidget {
-  const DropDownButtonExample({super.key});
-
-  @override
-  State<DropDownButtonExample> createState() => _DropDownButtonExampleState();
-}
-
-class _DropDownButtonExampleState extends State<DropDownButtonExample> {
-  static const List<String> list = <String>['One', 'Two', 'Three', 'Four'];
-  static const List<String> listTwo = <String>[
-    'Flutter',
-    'Java',
-    'Python',
-    'C++'
-  ];
-
-  String dropdownValue = list.first;
-
-  @override
-  Widget build(BuildContext context) {
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          YoutubePlayer(
+            controller: controller!,
+            progressColors: const ProgressBarColors(
+              backgroundColor: Colors.black,
+              handleColor: Colors.white,
+            ),
+          ),
           const Padding(
             padding: EdgeInsets.only(top: 18, left: 15),
             child: Text(

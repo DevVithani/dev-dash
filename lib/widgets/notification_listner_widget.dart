@@ -13,6 +13,117 @@ class NotificationListnerWidget extends StatefulWidget {
 
 class _NotificationListnerWidgetState extends State<NotificationListnerWidget> {
 
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        backgroundColor: Colors.black,
+        title: const Text(
+          'Notification Listener',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
+      ),
+      body: const Expanded(
+        flex: 1,
+        child: WidgetWithCodeView(
+          filePath: 'lib/widgets/notification_listner.dart',
+          iconBackgroundColor: Colors.black,
+          iconForegroundColor: Colors.white,
+          codeLinkPrefix: 'https://google.com?q=',
+          codeContent: '''
+        import 'package:flutter/material.dart';
+          
+          class NotificationExample extends StatefulWidget {
+          const NotificationExample({super.key});
+        
+          @override
+          State<NotificationExample> createState() => _NotificationExampleState();
+        }
+        
+        class _NotificationExampleState extends State<NotificationExample> {
+          String message = 'New';
+        
+          @override
+          Widget build(BuildContext context) {
+            return SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Column(
+              children: [
+                Container(
+                  height: 60,
+                  color: Colors.orangeAccent,
+                  child: Center(
+                    child: Text(
+                      message,
+                      style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: NotificationListener<ScrollNotification>(
+                    onNotification: (scrollNotification) {
+                      // Logic of scrollNotification
+                      if (scrollNotification is ScrollStartNotification) {
+                        setState(() {
+                          message = 'Scroll Started';
+                        });
+                      } else if (scrollNotification is ScrollUpdateNotification) {
+                        setState(() {
+                          message = 'Scroll Updated';
+                        });
+                      } else if (scrollNotification is ScrollEndNotification) {
+                        setState(
+                          () {
+                            message = 'Scroll Ended';
+                          },
+                        );
+                      }
+                      return true;
+                    },
+                    child: ListView.builder(
+                      itemCount: 15,    // put number according your usage
+                      itemBuilder: (context, index) {
+                        return ListTile(
+                          title: Text('Item: index'),  //put dollar symbol before index
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+            );
+          }
+        }''',
+          child: NotificationExample(),
+        ),
+      ),
+    );
+  }
+}
+
+class NotificationExample extends StatefulWidget {
+  const NotificationExample({super.key});
+
+  @override
+  State<NotificationExample> createState() => _NotificationExampleState();
+}
+
+class _NotificationExampleState extends State<NotificationExample> {
+  String message = 'New';
+
   String url = 'https://youtu.be/cAnFbFoGM50';
 
   YoutubePlayerController? controller;
@@ -36,135 +147,17 @@ class _NotificationListnerWidgetState extends State<NotificationListnerWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-        backgroundColor: Colors.black,
-        title: const Text(
-          'Notification Listener',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
-        ),
-      ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 8),
-            child: YoutubePlayer(
-              controller: controller!,
-              showVideoProgressIndicator: true,
-              progressColors: const ProgressBarColors(
-                backgroundColor: Colors.white,
-                handleColor: Colors.black,
-              ),
-            ),
-          ),
-          const Expanded(
-            flex: 1,
-            child: WidgetWithCodeView(
-              filePath: 'lib/widgets/notification_listner.dart',
-              iconBackgroundColor: Colors.black,
-              iconForegroundColor: Colors.white,
-              codeLinkPrefix: 'https://google.com?q=',
-              codeContent: '''
-            import 'package:flutter/material.dart';
-              
-              class NotificationExample extends StatefulWidget {
-              const NotificationExample({super.key});
-            
-              @override
-              State<NotificationExample> createState() => _NotificationExampleState();
-            }
-            
-            class _NotificationExampleState extends State<NotificationExample> {
-              String message = 'New';
-            
-              @override
-              Widget build(BuildContext context) {
-                return SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Column(
-                  children: [
-                    Container(
-                      height: 60,
-                      color: Colors.orangeAccent,
-                      child: Center(
-                        child: Text(
-                          message,
-                          style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: NotificationListener<ScrollNotification>(
-                        onNotification: (scrollNotification) {
-                          // Logic of scrollNotification
-                          if (scrollNotification is ScrollStartNotification) {
-                            setState(() {
-                              message = 'Scroll Started';
-                            });
-                          } else if (scrollNotification is ScrollUpdateNotification) {
-                            setState(() {
-                              message = 'Scroll Updated';
-                            });
-                          } else if (scrollNotification is ScrollEndNotification) {
-                            setState(
-                              () {
-                                message = 'Scroll Ended';
-                              },
-                            );
-                          }
-                          return true;
-                        },
-                        child: ListView.builder(
-                          itemCount: 15,    // put number according your usage
-                          itemBuilder: (context, index) {
-                            return ListTile(
-                              title: Text('Item: index'),  //put dollar symbol before index
-                            );
-                          },
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-                );
-              }
-            }''',
-              child: NotificationExample(),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class NotificationExample extends StatefulWidget {
-  const NotificationExample({super.key});
-
-  @override
-  State<NotificationExample> createState() => _NotificationExampleState();
-}
-
-class _NotificationExampleState extends State<NotificationExample> {
-  String message = 'New';
-
-  @override
-  Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        YoutubePlayer(
+          controller: controller!,
+          showVideoProgressIndicator: true,
+          progressColors: const ProgressBarColors(
+            backgroundColor: Colors.white,
+            handleColor: Colors.black,
+          ),
+        ),
         const Padding(
           padding: EdgeInsets.only(top: 18, left: 15),
           child: Text(

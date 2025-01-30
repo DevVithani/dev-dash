@@ -12,6 +12,150 @@ class ListTileWidget extends StatefulWidget {
 
 class _ListTileWidgetState extends State<ListTileWidget> {
 
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        backgroundColor: Colors.black,
+        title: const Text(
+          'ListTile',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
+      ),
+      body: const Expanded(
+        flex: 1,
+        child: WidgetWithCodeView(
+          iconBackgroundColor: Colors.black,
+          iconForegroundColor: Colors.white,
+          filePath: 'lib/widgets/list_tile_widget.dart',
+          codeLinkPrefix: 'https://google.com?q=',
+          codeContent: '''
+          import 'package:flutter/material.dart';
+        
+        class ListTileExample extends StatefulWidget {
+            const ListTileExample({super.key});
+        
+          @override
+          State<ListTileExample> createState() => _ListTileExampleState();
+        }
+        
+        class _ListTileExampleState extends State<ListTileExample> {
+        
+          @override
+          Widget build(BuildContext context) {
+            return ListView(
+        children: <Widget>[
+          
+          // Example 1 code
+          const Padding(
+            padding: EdgeInsets.only(top: 18),
+            child: Card(
+              child: ListTile(
+                title: Text('One-line ListTile'),
+              ),
+            ),
+          ),
+          
+          // Example 2 code
+          const Padding(
+            padding: EdgeInsets.only(top: 18),
+            child: Card(
+              child: ListTile(
+                leading: FlutterLogo(),
+                title: Text('One-line with leading widget'),
+              ),
+            ),
+          ),
+          
+          // Example 3 code
+          
+          const Padding(
+            padding: EdgeInsets.only(top: 18),
+            child: Card(
+              child: ListTile(
+                title: Text('One-line with trailing widget'),
+                trailing: Icon(Icons.more_vert),
+              ),
+            ),
+          ),
+          
+          // Example 4 code
+          const Padding(
+            padding: EdgeInsets.only(top: 18),
+            child: Card(
+              child: ListTile(
+                leading: FlutterLogo(),
+                title: Text('One-line with both widgets'),
+                trailing: Icon(Icons.more_vert),
+              ),
+            ),
+          ),
+          
+          // Example 5 code
+          const Padding(
+            padding: EdgeInsets.only(top: 18),
+            child: Card(
+              child: ListTile(
+                title: Text('One-line dense ListTile'),
+                dense: true,
+              ),
+            ),
+          ),
+          
+          //Example 6 code
+          const Padding(
+            padding: EdgeInsets.only(top: 18),
+            child: Card(
+              child: ListTile(
+                leading: FlutterLogo(size: 56.0),
+                title: Text('Two-line ListTile'),
+                subtitle: Text('Here is a second line'),
+                trailing: Icon(Icons.more_vert),
+              ),
+            ),
+          ),
+         
+         // Example 7 code
+          const Padding(
+            padding: EdgeInsets.only(top: 18),
+            child: Card(
+              child: ListTile(
+                leading: FlutterLogo(size: 72.0),
+                title: Text('Three-line ListTile'),
+                subtitle:
+                    Text('A sufficiently long subtitle warrants three lines.'),
+                trailing: Icon(Icons.more_vert),
+                isThreeLine: true,
+              ),
+            ),
+          ),
+        ],
+            );
+          }
+        }''',
+          child: ListTileExample(),
+        ),
+      ),
+    );
+  }
+}
+
+class ListTileExample extends StatefulWidget {
+  const ListTileExample({super.key});
+
+  @override
+  State<ListTileExample> createState() => _ListTileExampleState();
+}
+
+class _ListTileExampleState extends State<ListTileExample> {
+
   String videoUrl = 'https://www.youtube.com/watch?v=l8dj0yPBvgQ';
   YoutubePlayerController? _controller;
 
@@ -40,167 +184,16 @@ class _ListTileWidgetState extends State<ListTileWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-        backgroundColor: Colors.black,
-        title: const Text(
-          'ListTile',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
-        ),
-      ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 8),
-            child: YoutubePlayer(
-              controller: _controller!,
-              showVideoProgressIndicator: true,
-              progressColors: const ProgressBarColors(
-                backgroundColor: Colors.white,
-                handleColor: Colors.black,
-              ),
-            ),
-          ),
-          const Expanded(
-            flex: 1,
-            child: WidgetWithCodeView(
-              iconBackgroundColor: Colors.black,
-              iconForegroundColor: Colors.white,
-              filePath: 'lib/widgets/list_tile_widget.dart',
-              codeLinkPrefix: 'https://google.com?q=',
-              codeContent: '''
-              import 'package:flutter/material.dart';
-            
-            class ListTileExample extends StatefulWidget {
-                const ListTileExample({super.key});
-            
-              @override
-              State<ListTileExample> createState() => _ListTileExampleState();
-            }
-            
-            class _ListTileExampleState extends State<ListTileExample> {
-            
-              @override
-              Widget build(BuildContext context) {
-                return ListView(
-            children: <Widget>[
-              
-              // Example 1 code
-              const Padding(
-                padding: EdgeInsets.only(top: 18),
-                child: Card(
-                  child: ListTile(
-                    title: Text('One-line ListTile'),
-                  ),
-                ),
-              ),
-              
-              // Example 2 code
-              const Padding(
-                padding: EdgeInsets.only(top: 18),
-                child: Card(
-                  child: ListTile(
-                    leading: FlutterLogo(),
-                    title: Text('One-line with leading widget'),
-                  ),
-                ),
-              ),
-              
-              // Example 3 code
-              
-              const Padding(
-                padding: EdgeInsets.only(top: 18),
-                child: Card(
-                  child: ListTile(
-                    title: Text('One-line with trailing widget'),
-                    trailing: Icon(Icons.more_vert),
-                  ),
-                ),
-              ),
-              
-              // Example 4 code
-              const Padding(
-                padding: EdgeInsets.only(top: 18),
-                child: Card(
-                  child: ListTile(
-                    leading: FlutterLogo(),
-                    title: Text('One-line with both widgets'),
-                    trailing: Icon(Icons.more_vert),
-                  ),
-                ),
-              ),
-              
-              // Example 5 code
-              const Padding(
-                padding: EdgeInsets.only(top: 18),
-                child: Card(
-                  child: ListTile(
-                    title: Text('One-line dense ListTile'),
-                    dense: true,
-                  ),
-                ),
-              ),
-              
-              //Example 6 code
-              const Padding(
-                padding: EdgeInsets.only(top: 18),
-                child: Card(
-                  child: ListTile(
-                    leading: FlutterLogo(size: 56.0),
-                    title: Text('Two-line ListTile'),
-                    subtitle: Text('Here is a second line'),
-                    trailing: Icon(Icons.more_vert),
-                  ),
-                ),
-              ),
-             
-             // Example 7 code
-              const Padding(
-                padding: EdgeInsets.only(top: 18),
-                child: Card(
-                  child: ListTile(
-                    leading: FlutterLogo(size: 72.0),
-                    title: Text('Three-line ListTile'),
-                    subtitle:
-                        Text('A sufficiently long subtitle warrants three lines.'),
-                    trailing: Icon(Icons.more_vert),
-                    isThreeLine: true,
-                  ),
-                ),
-              ),
-            ],
-                );
-              }
-            }''',
-              child: ListTileExample(),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class ListTileExample extends StatefulWidget {
-  const ListTileExample({super.key});
-
-  @override
-  State<ListTileExample> createState() => _ListTileExampleState();
-}
-
-class _ListTileExampleState extends State<ListTileExample> {
-
-  @override
-  Widget build(BuildContext context) {
     return ListView(
       children: <Widget>[
+        YoutubePlayer(
+          controller: _controller!,
+          showVideoProgressIndicator: true,
+          progressColors: const ProgressBarColors(
+            backgroundColor: Colors.white,
+            handleColor: Colors.black,
+          ),
+        ),
         const Padding(
           padding: EdgeInsets.only(top: 18, left: 15),
           child: Text(

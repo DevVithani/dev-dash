@@ -12,6 +12,144 @@ class ContainerWidget extends StatefulWidget {
 
 class _ContainerWidgetState extends State<ContainerWidget> {
 
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        backgroundColor: Colors.black,
+        title: const Text(
+          'Container Widget',
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+      body: const Expanded(
+        flex: 1,
+        child: WidgetWithCodeView(
+          filePath: 'lib/widgets/container_widget.dart',
+          iconForegroundColor: Colors.white,
+          iconBackgroundColor: Colors.black,
+          codeLinkPrefix: 'https://google.com?q=',
+          codeContent: '''
+          import 'package:flutter/material.dart';
+        
+          class ContainerExample extends StatefulWidget {
+          const ContainerExample({super.key});
+        
+          @override
+          State<ContainerExample> createState() => _ContainerExampleState();
+        }
+        
+        class _ContainerExampleState extends State<ContainerExample> {
+          String url = 'https://www.youtube.com/watch?v=c1xLMaTUWCY';
+        
+          YoutubePlayerController? controller;
+        
+          @override
+          void initState() {
+            final videoId = YoutubePlayer.convertUrlToId(url);
+        
+            controller = YoutubePlayerController(
+        initialVideoId: videoId!,
+        flags: const YoutubePlayerFlags(
+          autoPlay: false,
+          mute: false,
+          enableCaption: true,
+          loop: true,
+          forceHD: true,
+        ),
+            );
+            super.initState();
+          }
+        
+          @override
+          Widget build(BuildContext context) {
+            return SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+          // Example 1 Code
+          
+            Padding(
+              padding: const EdgeInsets.only(top: 18),
+              child: Center(
+                child: Container(
+                  color: Colors.black,
+                  width: 200,
+                  height: 100,
+                  child: const Center(
+                    child: Text(
+                      'Hello!',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            
+            // Example 2 Code
+            
+            Padding(
+              padding: const EdgeInsets.only(top: 18),
+              child: Center(
+                child: Container(
+                  width: 200,
+                  height: 100,
+                  decoration: BoxDecoration(
+                    color: Colors.blueAccent,
+                    borderRadius: BorderRadius.circular(10),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.9),
+                        spreadRadius: 2,
+                        blurRadius: 5,
+                        offset: const Offset(0, 4),
+                      ),
+                    ],
+                  ),
+                  child: const Center(
+                    child: Text(
+                      'Hello!',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+            );
+          }
+        }''',
+          child: ContainerExample(),
+        ),
+      ),
+    );
+  }
+}
+
+class ContainerExample extends StatefulWidget {
+  const ContainerExample({super.key});
+
+  @override
+  State<ContainerExample> createState() => _ContainerExampleState();
+}
+
+class _ContainerExampleState extends State<ContainerExample> {
+
   String url = 'https://www.youtube.com/watch?v=c1xLMaTUWCY';
 
   YoutubePlayerController? controller;
@@ -35,163 +173,18 @@ class _ContainerWidgetState extends State<ContainerWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-        backgroundColor: Colors.black,
-        title: const Text(
-          'Container Widget',
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 8),
-            child: YoutubePlayer(
-              controller: controller!,
-              progressColors: const ProgressBarColors(
-                backgroundColor: Colors.black,
-                handleColor: Colors.white,
-              ),
-            ),
-          ),
-          const Expanded(
-            flex: 1,
-            child: WidgetWithCodeView(
-              filePath: 'lib/widgets/container_widget.dart',
-              iconForegroundColor: Colors.white,
-              iconBackgroundColor: Colors.black,
-              codeLinkPrefix: 'https://google.com?q=',
-              codeContent: '''
-              import 'package:flutter/material.dart';
-            
-              class ContainerExample extends StatefulWidget {
-              const ContainerExample({super.key});
-            
-              @override
-              State<ContainerExample> createState() => _ContainerExampleState();
-            }
-            
-            class _ContainerExampleState extends State<ContainerExample> {
-              String url = 'https://www.youtube.com/watch?v=c1xLMaTUWCY';
-            
-              YoutubePlayerController? controller;
-            
-              @override
-              void initState() {
-                final videoId = YoutubePlayer.convertUrlToId(url);
-            
-                controller = YoutubePlayerController(
-            initialVideoId: videoId!,
-            flags: const YoutubePlayerFlags(
-              autoPlay: false,
-              mute: false,
-              enableCaption: true,
-              loop: true,
-              forceHD: true,
-            ),
-                );
-                super.initState();
-              }
-            
-              @override
-              Widget build(BuildContext context) {
-                return SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-              // Example 1 Code
-              
-                Padding(
-                  padding: const EdgeInsets.only(top: 18),
-                  child: Center(
-                    child: Container(
-                      color: Colors.black,
-                      width: 200,
-                      height: 100,
-                      child: const Center(
-                        child: Text(
-                          'Hello!',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                
-                // Example 2 Code
-                
-                Padding(
-                  padding: const EdgeInsets.only(top: 18),
-                  child: Center(
-                    child: Container(
-                      width: 200,
-                      height: 100,
-                      decoration: BoxDecoration(
-                        color: Colors.blueAccent,
-                        borderRadius: BorderRadius.circular(10),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.9),
-                            spreadRadius: 2,
-                            blurRadius: 5,
-                            offset: const Offset(0, 4),
-                          ),
-                        ],
-                      ),
-                      child: const Center(
-                        child: Text(
-                          'Hello!',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-                );
-              }
-            }''',
-              child: ContainerExample(),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class ContainerExample extends StatefulWidget {
-  const ContainerExample({super.key});
-
-  @override
-  State<ContainerExample> createState() => _ContainerExampleState();
-}
-
-class _ContainerExampleState extends State<ContainerExample> {
-
-  @override
-  Widget build(BuildContext context) {
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          YoutubePlayer(
+            controller: controller!,
+            progressColors: const ProgressBarColors(
+              backgroundColor: Colors.black,
+              handleColor: Colors.white,
+            ),
+          ),
           const Padding(
             padding: EdgeInsets.only(top: 18, left: 15),
             child: Text(

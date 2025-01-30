@@ -12,6 +12,88 @@ class ScrollbarWidget extends StatefulWidget {
 
 class _ScrollbarWidgetState extends State<ScrollbarWidget> {
 
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        backgroundColor: Colors.black,
+        title: const Text(
+          'ScrollBar',
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+      body: const Expanded(
+        flex: 1,
+        child: WidgetWithCodeView(
+          filePath: 'lib/widgets/scrollbar_widget.dart',
+          iconBackgroundColor: Colors.black,
+          iconForegroundColor: Colors.white,
+          codeLinkPrefix: 'https://google.com?q=',
+          codeContent: '''
+          import 'package:flutter/material.dart';
+        
+          class ScrollBarExample extends StatefulWidget {
+          const ScrollBarExample({super.key});
+        
+          @override
+          State<ScrollBarExample> createState() => _ScrollBarExampleState();
+        }
+        
+        class _ScrollBarExampleState extends State<ScrollBarExample> {
+          @override
+          Widget build(BuildContext context) {
+            return SingleChildScrollView(
+        clipBehavior: Clip.none,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(
+              height: MediaQuery.of(context).size.height / 1.2,
+              child: Scrollbar(
+                trackVisibility: true,
+                thumbVisibility: true,
+                child: GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                  ),
+                  itemCount: 50,
+                  primary: true,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Center(
+                      child: Text('item index'),   // put dollar symbol before index
+                    );
+                  },
+                ),
+              ),
+            ),
+          ],
+        ),
+            );
+          }
+        }''',
+          child: ScrollBarExample(),
+        ),
+      ),
+    );
+  }
+}
+
+class ScrollBarExample extends StatefulWidget {
+  const ScrollBarExample({super.key});
+
+  @override
+  State<ScrollBarExample> createState() => _ScrollBarExampleState();
+}
+
+class _ScrollBarExampleState extends State<ScrollBarExample> {
+
   String url = 'https://youtu.be/DbkIQSvwnZc';
 
   YoutubePlayerController? controller;
@@ -35,107 +117,18 @@ class _ScrollbarWidgetState extends State<ScrollbarWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-        backgroundColor: Colors.black,
-        title: const Text(
-          'ScrollBar',
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 8),
-            child: YoutubePlayer(
-              controller: controller!,
-              progressColors: const ProgressBarColors(
-                backgroundColor: Colors.black,
-                handleColor: Colors.white,
-              ),
-            ),
-          ),
-          const Expanded(
-            flex: 1,
-            child: WidgetWithCodeView(
-              filePath: 'lib/widgets/scrollbar_widget.dart',
-              iconBackgroundColor: Colors.black,
-              iconForegroundColor: Colors.white,
-              codeLinkPrefix: 'https://google.com?q=',
-              codeContent: '''
-              import 'package:flutter/material.dart';
-            
-              class ScrollBarExample extends StatefulWidget {
-              const ScrollBarExample({super.key});
-            
-              @override
-              State<ScrollBarExample> createState() => _ScrollBarExampleState();
-            }
-            
-            class _ScrollBarExampleState extends State<ScrollBarExample> {
-              @override
-              Widget build(BuildContext context) {
-                return SingleChildScrollView(
-            clipBehavior: Clip.none,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  height: MediaQuery.of(context).size.height / 1.2,
-                  child: Scrollbar(
-                    trackVisibility: true,
-                    thumbVisibility: true,
-                    child: GridView.builder(
-                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 3,
-                      ),
-                      itemCount: 50,
-                      primary: true,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Center(
-                          child: Text('item index'),   // put dollar symbol before index
-                        );
-                      },
-                    ),
-                  ),
-                ),
-              ],
-            ),
-                );
-              }
-            }''',
-              child: ScrollBarExample(),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class ScrollBarExample extends StatefulWidget {
-  const ScrollBarExample({super.key});
-
-  @override
-  State<ScrollBarExample> createState() => _ScrollBarExampleState();
-}
-
-class _ScrollBarExampleState extends State<ScrollBarExample> {
-
-  @override
-  Widget build(BuildContext context) {
     return SingleChildScrollView(
       clipBehavior: Clip.none,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          YoutubePlayer(
+            controller: controller!,
+            progressColors: const ProgressBarColors(
+              backgroundColor: Colors.black,
+              handleColor: Colors.white,
+            ),
+          ),
           const Padding(
             padding: EdgeInsets.only(top: 18, left: 15),
             child: Text(

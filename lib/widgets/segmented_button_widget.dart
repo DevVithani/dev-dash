@@ -12,27 +12,6 @@ class SegmentedButtonWidget extends StatefulWidget {
 
 class _SegmentedButtonWidgetState extends State<SegmentedButtonWidget> {
 
-  String url = 'https://www.youtube.com/watch?v=Kj6jwKsVC3A';
-
-  YoutubePlayerController? controller;
-
-  @override
-  void initState() {
-    final videoId = YoutubePlayer.convertUrlToId(url);
-
-    controller = YoutubePlayerController(
-      initialVideoId: videoId!,
-      flags: const YoutubePlayerFlags(
-        autoPlay: false,
-        mute: false,
-        enableCaption: true,
-        loop: true,
-        forceHD: true,
-      ),
-    );
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,171 +26,157 @@ class _SegmentedButtonWidgetState extends State<SegmentedButtonWidget> {
           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
         ),
       ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 8),
-            child: YoutubePlayer(
-              controller: controller!,
-              progressColors: const ProgressBarColors(
-                backgroundColor: Colors.black,
-                handleColor: Colors.white,
-              ),
-            ),
-          ),
-          const Expanded(
-            flex: 1,
-            child: WidgetWithCodeView(
-              filePath: 'lib/widgets/segmented_button_widget.dart',
-              iconForegroundColor: Colors.white,
-              iconBackgroundColor: Colors.black,
-              codeLinkPrefix: 'https://google.com?q=',
-              codeContent: '''
-              import 'package:flutter/material.dart';
-            
-              enum Calendar { day, week, month, year }
-            
-            class SingleChoice extends StatefulWidget {
-              const SingleChoice({super.key});
-            
-              @override
-              State<SingleChoice> createState() => _SingleChoiceState();
-            }
-            
-            class _SingleChoiceState extends State<SingleChoice> {
-              Calendar calendarView = Calendar.day;
-            
-              @override
-              Widget build(BuildContext context) {
-                return SegmentedButton<Calendar>(
-            segments: const <ButtonSegment<Calendar>>[
-              ButtonSegment<Calendar>(
-                  value: Calendar.day,
-                  label: Text('Day'),
-                  icon: Icon(Icons.calendar_view_day)),
-              ButtonSegment<Calendar>(
-                  value: Calendar.week,
-                  label: Text('Week'),
-                  icon: Icon(Icons.calendar_view_week)),
-              ButtonSegment<Calendar>(
-                  value: Calendar.month,
-                  label: Text('Month'),
-                  icon: Icon(Icons.calendar_view_month)),
-              ButtonSegment<Calendar>(
-                  value: Calendar.year,
-                  label: Text('Year'),
-                  icon: Icon(Icons.calendar_today)),
-            ],
-            selected: <Calendar>{calendarView},
-            onSelectionChanged: (Set<Calendar> newSelection) {
-              setState(() {
-                calendarView = newSelection.first;
-              });
-            },
-                );
-              }
-            }
-            
-            enum Sizes { extraSmall, small, medium, large, extraLarge }
-            
-            class MultipleChoice extends StatefulWidget {
-              const MultipleChoice({super.key});
-            
-              @override
-              State<MultipleChoice> createState() => _MultipleChoiceState();
-            }
-            
-            class _MultipleChoiceState extends State<MultipleChoice> {
-              Set<Sizes> selection = <Sizes>{Sizes.large, Sizes.extraLarge};
-            
-              @override
-              Widget build(BuildContext context) {
-                return SegmentedButton<Sizes>(
-            segments: const <ButtonSegment<Sizes>>[
-              ButtonSegment<Sizes>(value: Sizes.extraSmall, label: Text('XS')),
-              ButtonSegment<Sizes>(value: Sizes.small, label: Text('S')),
-              ButtonSegment<Sizes>(value: Sizes.medium, label: Text('M')),
-              ButtonSegment<Sizes>(
-                value: Sizes.large,
-                label: Text('L'),
-              ),
-              ButtonSegment<Sizes>(value: Sizes.extraLarge, label: Text('XL')),
-            ],
-            selected: selection,
-            onSelectionChanged: (Set<Sizes> newSelection) {
-              setState(() {
-                selection = newSelection;
-              });
-            },
-            multiSelectionEnabled: true,
-                );
-              }
-            }
-            
-            class SegmentedButtonExample extends StatefulWidget {
-              const SegmentedButtonExample({super.key});
-            
-              @override
-              State<SegmentedButtonExample> createState() => _SegmentedButtonExampleState();
-            }
-            
-            class _SegmentedButtonExampleState extends State<SegmentedButtonExample> {
-            
-              @override
-              Widget build(BuildContext context) {
-                return Center(
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                
-                  // Example 1 Code
-                  
-                  const Padding(
-                    padding: EdgeInsets.only(left: 18.0),
-                    child: Text(
-                      'Single choice:',
-                      style: TextStyle(fontSize: 15),
-                    ),
-                  ),
-                  const SingleChildScrollView(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SingleChoice(),
-                      ],
-                    ),
-                  ),
-                  
-                  // Example 2 Code
-                  const Padding(
-                    padding: EdgeInsets.only(top: 18, left: 15),
-                    child: Text(
-                      'Multiple choice',
-                      style: TextStyle(fontSize: 15,),
-                    ),
-                  ),
-                  const SingleChildScrollView(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        MultipleChoice(),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-                );
-              }
-            }''',
-              child: SegmentedButtonExample(),
-            ),
-          ),
+      body: const Expanded(
+        flex: 1,
+        child: WidgetWithCodeView(
+          filePath: 'lib/widgets/segmented_button_widget.dart',
+          iconForegroundColor: Colors.white,
+          iconBackgroundColor: Colors.black,
+          codeLinkPrefix: 'https://google.com?q=',
+          codeContent: '''
+          import 'package:flutter/material.dart';
+        
+          enum Calendar { day, week, month, year }
+        
+        class SingleChoice extends StatefulWidget {
+          const SingleChoice({super.key});
+        
+          @override
+          State<SingleChoice> createState() => _SingleChoiceState();
+        }
+        
+        class _SingleChoiceState extends State<SingleChoice> {
+          Calendar calendarView = Calendar.day;
+        
+          @override
+          Widget build(BuildContext context) {
+            return SegmentedButton<Calendar>(
+        segments: const <ButtonSegment<Calendar>>[
+          ButtonSegment<Calendar>(
+              value: Calendar.day,
+              label: Text('Day'),
+              icon: Icon(Icons.calendar_view_day)),
+          ButtonSegment<Calendar>(
+              value: Calendar.week,
+              label: Text('Week'),
+              icon: Icon(Icons.calendar_view_week)),
+          ButtonSegment<Calendar>(
+              value: Calendar.month,
+              label: Text('Month'),
+              icon: Icon(Icons.calendar_view_month)),
+          ButtonSegment<Calendar>(
+              value: Calendar.year,
+              label: Text('Year'),
+              icon: Icon(Icons.calendar_today)),
         ],
+        selected: <Calendar>{calendarView},
+        onSelectionChanged: (Set<Calendar> newSelection) {
+          setState(() {
+            calendarView = newSelection.first;
+          });
+        },
+            );
+          }
+        }
+        
+        enum Sizes { extraSmall, small, medium, large, extraLarge }
+        
+        class MultipleChoice extends StatefulWidget {
+          const MultipleChoice({super.key});
+        
+          @override
+          State<MultipleChoice> createState() => _MultipleChoiceState();
+        }
+        
+        class _MultipleChoiceState extends State<MultipleChoice> {
+          Set<Sizes> selection = <Sizes>{Sizes.large, Sizes.extraLarge};
+        
+          @override
+          Widget build(BuildContext context) {
+            return SegmentedButton<Sizes>(
+        segments: const <ButtonSegment<Sizes>>[
+          ButtonSegment<Sizes>(value: Sizes.extraSmall, label: Text('XS')),
+          ButtonSegment<Sizes>(value: Sizes.small, label: Text('S')),
+          ButtonSegment<Sizes>(value: Sizes.medium, label: Text('M')),
+          ButtonSegment<Sizes>(
+            value: Sizes.large,
+            label: Text('L'),
+          ),
+          ButtonSegment<Sizes>(value: Sizes.extraLarge, label: Text('XL')),
+        ],
+        selected: selection,
+        onSelectionChanged: (Set<Sizes> newSelection) {
+          setState(() {
+            selection = newSelection;
+          });
+        },
+        multiSelectionEnabled: true,
+            );
+          }
+        }
+        
+        class SegmentedButtonExample extends StatefulWidget {
+          const SegmentedButtonExample({super.key});
+        
+          @override
+          State<SegmentedButtonExample> createState() => _SegmentedButtonExampleState();
+        }
+        
+        class _SegmentedButtonExampleState extends State<SegmentedButtonExample> {
+        
+          @override
+          Widget build(BuildContext context) {
+            return Center(
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+            
+              // Example 1 Code
+              
+              const Padding(
+                padding: EdgeInsets.only(left: 18.0),
+                child: Text(
+                  'Single choice:',
+                  style: TextStyle(fontSize: 15),
+                ),
+              ),
+              const SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SingleChoice(),
+                  ],
+                ),
+              ),
+              
+              // Example 2 Code
+              const Padding(
+                padding: EdgeInsets.only(top: 18, left: 15),
+                child: Text(
+                  'Multiple choice',
+                  style: TextStyle(fontSize: 15,),
+                ),
+              ),
+              const SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    MultipleChoice(),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+            );
+          }
+        }''',
+          child: SegmentedButtonExample(),
+        ),
       ),
     );
   }
@@ -305,15 +270,43 @@ class SegmentedButtonExample extends StatefulWidget {
 
 class _SegmentedButtonExampleState extends State<SegmentedButtonExample> {
 
+  String url = 'https://www.youtube.com/watch?v=Kj6jwKsVC3A';
+
+  YoutubePlayerController? controller;
+
+  @override
+  void initState() {
+    final videoId = YoutubePlayer.convertUrlToId(url);
+
+    controller = YoutubePlayerController(
+      initialVideoId: videoId!,
+      flags: const YoutubePlayerFlags(
+        autoPlay: false,
+        mute: false,
+        enableCaption: true,
+        loop: true,
+        forceHD: true,
+      ),
+    );
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return const Center(
+    return Center(
       child: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
+            YoutubePlayer(
+              controller: controller!,
+              progressColors: const ProgressBarColors(
+                backgroundColor: Colors.black,
+                handleColor: Colors.white,
+              ),
+            ),
+            const Padding(
               padding: EdgeInsets.only(top: 18, left: 15),
               child: Text(
                 'Properties of SegmentedButton Widget: ',
@@ -323,7 +316,7 @@ class _SegmentedButtonExampleState extends State<SegmentedButtonExample> {
                 ),
               ),
             ),
-            Padding(
+            const Padding(
               padding: EdgeInsets.only(top: 18, left: 15),
               child: Text(
                 '1.emptySelectionAllowed\n'
@@ -339,11 +332,11 @@ class _SegmentedButtonExampleState extends State<SegmentedButtonExample> {
                 ),
               ),
             ),
-            Divider(
+            const Divider(
               thickness: 2,
               height: 50,
             ),
-            Padding(
+            const Padding(
               padding: EdgeInsets.only(top: 18, left: 15),
               child: Text(
                 'Example 1: Single Choice',
@@ -353,7 +346,7 @@ class _SegmentedButtonExampleState extends State<SegmentedButtonExample> {
                     color: Colors.blue),
               ),
             ),
-            SingleChildScrollView(
+            const SingleChildScrollView(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -365,11 +358,11 @@ class _SegmentedButtonExampleState extends State<SegmentedButtonExample> {
                 ],
               ),
             ),
-            Divider(
+            const Divider(
               thickness: 2,
               height: 50,
             ),
-            Padding(
+            const Padding(
               padding: EdgeInsets.only(top: 18, left: 15),
               child: Text(
                 'Example 2: Multiple Choice',
@@ -380,7 +373,7 @@ class _SegmentedButtonExampleState extends State<SegmentedButtonExample> {
                 ),
               ),
             ),
-            SingleChildScrollView(
+            const SingleChildScrollView(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -394,7 +387,7 @@ class _SegmentedButtonExampleState extends State<SegmentedButtonExample> {
                 ],
               ),
             ),
-            Divider(
+            const Divider(
               thickness: 2,
               height: 50,
             ),

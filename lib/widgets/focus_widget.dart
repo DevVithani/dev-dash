@@ -12,6 +12,113 @@ class FocusWidget extends StatefulWidget {
 
 class _FocusWidgetState extends State<FocusWidget> {
 
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        backgroundColor: Colors.black,
+        title: const Text(
+          'Focus',
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+      body: const Expanded(
+        flex: 1,
+        child: WidgetWithCodeView(
+          filePath: 'lib/widgets/focus_widget.dart',
+          iconForegroundColor: Colors.white,
+          iconBackgroundColor: Colors.black,
+          codeLinkPrefix: 'https://google.com?q=',
+          codeContent: '''
+          import 'package:flutter/material.dart';
+        
+          class FocusExample extends StatefulWidget {
+          const FocusExample({super.key});
+        
+          @override
+          State<FocusExample> createState() => _FocusExampleState();
+        }
+        
+        class _FocusExampleState extends State<FocusExample> {
+          int focusedChild = 0;
+          List<Widget> children = <Widget>[];
+          List<FocusNode> childFocusNodes = <FocusNode>[];
+        
+          @override
+          void initState() {
+            super.initState();
+            _addChild();
+          }
+        
+          @override
+          void dispose() {
+            for (final FocusNode node in childFocusNodes) {
+        node.dispose();
+            }
+            super.dispose();
+          }
+        
+          void _addChild() {
+            childFocusNodes
+          .add(FocusNode(debugLabel: 'Child {children.length}')..requestFocus());  // put dollar symbol before {}
+            children.add(
+        Padding(
+          padding: const EdgeInsets.all(2.0),
+          child: ActionChip(
+            focusNode: childFocusNodes.last,
+            label: Text('Child {children.length}'),   // put dollar symbol before {}
+            onPressed: () {},
+          ),
+        ),
+            );
+          }
+        
+          @override
+          Widget build(BuildContext context) {
+            return Scaffold(
+        body: Center(
+          child: Wrap(
+            children: children,
+          ),
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            setState(() {
+              focusedChild = children.length;
+              _addChild();
+            });
+          },
+          child: const Icon(Icons.add),
+        ),
+            );
+          }
+        }''',
+          child: FocusExample(),
+        ),
+      ),
+    );
+  }
+}
+
+class FocusExample extends StatefulWidget {
+  const FocusExample({super.key});
+
+  @override
+  State<FocusExample> createState() => _FocusExampleState();
+}
+
+class _FocusExampleState extends State<FocusExample> {
+  int focusedChild = 0;
+  List<Widget> children = <Widget>[];
+  List<FocusNode> childFocusNodes = <FocusNode>[];
+
   String url = 'https://youtu.be/JCDfh5bs1xc';
 
   YoutubePlayerController? controller;
@@ -30,134 +137,8 @@ class _FocusWidgetState extends State<FocusWidget> {
         forceHD: true,
       ),
     );
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-        backgroundColor: Colors.black,
-        title: const Text(
-          'Focus',
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 8),
-            child: YoutubePlayer(
-              controller: controller!,
-              progressColors: const ProgressBarColors(
-                backgroundColor: Colors.black,
-                handleColor: Colors.white,
-              ),
-            ),
-          ),
-          const Expanded(
-            flex: 1,
-            child: WidgetWithCodeView(
-              filePath: 'lib/widgets/focus_widget.dart',
-              iconForegroundColor: Colors.white,
-              iconBackgroundColor: Colors.black,
-              codeLinkPrefix: 'https://google.com?q=',
-              codeContent: '''
-              import 'package:flutter/material.dart';
-            
-              class FocusExample extends StatefulWidget {
-              const FocusExample({super.key});
-            
-              @override
-              State<FocusExample> createState() => _FocusExampleState();
-            }
-            
-            class _FocusExampleState extends State<FocusExample> {
-              int focusedChild = 0;
-              List<Widget> children = <Widget>[];
-              List<FocusNode> childFocusNodes = <FocusNode>[];
-            
-              @override
-              void initState() {
-                super.initState();
-                _addChild();
-              }
-            
-              @override
-              void dispose() {
-                for (final FocusNode node in childFocusNodes) {
-            node.dispose();
-                }
-                super.dispose();
-              }
-            
-              void _addChild() {
-                childFocusNodes
-              .add(FocusNode(debugLabel: 'Child {children.length}')..requestFocus());  // put dollar symbol before {}
-                children.add(
-            Padding(
-              padding: const EdgeInsets.all(2.0),
-              child: ActionChip(
-                focusNode: childFocusNodes.last,
-                label: Text('Child {children.length}'),   // put dollar symbol before {}
-                onPressed: () {},
-              ),
-            ),
-                );
-              }
-            
-              @override
-              Widget build(BuildContext context) {
-                return Scaffold(
-            body: Center(
-              child: Wrap(
-                children: children,
-              ),
-            ),
-            floatingActionButton: FloatingActionButton(
-              onPressed: () {
-                setState(() {
-                  focusedChild = children.length;
-                  _addChild();
-                });
-              },
-              child: const Icon(Icons.add),
-            ),
-                );
-              }
-            }''',
-              child: FocusExample(),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class FocusExample extends StatefulWidget {
-  const FocusExample({super.key});
-
-  @override
-  State<FocusExample> createState() => _FocusExampleState();
-}
-
-class _FocusExampleState extends State<FocusExample> {
-  int focusedChild = 0;
-  List<Widget> children = <Widget>[];
-  List<FocusNode> childFocusNodes = <FocusNode>[];
-
-  @override
-  void initState() {
-    super.initState();
     _addChild();
+    super.initState();
   }
 
   @override
@@ -191,6 +172,13 @@ class _FocusExampleState extends State<FocusExample> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            YoutubePlayer(
+              controller: controller!,
+              progressColors: const ProgressBarColors(
+                backgroundColor: Colors.black,
+                handleColor: Colors.white,
+              ),
+            ),
             const Padding(
               padding: EdgeInsets.only(top: 18, left: 15),
               child: Text(

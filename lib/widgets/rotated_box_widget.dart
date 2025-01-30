@@ -12,6 +12,125 @@ class RotatedBoxWidget extends StatefulWidget {
 
 class _RotatedBoxWidgetState extends State<RotatedBoxWidget> {
 
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        backgroundColor: Colors.black,
+        title: const Text(
+          'Rotated Box',
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+      body: const Expanded(
+        flex: 1,
+        child: WidgetWithCodeView(
+          filePath: 'lib/widgets/rotated_box_widget.dart',
+          iconForegroundColor: Colors.white,
+          iconBackgroundColor: Colors.black,
+          codeLinkPrefix: 'https://google.com?q=',
+          codeContent: '''
+          import 'package:flutter/material.dart';
+          
+          class RotatedBoxExample extends StatefulWidget {
+          const RotatedBoxExample({super.key});
+        
+          @override
+          State<RotatedBoxExample> createState() => _RotatedBoxExampleState();
+        }
+        
+        class _RotatedBoxExampleState extends State<RotatedBoxExample> {
+        
+          @override
+          Widget build(BuildContext context) {
+            return SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 18),
+              child: RotatedBox(
+                quarterTurns: 3,
+                child: Center(
+                  child: Container(
+                    height: 50,
+                    width: 100,
+                    decoration: BoxDecoration(
+                      color: Colors.black,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: const Center(
+                      child: Text(
+                        'Hello!',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 15,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            
+            // Example 2 Code
+            
+            Padding(
+              padding: const EdgeInsets.only(top: 18),
+              child: RotatedBox(
+                quarterTurns: 2,
+                child: Center(
+                  child: Container(
+                    height: 50,
+                    width: 100,
+                    decoration: BoxDecoration(
+                      color: Colors.black,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: const Center(
+                      child: Text(
+                        'Hello',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 15,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+            );
+          }
+        }''',
+          child: RotatedBoxExample(),
+        ),
+      ),
+    );
+  }
+}
+
+class RotatedBoxExample extends StatefulWidget {
+  const RotatedBoxExample({super.key});
+
+  @override
+  State<RotatedBoxExample> createState() => _RotatedBoxExampleState();
+}
+
+class _RotatedBoxExampleState extends State<RotatedBoxExample> {
+
   String url = 'https://www.youtube.com/watch?v=BFE6_UglLfQ';
 
   YoutubePlayerController? controller;
@@ -35,144 +154,18 @@ class _RotatedBoxWidgetState extends State<RotatedBoxWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-        backgroundColor: Colors.black,
-        title: const Text(
-          'Rotated Box',
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 8),
-            child: YoutubePlayer(
-              controller: controller!,
-              progressColors: const ProgressBarColors(
-                backgroundColor: Colors.black,
-                handleColor: Colors.white,
-              ),
-            ),
-          ),
-          const Expanded(
-            flex: 1,
-            child: WidgetWithCodeView(
-              filePath: 'lib/widgets/rotated_box_widget.dart',
-              iconForegroundColor: Colors.white,
-              iconBackgroundColor: Colors.black,
-              codeLinkPrefix: 'https://google.com?q=',
-              codeContent: '''
-              import 'package:flutter/material.dart';
-              
-              class RotatedBoxExample extends StatefulWidget {
-              const RotatedBoxExample({super.key});
-            
-              @override
-              State<RotatedBoxExample> createState() => _RotatedBoxExampleState();
-            }
-            
-            class _RotatedBoxExampleState extends State<RotatedBoxExample> {
-            
-              @override
-              Widget build(BuildContext context) {
-                return SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 18),
-                  child: RotatedBox(
-                    quarterTurns: 3,
-                    child: Center(
-                      child: Container(
-                        height: 50,
-                        width: 100,
-                        decoration: BoxDecoration(
-                          color: Colors.black,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: const Center(
-                          child: Text(
-                            'Hello!',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 15,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                
-                // Example 2 Code
-                
-                Padding(
-                  padding: const EdgeInsets.only(top: 18),
-                  child: RotatedBox(
-                    quarterTurns: 2,
-                    child: Center(
-                      child: Container(
-                        height: 50,
-                        width: 100,
-                        decoration: BoxDecoration(
-                          color: Colors.black,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: const Center(
-                          child: Text(
-                            'Hello',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 15,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-                );
-              }
-            }''',
-              child: RotatedBoxExample(),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class RotatedBoxExample extends StatefulWidget {
-  const RotatedBoxExample({super.key});
-
-  @override
-  State<RotatedBoxExample> createState() => _RotatedBoxExampleState();
-}
-
-class _RotatedBoxExampleState extends State<RotatedBoxExample> {
-
-  @override
-  Widget build(BuildContext context) {
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          YoutubePlayer(
+            controller: controller!,
+            progressColors: const ProgressBarColors(
+              backgroundColor: Colors.black,
+              handleColor: Colors.white,
+            ),
+          ),
           const Padding(
             padding: EdgeInsets.only(top: 18, left: 15),
             child: Text(

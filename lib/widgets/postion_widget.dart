@@ -11,6 +11,149 @@ class PositionWidget extends StatefulWidget {
 }
 
 class _PositionWidgetState extends State<PositionWidget> {
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        backgroundColor: Colors.black,
+        title: const Text(
+          'Positioned',
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+      body: const Expanded(
+        flex: 1,
+        child: WidgetWithCodeView(
+          filePath: 'lib/widgets/position_widget.dart',
+          iconForegroundColor: Colors.white,
+          iconBackgroundColor: Colors.black,
+          codeLinkPrefix: 'https://google.com?q=',
+          codeContent: '''
+        import 'package:flutter/material.dart';
+          
+          class PositionExample extends StatefulWidget {
+          const PositionExample({super.key});
+        
+          @override
+          State<PositionExample> createState() => _PositionExampleState();
+        }
+        
+        class _PositionExampleState extends State<PositionExample> {
+          String url = 'https://www.youtube.com/watch?v=EgtPleVwxBQ';
+        
+          YoutubePlayerController? controller;
+        
+          @override
+          void initState() {
+            final videoId = YoutubePlayer.convertUrlToId(url);
+        
+            controller = YoutubePlayerController(
+        initialVideoId: videoId!,
+        flags: const YoutubePlayerFlags(
+          autoPlay: false,
+          mute: false,
+          enableCaption: true,
+          loop: true,
+          forceHD: true,
+        ),
+            );
+            super.initState();
+          }
+        
+          @override
+          Widget build(BuildContext context) {
+            return SingleChildScrollView(
+        clipBehavior: Clip.none,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              height: MediaQuery.of(context).size.height / 1.5,
+              child: Stack(
+                children: [
+                  Positioned(
+                    left: 20,
+                    top: 20,
+                    child: Container(
+                      color: Colors.red,
+                      height: 150,
+                      width: 150,
+                      alignment: Alignment.center,
+                      child: const Text(
+                        'Red',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    left: 60,
+                    top: 50, // Adjusted to prevent overlap
+                    child: Container(
+                      color: Colors.blue,
+                      height: 150,
+                      width: 150,
+                      alignment: Alignment.center,
+                      child: const Text(
+                        'Blue',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    left: 169,
+                    top: 150,
+                    child: Container(
+                      color: Colors.green,
+                      height: 150,
+                      width: 150,
+                      alignment: Alignment.center,
+                      child: const Text(
+                        'Green',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+            );
+          }
+        }''',
+          child: PositionExample(),
+        ),
+      ),
+    );
+  }
+}
+
+class PositionExample extends StatefulWidget {
+  const PositionExample({super.key});
+
+  @override
+  State<PositionExample> createState() => _PositionExampleState();
+}
+
+class _PositionExampleState extends State<PositionExample> {
+
   String url = 'https://www.youtube.com/watch?v=EgtPleVwxBQ';
 
   YoutubePlayerController? controller;
@@ -34,166 +177,18 @@ class _PositionWidgetState extends State<PositionWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-        backgroundColor: Colors.black,
-        title: const Text(
-          'Positioned',
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 8),
-            child: YoutubePlayer(
-              controller: controller!,
-              progressColors: const ProgressBarColors(
-                backgroundColor: Colors.black,
-                handleColor: Colors.white,
-              ),
-            ),
-          ),
-          const Expanded(
-            flex: 1,
-            child: WidgetWithCodeView(
-              filePath: 'lib/widgets/position_widget.dart',
-              iconForegroundColor: Colors.white,
-              iconBackgroundColor: Colors.black,
-              codeLinkPrefix: 'https://google.com?q=',
-              codeContent: '''
-            import 'package:flutter/material.dart';
-              
-              class PositionExample extends StatefulWidget {
-              const PositionExample({super.key});
-            
-              @override
-              State<PositionExample> createState() => _PositionExampleState();
-            }
-            
-            class _PositionExampleState extends State<PositionExample> {
-              String url = 'https://www.youtube.com/watch?v=EgtPleVwxBQ';
-            
-              YoutubePlayerController? controller;
-            
-              @override
-              void initState() {
-                final videoId = YoutubePlayer.convertUrlToId(url);
-            
-                controller = YoutubePlayerController(
-            initialVideoId: videoId!,
-            flags: const YoutubePlayerFlags(
-              autoPlay: false,
-              mute: false,
-              enableCaption: true,
-              loop: true,
-              forceHD: true,
-            ),
-                );
-                super.initState();
-              }
-            
-              @override
-              Widget build(BuildContext context) {
-                return SingleChildScrollView(
-            clipBehavior: Clip.none,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  height: MediaQuery.of(context).size.height / 1.5,
-                  child: Stack(
-                    children: [
-                      Positioned(
-                        left: 20,
-                        top: 20,
-                        child: Container(
-                          color: Colors.red,
-                          height: 150,
-                          width: 150,
-                          alignment: Alignment.center,
-                          child: const Text(
-                            'Red',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ),
-                      Positioned(
-                        left: 60,
-                        top: 50, // Adjusted to prevent overlap
-                        child: Container(
-                          color: Colors.blue,
-                          height: 150,
-                          width: 150,
-                          alignment: Alignment.center,
-                          child: const Text(
-                            'Blue',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ),
-                      Positioned(
-                        left: 169,
-                        top: 150,
-                        child: Container(
-                          color: Colors.green,
-                          height: 150,
-                          width: 150,
-                          alignment: Alignment.center,
-                          child: const Text(
-                            'Green',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-                );
-              }
-            }''',
-              child: PositionExample(),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class PositionExample extends StatefulWidget {
-  const PositionExample({super.key});
-
-  @override
-  State<PositionExample> createState() => _PositionExampleState();
-}
-
-class _PositionExampleState extends State<PositionExample> {
-  @override
-  Widget build(BuildContext context) {
     return SingleChildScrollView(
       clipBehavior: Clip.none,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          YoutubePlayer(
+            controller: controller!,
+            progressColors: const ProgressBarColors(
+              backgroundColor: Colors.black,
+              handleColor: Colors.white,
+            ),
+          ),
           const Padding(
             padding: EdgeInsets.only(left: 15, top: 18),
             child: Text(

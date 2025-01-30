@@ -12,6 +12,106 @@ class BuilderWidget extends StatefulWidget {
 
 class _BuilderWidgetState extends State<BuilderWidget> {
 
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+        title: const Text(
+          'Builder',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+      ),
+      body: const Expanded(
+        flex: 1,
+        child: WidgetWithCodeView(
+          filePath: 'lib/widgets/builder_widget.dart',
+          iconForegroundColor: Colors.white,
+          iconBackgroundColor: Colors.black,
+          codeLinkPrefix: 'https://google.com?q=',
+          codeContent: '''
+          import 'package:flutter/material.dart';
+        
+          class BuilderExample extends StatefulWidget {
+          const BuilderExample({super.key});
+        
+          @override
+          State<BuilderExample> createState() => _BuilderExampleState();
+        }
+        
+        class _BuilderExampleState extends State<BuilderExample> {
+        
+          @override
+          Widget build(BuildContext context) {
+            return SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            
+            // Example 1 Code
+            
+            Center(
+              child: Builder(
+                builder: (BuildContext context) {
+                  return ElevatedButton(
+                    onPressed: () {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('Button Pressed!')),
+                      );
+                    },
+                    child: const Text('Show Snack bar'),
+                  );
+                },
+              ),
+            ),
+            
+            // Example 2 Code
+            
+            Center(
+              child: Builder(
+                builder: (BuildContext context) {
+                  return Center(
+                    child: TextButton(
+                      onPressed: () {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Has Appbar')),
+                        );
+                      },
+                      child: const Text('hasAppBar'),
+                    ),
+                  );
+                },
+              ),
+            ),        
+          ],
+        ),
+            );
+          }
+        }''',
+          child: BuilderExample(),
+        ),
+      ),
+    );
+  }
+}
+
+class BuilderExample extends StatefulWidget {
+  const BuilderExample({super.key});
+
+  @override
+  State<BuilderExample> createState() => _BuilderExampleState();
+}
+
+class _BuilderExampleState extends State<BuilderExample> {
+
   String url = 'https://youtu.be/xXNOkIuSYuA';
 
   YoutubePlayerController? controller;
@@ -34,125 +134,18 @@ class _BuilderWidgetState extends State<BuilderWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.black,
-        title: const Text(
-          'Builder',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
-        ),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-      ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 8),
-            child: YoutubePlayer(
-              controller: controller!,
-              progressColors: const ProgressBarColors(
-                backgroundColor: Colors.black,
-                handleColor: Colors.white,
-              ),
-            ),
-          ),
-          const Expanded(
-            flex: 1,
-            child: WidgetWithCodeView(
-              filePath: 'lib/widgets/builder_widget.dart',
-              iconForegroundColor: Colors.white,
-              iconBackgroundColor: Colors.black,
-              codeLinkPrefix: 'https://google.com?q=',
-              codeContent: '''
-              import 'package:flutter/material.dart';
-            
-              class BuilderExample extends StatefulWidget {
-              const BuilderExample({super.key});
-            
-              @override
-              State<BuilderExample> createState() => _BuilderExampleState();
-            }
-            
-            class _BuilderExampleState extends State<BuilderExample> {
-            
-              @override
-              Widget build(BuildContext context) {
-                return SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                
-                // Example 1 Code
-                
-                Center(
-                  child: Builder(
-                    builder: (BuildContext context) {
-                      return ElevatedButton(
-                        onPressed: () {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text('Button Pressed!')),
-                          );
-                        },
-                        child: const Text('Show Snack bar'),
-                      );
-                    },
-                  ),
-                ),
-                
-                // Example 2 Code
-                
-                Center(
-                  child: Builder(
-                    builder: (BuildContext context) {
-                      return Center(
-                        child: TextButton(
-                          onPressed: () {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text('Has Appbar')),
-                            );
-                          },
-                          child: const Text('hasAppBar'),
-                        ),
-                      );
-                    },
-                  ),
-                ),        
-              ],
-            ),
-                );
-              }
-            }''',
-              child: BuilderExample(),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class BuilderExample extends StatefulWidget {
-  const BuilderExample({super.key});
-
-  @override
-  State<BuilderExample> createState() => _BuilderExampleState();
-}
-
-class _BuilderExampleState extends State<BuilderExample> {
-
-  @override
-  Widget build(BuildContext context) {
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          YoutubePlayer(
+            controller: controller!,
+            progressColors: const ProgressBarColors(
+              backgroundColor: Colors.black,
+              handleColor: Colors.white,
+            ),
+          ),
           const Padding(
             padding: EdgeInsets.only(top: 18, left: 15),
             child: Text(

@@ -13,6 +13,111 @@ class ListWheelScrollViewWidget extends StatefulWidget {
 
 class _ListWheelScrollViewWidgetState extends State<ListWheelScrollViewWidget> {
 
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        backgroundColor: Colors.black,
+        title: const Text(
+          'ListWheel ScrollView',
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        ),
+      ),
+      body: const Expanded(
+        flex: 1,
+        child: WidgetWithCodeView(
+          filePath: 'lib/widgets/list_wheel_scroll_view_widget.dart',
+          iconBackgroundColor: Colors.black,
+          iconForegroundColor: Colors.white,
+          codeLinkPrefix: 'https://google.com?q=',
+          codeContent: '''
+          import 'package:flutter/material.dart';
+        
+          class ListWheelExample extends StatefulWidget {
+          const ListWheelExample({super.key});
+        
+          @override
+          State<ListWheelExample> createState() => _ListWheelExampleState();
+        }
+        
+        class _ListWheelExampleState extends State<ListWheelExample> {
+          @override
+          Widget build(BuildContext context) {
+            return SingleChildScrollView(
+        clipBehavior: Clip.none,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+          
+          // Example 1 Code
+          
+            SizedBox(
+              height: MediaQuery.of(context).size.height / 1.2,
+              child: ListWheelScrollView(
+                itemExtent: 200,
+                diameterRatio: 0.8,
+                physics: const FixedExtentScrollPhysics(),
+                children: List.generate(
+                  15,
+                  (index) => Card(
+                    child: ListTile(
+                      title: Text('item {index + 1}'),   // put dollar symbol before {}
+                      onTap: () {},
+                      leading: const Icon(Icons.person),
+                      trailing: const Icon(Icons.menu),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            
+            // Example 2 Code
+            
+            SizedBox(
+              height: MediaQuery.of(context).size.height / 1.2,
+              child: ListWheelScrollView(
+                itemExtent: 151,
+                diameterRatio: 0.8,
+                physics: const FixedExtentScrollPhysics(),
+                perspective: 0.003,
+                children: List.generate(
+                  15,
+                  (index) => Card(
+                    child: ListTile(
+                      title: Text('item {index + 1}'),   // put dollar symbol before {}
+                      onTap: () {},
+                      leading: const Icon(Icons.person),
+                      trailing: const Icon(Icons.menu),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+            );
+          }
+        }''',
+          child: ListWheelExample(),
+        ),
+      ),
+    );
+  }
+}
+
+class ListWheelExample extends StatefulWidget {
+  const ListWheelExample({super.key});
+
+  @override
+  State<ListWheelExample> createState() => _ListWheelExampleState();
+}
+
+class _ListWheelExampleState extends State<ListWheelExample> {
+
   String url = 'https://youtu.be/dUhmWAz4C7Y';
 
   YoutubePlayerController? controller;
@@ -36,130 +141,18 @@ class _ListWheelScrollViewWidgetState extends State<ListWheelScrollViewWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-        backgroundColor: Colors.black,
-        title: const Text(
-          'ListWheel ScrollView',
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-        ),
-      ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 8),
-            child: YoutubePlayer(
-              controller: controller!,
-              progressColors: const ProgressBarColors(
-                backgroundColor: Colors.black,
-                handleColor: Colors.white,
-              ),
-            ),
-          ),
-          const Expanded(
-            flex: 1,
-            child: WidgetWithCodeView(
-              filePath: 'lib/widgets/list_wheel_scroll_view_widget.dart',
-              iconBackgroundColor: Colors.black,
-              iconForegroundColor: Colors.white,
-              codeLinkPrefix: 'https://google.com?q=',
-              codeContent: '''
-              import 'package:flutter/material.dart';
-            
-              class ListWheelExample extends StatefulWidget {
-              const ListWheelExample({super.key});
-            
-              @override
-              State<ListWheelExample> createState() => _ListWheelExampleState();
-            }
-            
-            class _ListWheelExampleState extends State<ListWheelExample> {
-              @override
-              Widget build(BuildContext context) {
-                return SingleChildScrollView(
-            clipBehavior: Clip.none,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-              
-              // Example 1 Code
-              
-                SizedBox(
-                  height: MediaQuery.of(context).size.height / 1.2,
-                  child: ListWheelScrollView(
-                    itemExtent: 200,
-                    diameterRatio: 0.8,
-                    physics: const FixedExtentScrollPhysics(),
-                    children: List.generate(
-                      15,
-                      (index) => Card(
-                        child: ListTile(
-                          title: Text('item {index + 1}'),   // put dollar symbol before {}
-                          onTap: () {},
-                          leading: const Icon(Icons.person),
-                          trailing: const Icon(Icons.menu),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                
-                // Example 2 Code
-                
-                SizedBox(
-                  height: MediaQuery.of(context).size.height / 1.2,
-                  child: ListWheelScrollView(
-                    itemExtent: 151,
-                    diameterRatio: 0.8,
-                    physics: const FixedExtentScrollPhysics(),
-                    perspective: 0.003,
-                    children: List.generate(
-                      15,
-                      (index) => Card(
-                        child: ListTile(
-                          title: Text('item {index + 1}'),   // put dollar symbol before {}
-                          onTap: () {},
-                          leading: const Icon(Icons.person),
-                          trailing: const Icon(Icons.menu),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-                );
-              }
-            }''',
-              child: ListWheelExample(),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class ListWheelExample extends StatefulWidget {
-  const ListWheelExample({super.key});
-
-  @override
-  State<ListWheelExample> createState() => _ListWheelExampleState();
-}
-
-class _ListWheelExampleState extends State<ListWheelExample> {
-
-  @override
-  Widget build(BuildContext context) {
     return SingleChildScrollView(
       clipBehavior: Clip.none,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          YoutubePlayer(
+            controller: controller!,
+            progressColors: const ProgressBarColors(
+              backgroundColor: Colors.black,
+              handleColor: Colors.white,
+            ),
+          ),
           const Padding(
             padding: EdgeInsets.only(top: 18, left: 15),
             child: Text(

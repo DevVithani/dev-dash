@@ -10,32 +10,6 @@ class AboutDialogWidget extends StatefulWidget {
 }
 
 class _AboutDialogWidgetState extends State<AboutDialogWidget> {
-  String url = 'https://www.youtube.com/watch?v=YFCSODyFxbE';
-
-  YoutubePlayerController? controller;
-
-  @override
-  void initState() {
-    final videoId = YoutubePlayer.convertUrlToId(url);
-
-    controller = YoutubePlayerController(
-      initialVideoId: videoId!,
-      flags: const YoutubePlayerFlags(
-        autoPlay: false,
-        mute: false,
-        enableCaption: true,
-        loop: true,
-        forceHD: true,
-      ),
-    );
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    controller?.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,16 +30,6 @@ class _AboutDialogWidgetState extends State<AboutDialogWidget> {
       ),
       body: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 8),
-            child: YoutubePlayer(
-              controller: controller!,
-              progressColors: const ProgressBarColors(
-                backgroundColor: Colors.black,
-                handleColor: Colors.white,
-              ),
-            ),
-          ),
           const Expanded(
             flex: 1,
             child: WidgetWithCodeView(
@@ -232,6 +196,34 @@ class AboutDialogExample extends StatefulWidget {
 }
 
 class _AboutDialogExampleState extends State<AboutDialogExample> {
+
+  String url = 'https://www.youtube.com/watch?v=YFCSODyFxbE';
+
+  YoutubePlayerController? controller;
+
+  @override
+  void initState() {
+    final videoId = YoutubePlayer.convertUrlToId(url);
+
+    controller = YoutubePlayerController(
+      initialVideoId: videoId!,
+      flags: const YoutubePlayerFlags(
+        autoPlay: false,
+        mute: false,
+        enableCaption: true,
+        loop: true,
+        forceHD: true,
+      ),
+    );
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    controller?.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -239,6 +231,13 @@ class _AboutDialogExampleState extends State<AboutDialogExample> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          YoutubePlayer(
+            controller: controller!,
+            progressColors: const ProgressBarColors(
+              backgroundColor: Colors.black,
+              handleColor: Colors.white,
+            ),
+          ),
           const Padding(
             padding: EdgeInsets.only(top: 18, left: 15),
             child: Text(
@@ -254,7 +253,7 @@ class _AboutDialogExampleState extends State<AboutDialogExample> {
               '3.applicationName\n'
               '4.applicationVersion\n'
               '5.children',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 18),
             ),
           ),
           const Divider(

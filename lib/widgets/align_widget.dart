@@ -11,6 +11,161 @@ class AlignWidget extends StatefulWidget {
 }
 
 class _AlignWidgetState extends State<AlignWidget> {
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        title: const Text(
+          'Align',
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        backgroundColor: Colors.black,
+      ),
+      body: const Expanded(
+        flex: 1,
+        child: WidgetWithCodeView(
+          filePath: 'lib/widgets/align_widget.dart',
+          iconBackgroundColor: Colors.black,
+          iconForegroundColor: Colors.white,
+          codeLinkPrefix: 'https://google.com?q=',
+          codeContent: '''
+          import 'package:flutter/material.dart';
+          
+          class AlignExample extends StatefulWidget {
+         const AlignExample({super.key});
+        
+          @override
+          State<AlignExample> createState() => _AlignExampleState();
+        }
+        
+        class _AlignExampleState extends State<AlignExample> {
+        
+          @override
+          Widget build(BuildContext context) {
+            return SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+          // Example 1 code
+          
+             Center(
+                child: Container(
+                  height: 150.0,
+                  width: 300.0,
+                  color: Colors.yellow,
+                  child: Align(
+                    alignment: Alignment.topRight,
+                    child: Container(
+                      color: Colors.red,
+                      height: 50,
+                      width: 50,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            // Example 2 Code
+            
+            Center(
+                child: Container(
+                  height: 100.0,
+                  width: 200.0,
+                  color: Colors.yellow,
+                  child: Align(
+                    heightFactor: 2,
+                    widthFactor: 2,
+                    alignment: Alignment.bottomCenter,
+                    child: Container(
+                      color: Colors.red,
+                      height: 50,
+                      width: 50,
+                    ),
+                  ),
+                ),
+              ),
+              
+              // Example 3 Code
+              
+              Center(
+                child: Container(
+                  height: 150.0,
+                  width: 300.0,
+                  color: Colors.yellow,
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: Container(
+                      color: Colors.red,
+                      height: 50,
+                      width: 50,
+                    ),
+                  ),
+                ),
+              ),
+              // Example 4 Code
+              
+              Center(
+                child: Container(
+                  height: 150.0,
+                  width: 300.0,
+                  color: Colors.yellow,
+                  child: Align(
+                    alignment: Alignment.centerRight,
+                    child: Container(
+                      color: Colors.red,
+                      height: 50,
+                      width: 50,
+                    ),
+                  ),
+                ),
+              ),
+              
+              // Example 5 Code
+              
+              Center(
+                child: Container(
+                  height: 150.0,
+                  width: 300.0,
+                  color: Colors.yellow,
+                  child: Align(
+                    alignment: Alignment.topCenter,
+                    child: Container(
+                      color: Colors.red,
+                      height: 50,
+                      width: 50,
+            ),
+          ),
+        ),
+      ),
+              ],
+            ),
+          );
+        }
+      }''',
+          child: AlignExample(),
+        ),
+      ),
+    );
+  }
+}
+
+class AlignExample extends StatefulWidget {
+  const AlignExample({super.key});
+
+  @override
+  State<AlignExample> createState() => _AlignExampleState();
+}
+
+class _AlignExampleState extends State<AlignExample> {
+
   String url = 'https://www.youtube.com/watch?v=g2E7yl3MwMk';
 
   YoutubePlayerController? controller;
@@ -40,178 +195,18 @@ class _AlignWidgetState extends State<AlignWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-        title: const Text(
-          'Align',
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        backgroundColor: Colors.black,
-      ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 8),
-            child: YoutubePlayer(
-              controller: controller!,
-              progressColors: const ProgressBarColors(
-                backgroundColor: Colors.black,
-                handleColor: Colors.white,
-              ),
-            ),
-          ),
-          const Expanded(
-            flex: 1,
-            child: WidgetWithCodeView(
-              filePath: 'lib/widgets/align_widget.dart',
-              iconBackgroundColor: Colors.black,
-              iconForegroundColor: Colors.white,
-              codeLinkPrefix: 'https://google.com?q=',
-              codeContent: '''
-              import 'package:flutter/material.dart';
-              
-              class AlignExample extends StatefulWidget {
-             const AlignExample({super.key});
-            
-              @override
-              State<AlignExample> createState() => _AlignExampleState();
-            }
-            
-            class _AlignExampleState extends State<AlignExample> {
-            
-              @override
-              Widget build(BuildContext context) {
-                return SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-              // Example 1 code
-              
-                 Center(
-                    child: Container(
-                      height: 150.0,
-                      width: 300.0,
-                      color: Colors.yellow,
-                      child: Align(
-                        alignment: Alignment.topRight,
-                        child: Container(
-                          color: Colors.red,
-                          height: 50,
-                          width: 50,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                // Example 2 Code
-                
-                Center(
-                    child: Container(
-                      height: 100.0,
-                      width: 200.0,
-                      color: Colors.yellow,
-                      child: Align(
-                        heightFactor: 2,
-                        widthFactor: 2,
-                        alignment: Alignment.bottomCenter,
-                        child: Container(
-                          color: Colors.red,
-                          height: 50,
-                          width: 50,
-                        ),
-                      ),
-                    ),
-                  ),
-                  
-                  // Example 3 Code
-                  
-                  Center(
-                    child: Container(
-                      height: 150.0,
-                      width: 300.0,
-                      color: Colors.yellow,
-                      child: Align(
-                        alignment: Alignment.center,
-                        child: Container(
-                          color: Colors.red,
-                          height: 50,
-                          width: 50,
-                        ),
-                      ),
-                    ),
-                  ),
-                  // Example 4 Code
-                  
-                  Center(
-                    child: Container(
-                      height: 150.0,
-                      width: 300.0,
-                      color: Colors.yellow,
-                      child: Align(
-                        alignment: Alignment.centerRight,
-                        child: Container(
-                          color: Colors.red,
-                          height: 50,
-                          width: 50,
-                        ),
-                      ),
-                    ),
-                  ),
-                  
-                  // Example 5 Code
-                  
-                  Center(
-                    child: Container(
-                      height: 150.0,
-                      width: 300.0,
-                      color: Colors.yellow,
-                      child: Align(
-                        alignment: Alignment.topCenter,
-                        child: Container(
-                          color: Colors.red,
-                          height: 50,
-                          width: 50,
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}''',
-              child: AlignExample(),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class AlignExample extends StatefulWidget {
-  const AlignExample({super.key});
-
-  @override
-  State<AlignExample> createState() => _AlignExampleState();
-}
-
-class _AlignExampleState extends State<AlignExample> {
-  @override
-  Widget build(BuildContext context) {
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          YoutubePlayer(
+            controller: controller!,
+            progressColors: const ProgressBarColors(
+              backgroundColor: Colors.black,
+              handleColor: Colors.white,
+            ),
+          ),
           const Padding(
             padding: EdgeInsets.only(top: 18, left: 15),
             child: Text(

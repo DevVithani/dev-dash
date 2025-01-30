@@ -11,6 +11,85 @@ class FractionallySizedBoxWidget extends StatefulWidget {
 
 class _FractionallySizedBoxWidgetState extends State<FractionallySizedBoxWidget> {
 
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        backgroundColor: Colors.black,
+        title: const Text(
+          'Fractionally SizedBox',
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+      body: const Expanded(
+        flex: 1,
+        child: WidgetWithCodeView(
+          filePath: 'lib/widgets/fractionally_sized_box_widget.dart',
+          iconBackgroundColor: Colors.black,
+          iconForegroundColor: Colors.white,
+          codeLinkPrefix: 'https://google.com?q=',
+          codeContent: '''
+          import 'package:flutter/material.dart';
+        
+          class FractionallyExample extends StatefulWidget {
+          const FractionallyExample({super.key});
+        
+          @override
+          State<FractionallyExample> createState() => _FractionallyExampleState();
+        }
+        
+        class _FractionallyExampleState extends State<FractionallyExample> {
+          @override
+          Widget build(BuildContext context) {
+            return SingleChildScrollView(
+        clipBehavior: Clip.none,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(
+              height: MediaQuery.of(context).size.height / 1.5,
+              child: FractionallySizedBox(
+                widthFactor: 0.5,
+                heightFactor: 0.5,
+                alignment: FractionalOffset.center,
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Colors.blue,
+                      width: 4,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+            );
+          }
+        }''',
+          child: FractionallyExample(),
+        ),
+      ),
+    );
+  }
+}
+
+class FractionallyExample extends StatefulWidget {
+  const FractionallyExample({super.key});
+
+  @override
+  State<FractionallyExample> createState() => _FractionallyExampleState();
+}
+
+class _FractionallyExampleState extends State<FractionallyExample> {
+
   String url = 'https://youtu.be/PEsY654EGZ0';
 
   YoutubePlayerController? controller;
@@ -34,104 +113,18 @@ class _FractionallySizedBoxWidgetState extends State<FractionallySizedBoxWidget>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-        backgroundColor: Colors.black,
-        title: const Text(
-          'Fractionally SizedBox',
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 8),
-            child: YoutubePlayer(
-              controller: controller!,
-              progressColors: const ProgressBarColors(
-                backgroundColor: Colors.black,
-                handleColor: Colors.white,
-              ),
-            ),
-          ),
-          const Expanded(
-            flex: 1,
-            child: WidgetWithCodeView(
-              filePath: 'lib/widgets/fractionally_sized_box_widget.dart',
-              iconBackgroundColor: Colors.black,
-              iconForegroundColor: Colors.white,
-              codeLinkPrefix: 'https://google.com?q=',
-              codeContent: '''
-              import 'package:flutter/material.dart';
-            
-              class FractionallyExample extends StatefulWidget {
-              const FractionallyExample({super.key});
-            
-              @override
-              State<FractionallyExample> createState() => _FractionallyExampleState();
-            }
-            
-            class _FractionallyExampleState extends State<FractionallyExample> {
-              @override
-              Widget build(BuildContext context) {
-                return SingleChildScrollView(
-            clipBehavior: Clip.none,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  height: MediaQuery.of(context).size.height / 1.5,
-                  child: FractionallySizedBox(
-                    widthFactor: 0.5,
-                    heightFactor: 0.5,
-                    alignment: FractionalOffset.center,
-                    child: DecoratedBox(
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: Colors.blue,
-                          width: 4,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-                );
-              }
-            }''',
-              child: FractionallyExample(),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class FractionallyExample extends StatefulWidget {
-  const FractionallyExample({super.key});
-
-  @override
-  State<FractionallyExample> createState() => _FractionallyExampleState();
-}
-
-class _FractionallyExampleState extends State<FractionallyExample> {
-
-  @override
-  Widget build(BuildContext context) {
     return SingleChildScrollView(
       clipBehavior: Clip.none,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          YoutubePlayer(
+            controller: controller!,
+            progressColors: const ProgressBarColors(
+              backgroundColor: Colors.black,
+              handleColor: Colors.white,
+            ),
+          ),
           const Padding(
             padding: EdgeInsets.only(top: 18, left: 15),
             child: Text(

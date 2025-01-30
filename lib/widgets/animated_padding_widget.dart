@@ -11,6 +11,102 @@ class AnimatedPaddingWidget extends StatefulWidget {
 }
 
 class _AnimatedPaddingWidgetState extends State<AnimatedPaddingWidget> {
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        backgroundColor: Colors.black,
+        title: const Text(
+          'Animated Padding',
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+      body: const Expanded(
+        flex: 1,
+        child: WidgetWithCodeView(
+          filePath: 'lib/widgets/animated_padding_widget.dart',
+          iconForegroundColor: Colors.white,
+          iconBackgroundColor: Colors.black,
+          codeLinkPrefix: 'https://google.com?q=',
+          codeContent: '''
+          import 'package:flutter/material.dart';
+        
+          class AnimatedPaddingExample extends StatefulWidget {
+          const AnimatedPaddingExample({super.key});
+        
+          @override
+          State<AnimatedPaddingExample> createState() => _AnimatedPaddingExampleState();
+        }
+        
+        class _AnimatedPaddingExampleState extends State<AnimatedPaddingExample> {
+          double _padding = 8;
+        
+          @override
+          Widget build(BuildContext context) {
+            return SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Padding(
+              padding: EdgeInsets.only(top: 18, left: 15),
+              child: Text(
+                'Example: Tap on Container to change padding with animation.',
+                style: TextStyle(fontSize: 17),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 18),
+              child: Center(
+                child: AnimatedPadding(
+                  duration: const Duration(milliseconds: 500),
+                  curve: Curves.elasticInOut,
+                  padding: EdgeInsets.all(_padding),
+                  child: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        _padding = _padding == 8 ? 100 : 8;
+                      });
+                    },
+                    child: Container(
+                      height: 100,
+                      color: Colors.blue,
+              ),
+            ),
+          ),
+        ),
+      ),
+              ],
+            ),
+          );
+        }
+      }''',
+          child: AnimatedPaddingExample(),
+        ),
+      ),
+    );
+  }
+}
+
+class AnimatedPaddingExample extends StatefulWidget {
+  const AnimatedPaddingExample({super.key});
+
+  @override
+  State<AnimatedPaddingExample> createState() => _AnimatedPaddingExampleState();
+}
+
+class _AnimatedPaddingExampleState extends State<AnimatedPaddingExample> {
+  double _padding = 8;
+  double _paDDing = 12;
+
   String url = 'https://www.youtube.com/watch?v=PY2m0fhGNz4';
 
   YoutubePlayerController? controller;
@@ -34,120 +130,18 @@ class _AnimatedPaddingWidgetState extends State<AnimatedPaddingWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-        backgroundColor: Colors.black,
-        title: const Text(
-          'Animated Padding',
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 8),
-            child: YoutubePlayer(
-              controller: controller!,
-              progressColors: const ProgressBarColors(
-                backgroundColor: Colors.black,
-                handleColor: Colors.white,
-              ),
-            ),
-          ),
-          const Expanded(
-            flex: 1,
-            child: WidgetWithCodeView(
-              filePath: 'lib/widgets/animated_padding_widget.dart',
-              iconForegroundColor: Colors.white,
-              iconBackgroundColor: Colors.black,
-              codeLinkPrefix: 'https://google.com?q=',
-              codeContent: '''
-              import 'package:flutter/material.dart';
-            
-              class AnimatedPaddingExample extends StatefulWidget {
-              const AnimatedPaddingExample({super.key});
-            
-              @override
-              State<AnimatedPaddingExample> createState() => _AnimatedPaddingExampleState();
-            }
-            
-            class _AnimatedPaddingExampleState extends State<AnimatedPaddingExample> {
-              double _padding = 8;
-            
-              @override
-              Widget build(BuildContext context) {
-                return SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Padding(
-                  padding: EdgeInsets.only(top: 18, left: 15),
-                  child: Text(
-                    'Example: Tap on Container to change padding with animation.',
-                    style: TextStyle(fontSize: 17),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 18),
-                  child: Center(
-                    child: AnimatedPadding(
-                      duration: const Duration(milliseconds: 500),
-                      curve: Curves.elasticInOut,
-                      padding: EdgeInsets.all(_padding),
-                      child: GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            _padding = _padding == 8 ? 100 : 8;
-                          });
-                        },
-                        child: Container(
-                          height: 100,
-                          color: Colors.blue,
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}''',
-              child: AnimatedPaddingExample(),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class AnimatedPaddingExample extends StatefulWidget {
-  const AnimatedPaddingExample({super.key});
-
-  @override
-  State<AnimatedPaddingExample> createState() => _AnimatedPaddingExampleState();
-}
-
-class _AnimatedPaddingExampleState extends State<AnimatedPaddingExample> {
-  double _padding = 8;
-  double _paDDing = 12;
-
-  @override
-  Widget build(BuildContext context) {
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          YoutubePlayer(
+            controller: controller!,
+            progressColors: const ProgressBarColors(
+              backgroundColor: Colors.black,
+              handleColor: Colors.white,
+            ),
+          ),
           const Padding(
             padding: EdgeInsets.only(top: 18, left: 15),
             child: Text(

@@ -12,32 +12,6 @@ class ExpansionPanelWidget extends StatefulWidget {
 
 class _ExpansionPanelWidgetState extends State<ExpansionPanelWidget> {
 
-  String url = 'https://www.youtube.com/watch?v=2aJZzRMziJc';
-
-  YoutubePlayerController? controller;
-
-  @override
-  void initState() {
-    final videoId = YoutubePlayer.convertUrlToId(url);
-
-    controller = YoutubePlayerController(
-      initialVideoId: videoId!,
-      flags: const YoutubePlayerFlags(
-        autoPlay: false,
-        mute: false,
-        enableCaption: true,
-        loop: true,
-        forceHD: true,
-      ),
-    );
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    controller?.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,103 +30,89 @@ class _ExpansionPanelWidgetState extends State<ExpansionPanelWidget> {
           ),
         ),
       ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 8),
-            child: YoutubePlayer(
-              controller: controller!,
-              progressColors: const ProgressBarColors(
-                backgroundColor: Colors.black,
-                handleColor: Colors.white,
-              ),
-            ),
-          ),
-          const Expanded(
-            flex: 1,
-            child: WidgetWithCodeView(
-              filePath: 'lib/widgets/expansion_panel_widget.dart',
-              iconBackgroundColor: Colors.black,
-              iconForegroundColor: Colors.white,
-              codeLinkPrefix: 'https://google.com?q=',
-              codeContent: '''
-                import 'package:flutter/material.dart';
-              
-              class Item {
-              Item({
-                required this.expandedValue,
-                required this.headerValue,
-                this.isExpanded = false,
-              });
-            
-              String expandedValue;
-              String headerValue;
-              bool isExpanded;
-            }
-            
-            List<Item> generateItems(int numberOfItems) {
-              return List<Item>.generate(numberOfItems, (int index) {
-                return Item(
-            headerValue: 'Panel {index + 1}',   //put dollar symbol before {}
-            expandedValue: 'This is item number {index + 1}',  //put dollar symbol before {}
-                );
-              });
-            }
-            
-            class ExpansionPanelListExample extends StatefulWidget {
-              const ExpansionPanelListExample({super.key});
-            
-              @override
-              State<ExpansionPanelListExample> createState() =>
-            _ExpansionPanelListExampleState();
-            }
-            
-            class _ExpansionPanelListExampleState extends State<ExpansionPanelListExample> {
-              final List<Item> _data = generateItems(8);
-            
-              @override
-              Widget build(BuildContext context) {
-                return SingleChildScrollView(
-            child: Container(
-              child: _buildPanel(),
-            ),
-                );
-              }
-            
-              Widget _buildPanel() {
-                return ExpansionPanelList(
-            expansionCallback: (int index, bool isExpanded) {
-              setState(() {
-                _data[index].isExpanded = isExpanded;
-              });
-            },
-            children: _data.map<ExpansionPanel>((Item item) {
-              return ExpansionPanel(
-                headerBuilder: (BuildContext context, bool isExpanded) {
-                  return ListTile(
-                    title: Text(item.headerValue),
-                  );
-                },
-                body: ListTile(
-                    title: Text(item.expandedValue),
-                    subtitle:
-                        const Text('To delete this panel, tap the trash can icon'),
-                    trailing: const Icon(Icons.delete),
-                    onTap: () {
-                      setState(() {
-                        _data.removeWhere((Item currentItem) => item == currentItem);
-                      });
-                    }),
-                isExpanded: item.isExpanded,
+      body: const Expanded(
+        flex: 1,
+        child: WidgetWithCodeView(
+          filePath: 'lib/widgets/expansion_panel_widget.dart',
+          iconBackgroundColor: Colors.black,
+          iconForegroundColor: Colors.white,
+          codeLinkPrefix: 'https://google.com?q=',
+          codeContent: '''
+            import 'package:flutter/material.dart';
+          
+          class Item {
+          Item({
+            required this.expandedValue,
+            required this.headerValue,
+            this.isExpanded = false,
+          });
+        
+          String expandedValue;
+          String headerValue;
+          bool isExpanded;
+        }
+        
+        List<Item> generateItems(int numberOfItems) {
+          return List<Item>.generate(numberOfItems, (int index) {
+            return Item(
+        headerValue: 'Panel {index + 1}',   //put dollar symbol before {}
+        expandedValue: 'This is item number {index + 1}',  //put dollar symbol before {}
+            );
+          });
+        }
+        
+        class ExpansionPanelListExample extends StatefulWidget {
+          const ExpansionPanelListExample({super.key});
+        
+          @override
+          State<ExpansionPanelListExample> createState() =>
+        _ExpansionPanelListExampleState();
+        }
+        
+        class _ExpansionPanelListExampleState extends State<ExpansionPanelListExample> {
+          final List<Item> _data = generateItems(8);
+        
+          @override
+          Widget build(BuildContext context) {
+            return SingleChildScrollView(
+        child: Container(
+          child: _buildPanel(),
+        ),
+            );
+          }
+        
+          Widget _buildPanel() {
+            return ExpansionPanelList(
+        expansionCallback: (int index, bool isExpanded) {
+          setState(() {
+            _data[index].isExpanded = isExpanded;
+          });
+        },
+        children: _data.map<ExpansionPanel>((Item item) {
+          return ExpansionPanel(
+            headerBuilder: (BuildContext context, bool isExpanded) {
+              return ListTile(
+                title: Text(item.headerValue),
               );
-            }).toList(),
-                );
-              }
-            }''',
-              child: ExpansionPanelListExample(),
-            ),
-          ),
-        ],
+            },
+            body: ListTile(
+                title: Text(item.expandedValue),
+                subtitle:
+                    const Text('To delete this panel, tap the trash can icon'),
+                trailing: const Icon(Icons.delete),
+                onTap: () {
+                  setState(() {
+                    _data.removeWhere((Item currentItem) => item == currentItem);
+                  });
+                }),
+            isExpanded: item.isExpanded,
+          );
+        }).toList(),
+            );
+          }
+        }''',
+          child: ExpansionPanelListExample(),
+        ),
       ),
     );
   }
@@ -190,6 +150,33 @@ class ExpansionPanelListExample extends StatefulWidget {
 class _ExpansionPanelListExampleState extends State<ExpansionPanelListExample> {
   final List<Item> _data = generateItems(8);
 
+  String url = 'https://www.youtube.com/watch?v=2aJZzRMziJc';
+
+  YoutubePlayerController? controller;
+
+  @override
+  void initState() {
+    final videoId = YoutubePlayer.convertUrlToId(url);
+
+    controller = YoutubePlayerController(
+      initialVideoId: videoId!,
+      flags: const YoutubePlayerFlags(
+        autoPlay: false,
+        mute: false,
+        enableCaption: true,
+        loop: true,
+        forceHD: true,
+      ),
+    );
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    controller?.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -197,6 +184,13 @@ class _ExpansionPanelListExampleState extends State<ExpansionPanelListExample> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          YoutubePlayer(
+            controller: controller!,
+            progressColors: const ProgressBarColors(
+              backgroundColor: Colors.black,
+              handleColor: Colors.white,
+            ),
+          ),
           const Padding(
             padding: EdgeInsets.only(top: 18, left: 15),
             child: Text(

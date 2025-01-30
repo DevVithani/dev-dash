@@ -13,32 +13,7 @@ class AnimatedBuilderWidget extends StatefulWidget {
 }
 
 class _AnimatedBuilderWidgetState extends State<AnimatedBuilderWidget> {
-  String url = 'https://www.youtube.com/watch?v=N-RiyZlv8v8';
 
-  YoutubePlayerController? controller;
-
-  @override
-  void initState() {
-    final videoId = YoutubePlayer.convertUrlToId(url);
-
-    controller = YoutubePlayerController(
-      initialVideoId: videoId!,
-      flags: const YoutubePlayerFlags(
-        autoPlay: false,
-        mute: false,
-        enableCaption: true,
-        loop: true,
-        forceHD: true,
-      ),
-    );
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    controller?.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,84 +32,70 @@ class _AnimatedBuilderWidgetState extends State<AnimatedBuilderWidget> {
           ),
         ),
       ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 8),
-            child: YoutubePlayer(
-              controller: controller!,
-              progressColors: const ProgressBarColors(
-                backgroundColor: Colors.black,
-                handleColor: Colors.white,
-              ),
-            ),
-          ),
-          const Expanded(
-            flex: 1,
-            child: WidgetWithCodeView(
-              filePath: 'lib/widgets/animated_builder_widget.dart',
-              iconForegroundColor: Colors.white,
-              iconBackgroundColor: Colors.black,
-              codeLinkPrefix: 'https://google.com?q=',
-              codeContent: '''
-              import 'package:flutter/material.dart';
-              import 'dart:math' as math;
-            
-              class AnimatedBuilderExample extends StatefulWidget {
-              const AnimatedBuilderExample({super.key});
-            
-              @override
-              State<AnimatedBuilderExample> createState() => _AnimatedBuilderExampleState();
-            }
-            
-            class _AnimatedBuilderExampleState extends State<AnimatedBuilderExample>
-                with TickerProviderStateMixin {
-              late final AnimationController _controller = AnimationController(
-                duration: const Duration(seconds: 10),
-                vsync: this,
-              )..repeat();
-            
-              @override
-              Widget build(BuildContext context) {
-                return SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 15, top: 18),
-                  child: Center(
-                    child: AnimatedBuilder(
-                      animation: _controller,
-                      child: Container(
-                        width: 200.0,
-                        height: 200.0,
-                        color: Colors.green,
-                        child: const Center(
-                          child: Text(
-                            'Green',
-                            style: TextStyle(color: Colors.white),
-                          ),
-                        ),
+      body: const Expanded(
+        flex: 1,
+        child: WidgetWithCodeView(
+          filePath: 'lib/widgets/animated_builder_widget.dart',
+          iconForegroundColor: Colors.white,
+          iconBackgroundColor: Colors.black,
+          codeLinkPrefix: 'https://google.com?q=',
+          codeContent: '''
+          import 'package:flutter/material.dart';
+          import 'dart:math' as math;
+        
+          class AnimatedBuilderExample extends StatefulWidget {
+          const AnimatedBuilderExample({super.key});
+        
+          @override
+          State<AnimatedBuilderExample> createState() => _AnimatedBuilderExampleState();
+        }
+        
+        class _AnimatedBuilderExampleState extends State<AnimatedBuilderExample>
+            with TickerProviderStateMixin {
+          late final AnimationController _controller = AnimationController(
+            duration: const Duration(seconds: 10),
+            vsync: this,
+          )..repeat();
+        
+          @override
+          Widget build(BuildContext context) {
+            return SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left: 15, top: 18),
+              child: Center(
+                child: AnimatedBuilder(
+                  animation: _controller,
+                  child: Container(
+                    width: 200.0,
+                    height: 200.0,
+                    color: Colors.green,
+                    child: const Center(
+                      child: Text(
+                        'Green',
+                        style: TextStyle(color: Colors.white),
                       ),
-                      builder: (BuildContext context, Widget? child) {
-                        return Transform.rotate(
-                          angle: _controller.value * 2.0 * math.pi,
-                          child: child,
-                  );
-                },
-              ),
-            ),
+                    ),
+                  ),
+                  builder: (BuildContext context, Widget? child) {
+                    return Transform.rotate(
+                      angle: _controller.value * 2.0 * math.pi,
+                      child: child,
+              );
+            },
           ),
-        ],
+        ),
       ),
-    );
-  }
-}''',
-              child: AnimatedBuilderExample(),
+              ],
             ),
-          ),
-        ],
+          );
+        }
+      }''',
+          child: AnimatedBuilderExample(),
+        ),
       ),
     );
   }
@@ -160,9 +121,30 @@ class _AnimatedBuilderExampleState extends State<AnimatedBuilderExample>
 
   @override
   void dispose() {
-    // TODO: implement dispose
+    controller?.dispose();
     _controller.dispose();
     super.dispose();
+  }
+
+  String url = 'https://www.youtube.com/watch?v=N-RiyZlv8v8';
+
+  YoutubePlayerController? controller;
+
+  @override
+  void initState() {
+    final videoId = YoutubePlayer.convertUrlToId(url);
+
+    controller = YoutubePlayerController(
+      initialVideoId: videoId!,
+      flags: const YoutubePlayerFlags(
+        autoPlay: false,
+        mute: false,
+        enableCaption: true,
+        loop: true,
+        forceHD: true,
+      ),
+    );
+    super.initState();
   }
 
   @override
@@ -172,6 +154,13 @@ class _AnimatedBuilderExampleState extends State<AnimatedBuilderExample>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          YoutubePlayer(
+            controller: controller!,
+            progressColors: const ProgressBarColors(
+              backgroundColor: Colors.black,
+              handleColor: Colors.white,
+            ),
+          ),
           const Padding(
             padding: EdgeInsets.only(top: 18, left: 15),
             child: Text(

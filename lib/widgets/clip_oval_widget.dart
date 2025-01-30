@@ -12,6 +12,123 @@ class ClipOvalWidget extends StatefulWidget {
 
 class _ClipOvalWidgetState extends State<ClipOvalWidget> {
 
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        backgroundColor: Colors.black,
+        title: const Text(
+          'ClipOval',
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+      body: const Expanded(
+        flex: 1,
+        child: WidgetWithCodeView(
+          filePath: 'lib/widgets/clip_oval_widget.dart',
+          iconForegroundColor: Colors.white,
+          iconBackgroundColor: Colors.black,
+          codeLinkPrefix: 'https://google.com?q=',
+          codeContent: '''
+          import 'package:flutter/material.dart';
+        
+          class ClipOvalExample extends StatefulWidget {
+          const ClipOvalExample({super.key});
+        
+          @override
+          State<ClipOvalExample> createState() => _ClipOvalExampleState();
+        }
+        
+        class _ClipOvalExampleState extends State<ClipOvalExample> {
+        
+          @override
+          Widget build(BuildContext context) {
+            return SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Padding(
+              padding: EdgeInsets.only(top: 18, left: 15),
+              child: Text(
+                'Example: ',
+                style: TextStyle(fontSize: 17),
+              ),
+            ),
+            const Padding(
+              padding: EdgeInsets.only(top: 18),
+            ),
+            Center(
+              child: ClipOval(
+                clipper: MyClip(),
+                child: Image.network(
+                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdJKncgYFP-O8CwJz4o989Jx1TzcWf82CkRw&s',
+                    fit: BoxFit.fill),
+              ),
+            ),
+            // Example 2 Code
+            
+            Center(
+              child: ClipOval(
+                clipper: MyCliPer(),
+                child: Image.network(
+                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdJKncgYFP-O8CwJz4o989Jx1TzcWf82CkRw&s',
+                    fit: BoxFit.fill),
+              ),
+            ),
+          ],
+        ),
+            );
+          }
+        }
+        
+        class MyClip extends CustomClipper<Rect> {
+          @override
+          Rect getClip(Size size) {
+            return const Rect.fromLTWH(0, 0, 100, 150);
+          }
+        
+          @override
+          bool shouldReclip(oldClipper) {
+            return false;
+          }
+        }
+        
+        class MyCliPer extends CustomClipper<Rect> {
+          @override
+          Rect getClip(Size size) {
+            return const Rect.fromLTWH(150, 100, 0, 150);
+          }
+        
+          @override
+          bool shouldReclip(oldClipper) {
+            return false;
+          }
+        }
+        ''',
+          child: ClipOvalExample(),
+        ),
+      ),
+    );
+  }
+}
+
+class ClipOvalExample extends StatefulWidget {
+  const ClipOvalExample({super.key});
+
+  @override
+  State<ClipOvalExample> createState() => _ClipOvalExampleState();
+}
+
+class _ClipOvalExampleState extends State<ClipOvalExample> {
+
   String url = 'https://www.youtube.com/watch?v=vzWWDO6whIM';
 
   YoutubePlayerController? controller;
@@ -35,142 +152,18 @@ class _ClipOvalWidgetState extends State<ClipOvalWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-        backgroundColor: Colors.black,
-        title: const Text(
-          'ClipOval',
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 8),
-            child: YoutubePlayer(
-              controller: controller!,
-              progressColors: const ProgressBarColors(
-                backgroundColor: Colors.black,
-                handleColor: Colors.white,
-              ),
-            ),
-          ),
-          const Expanded(
-            flex: 1,
-            child: WidgetWithCodeView(
-              filePath: 'lib/widgets/clip_oval_widget.dart',
-              iconForegroundColor: Colors.white,
-              iconBackgroundColor: Colors.black,
-              codeLinkPrefix: 'https://google.com?q=',
-              codeContent: '''
-              import 'package:flutter/material.dart';
-            
-              class ClipOvalExample extends StatefulWidget {
-              const ClipOvalExample({super.key});
-            
-              @override
-              State<ClipOvalExample> createState() => _ClipOvalExampleState();
-            }
-            
-            class _ClipOvalExampleState extends State<ClipOvalExample> {
-            
-              @override
-              Widget build(BuildContext context) {
-                return SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Padding(
-                  padding: EdgeInsets.only(top: 18, left: 15),
-                  child: Text(
-                    'Example: ',
-                    style: TextStyle(fontSize: 17),
-                  ),
-                ),
-                const Padding(
-                  padding: EdgeInsets.only(top: 18),
-                ),
-                Center(
-                  child: ClipOval(
-                    clipper: MyClip(),
-                    child: Image.network(
-                        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdJKncgYFP-O8CwJz4o989Jx1TzcWf82CkRw&s',
-                        fit: BoxFit.fill),
-                  ),
-                ),
-                // Example 2 Code
-                
-                Center(
-                  child: ClipOval(
-                    clipper: MyCliPer(),
-                    child: Image.network(
-                        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdJKncgYFP-O8CwJz4o989Jx1TzcWf82CkRw&s',
-                        fit: BoxFit.fill),
-                  ),
-                ),
-              ],
-            ),
-                );
-              }
-            }
-            
-            class MyClip extends CustomClipper<Rect> {
-              @override
-              Rect getClip(Size size) {
-                return const Rect.fromLTWH(0, 0, 100, 150);
-              }
-            
-              @override
-              bool shouldReclip(oldClipper) {
-                return false;
-              }
-            }
-            
-            class MyCliPer extends CustomClipper<Rect> {
-              @override
-              Rect getClip(Size size) {
-                return const Rect.fromLTWH(150, 100, 0, 150);
-              }
-            
-              @override
-              bool shouldReclip(oldClipper) {
-                return false;
-              }
-            }
-            ''',
-              child: ClipOvalExample(),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class ClipOvalExample extends StatefulWidget {
-  const ClipOvalExample({super.key});
-
-  @override
-  State<ClipOvalExample> createState() => _ClipOvalExampleState();
-}
-
-class _ClipOvalExampleState extends State<ClipOvalExample> {
-
-  @override
-  Widget build(BuildContext context) {
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          YoutubePlayer(
+            controller: controller!,
+            progressColors: const ProgressBarColors(
+              backgroundColor: Colors.black,
+              handleColor: Colors.white,
+            ),
+          ),
           const Padding(
             padding: EdgeInsets.only(top: 18, left: 15),
             child: Text(

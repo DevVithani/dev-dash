@@ -12,6 +12,138 @@ class CheckBoxListTileWidget extends StatefulWidget {
 
 class _CheckBoxListTileWidgetState extends State<CheckBoxListTileWidget> {
 
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        backgroundColor: Colors.black,
+        title: const Text(
+          'Checkbox ListTile',
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+      body: const Expanded(
+        flex: 1,
+        child: WidgetWithCodeView(
+          filePath: 'lib/widgets/check_box_list_tile_widget.dart',
+          iconForegroundColor: Colors.white,
+          iconBackgroundColor: Colors.black,
+          codeLinkPrefix: 'https://google.com?q=',
+          codeContent: '''
+          import 'package:flutter/material.dart';
+        
+          class CheckBoxListTileExample extends StatefulWidget {
+          const CheckBoxListTileExample({super.key});
+        
+          @override
+          State<CheckBoxListTileExample> createState() =>
+        _CheckBoxListTileExampleState();
+        }
+        
+        class _CheckBoxListTileExampleState extends State<CheckBoxListTileExample> {
+          bool checkboxValue1 = false;
+          bool checkboxValue2 = true;
+          bool checkboxValue3 = false;
+        
+          @override
+          Widget build(BuildContext context) {
+            return SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 18),
+              child: Column(
+                children: <Widget>[
+                
+              //Example 1 Code
+              
+            Padding(
+              padding: const EdgeInsets.only(top: 18),
+              child: CheckboxListTile(
+                activeColor: Colors.black,
+                value: checkboxValue1,
+                onChanged: (bool? value) {
+                  setState(() {
+                    checkboxValue1 = value!;
+                  });
+                },
+                title: const Text('Headline'),
+                subtitle: const Text('Supporting Text'),
+              ),
+            ),
+            
+            // Example 2 Code
+            
+            Padding(
+              padding: const EdgeInsets.only(top: 18),
+              child: CheckboxListTile(
+                activeColor: Colors.black,
+                value: checkboxValue2,
+                onChanged: (bool? value) {
+                  setState(() {
+                    checkboxValue2 = value!;
+                  });
+                },
+                title: const Text('Headline'),
+                subtitle: const Text(
+                    'Longer supporting text to demonstrate how the text wraps and the checkbox is centered vertically with the text.'),
+              ),
+            ),
+            
+            //Example 3 Code
+            
+            Padding(
+              padding: const EdgeInsets.only(top: 18),
+              child: CheckboxListTile(
+                activeColor: Colors.black,
+                value: checkboxValue3,
+                onChanged: (bool? value) {
+                  setState(() {
+                    checkboxValue3 = value!;
+                  });
+                },
+                title: const Text('Headline'),
+                subtitle: const Text(
+                    "Longer supporting text to demonstrate how the text wraps and how setting 'CheckboxListTile.isThreeLine = true' aligns the checkbox to the top vertically with the text."),
+                isThreeLine: true,
+              ),
+            ),
+                ],
+              ),
+            ),
+          ],
+        ),
+            );
+          }
+        }''',
+          child: CheckBoxListTileExample(),
+        ),
+      ),
+    );
+  }
+}
+
+class CheckBoxListTileExample extends StatefulWidget {
+  const CheckBoxListTileExample({super.key});
+
+  @override
+  State<CheckBoxListTileExample> createState() =>
+      _CheckBoxListTileExampleState();
+}
+
+class _CheckBoxListTileExampleState extends State<CheckBoxListTileExample> {
+  bool checkboxValue1 = false;
+  bool checkboxValue2 = true;
+  bool checkboxValue3 = false;
+
   String url = 'https://www.youtube.com/watch?v=RkSqPAn9szs';
 
   YoutubePlayerController? controller;
@@ -41,157 +173,18 @@ class _CheckBoxListTileWidgetState extends State<CheckBoxListTileWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-        backgroundColor: Colors.black,
-        title: const Text(
-          'Checkbox ListTile',
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-      body: Column(
-        children: [
-          Padding(
-            padding: EdgeInsets.only(bottom: 8),
-            child: YoutubePlayer(
-              controller: controller!,
-              progressColors: const ProgressBarColors(
-                backgroundColor: Colors.black,
-                handleColor: Colors.white,
-              ),
-            ),
-          ),
-          const Expanded(
-            flex: 1,
-            child: WidgetWithCodeView(
-              filePath: 'lib/widgets/check_box_list_tile_widget.dart',
-              iconForegroundColor: Colors.white,
-              iconBackgroundColor: Colors.black,
-              codeLinkPrefix: 'https://google.com?q=',
-              codeContent: '''
-              import 'package:flutter/material.dart';
-            
-              class CheckBoxListTileExample extends StatefulWidget {
-              const CheckBoxListTileExample({super.key});
-            
-              @override
-              State<CheckBoxListTileExample> createState() =>
-            _CheckBoxListTileExampleState();
-            }
-            
-            class _CheckBoxListTileExampleState extends State<CheckBoxListTileExample> {
-              bool checkboxValue1 = false;
-              bool checkboxValue2 = true;
-              bool checkboxValue3 = false;
-            
-              @override
-              Widget build(BuildContext context) {
-                return SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 18),
-                  child: Column(
-                    children: <Widget>[
-                    
-                  //Example 1 Code
-                  
-                Padding(
-                  padding: const EdgeInsets.only(top: 18),
-                  child: CheckboxListTile(
-                    activeColor: Colors.black,
-                    value: checkboxValue1,
-                    onChanged: (bool? value) {
-                      setState(() {
-                        checkboxValue1 = value!;
-                      });
-                    },
-                    title: const Text('Headline'),
-                    subtitle: const Text('Supporting Text'),
-                  ),
-                ),
-                
-                // Example 2 Code
-                
-                Padding(
-                  padding: const EdgeInsets.only(top: 18),
-                  child: CheckboxListTile(
-                    activeColor: Colors.black,
-                    value: checkboxValue2,
-                    onChanged: (bool? value) {
-                      setState(() {
-                        checkboxValue2 = value!;
-                      });
-                    },
-                    title: const Text('Headline'),
-                    subtitle: const Text(
-                        'Longer supporting text to demonstrate how the text wraps and the checkbox is centered vertically with the text.'),
-                  ),
-                ),
-                
-                //Example 3 Code
-                
-                Padding(
-                  padding: const EdgeInsets.only(top: 18),
-                  child: CheckboxListTile(
-                    activeColor: Colors.black,
-                    value: checkboxValue3,
-                    onChanged: (bool? value) {
-                      setState(() {
-                        checkboxValue3 = value!;
-                      });
-                    },
-                    title: const Text('Headline'),
-                    subtitle: const Text(
-                        "Longer supporting text to demonstrate how the text wraps and how setting 'CheckboxListTile.isThreeLine = true' aligns the checkbox to the top vertically with the text."),
-                    isThreeLine: true,
-                  ),
-                ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-                );
-              }
-            }''',
-              child: CheckBoxListTileExample(),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class CheckBoxListTileExample extends StatefulWidget {
-  const CheckBoxListTileExample({super.key});
-
-  @override
-  State<CheckBoxListTileExample> createState() =>
-      _CheckBoxListTileExampleState();
-}
-
-class _CheckBoxListTileExampleState extends State<CheckBoxListTileExample> {
-  bool checkboxValue1 = false;
-  bool checkboxValue2 = true;
-  bool checkboxValue3 = false;
-
-  @override
-  Widget build(BuildContext context) {
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          YoutubePlayer(
+            controller: controller!,
+            progressColors: const ProgressBarColors(
+              backgroundColor: Colors.black,
+              handleColor: Colors.white,
+            ),
+          ),
           const Padding(
             padding: EdgeInsets.only(top: 18, left: 15),
             child: Text(

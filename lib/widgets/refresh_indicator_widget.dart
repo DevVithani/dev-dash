@@ -12,26 +12,6 @@ class RefreshIndicatorWidget extends StatefulWidget {
 
 class _RefreshIndicatorWidgetState extends State<RefreshIndicatorWidget> {
 
-  String url = 'https://youtu.be/ORApMlzwMdM';
-
-  YoutubePlayerController? controller;
-
-  @override
-  void initState() {
-    final videoId = YoutubePlayer.convertUrlToId(url);
-
-    controller = YoutubePlayerController(
-      initialVideoId: videoId!,
-      flags: const YoutubePlayerFlags(
-        autoPlay: false,
-        mute: false,
-        enableCaption: true,
-        loop: true,
-        forceHD: true,
-      ),
-    );
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,82 +30,68 @@ class _RefreshIndicatorWidgetState extends State<RefreshIndicatorWidget> {
           ),
         ),
       ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 8),
-            child: YoutubePlayer(
-              controller: controller!,
-              progressColors: const ProgressBarColors(
-                backgroundColor: Colors.black,
-                handleColor: Colors.white,
-              ),
-            ),
-          ),
-          const Expanded(
-            flex: 1,
-            child: WidgetWithCodeView(
-              filePath: 'lib/widgets/refresh_indicator_widget.dart',
-              iconForegroundColor: Colors.white,
-              iconBackgroundColor: Colors.black,
-              codeLinkPrefix: 'https://google.com?q=',
-              codeContent: '''
-              import 'package:flutter/material.dart';
-            
-              class RefreshIndicatorExample extends StatefulWidget {
-              const RefreshIndicatorExample({super.key});
-            
-              @override
-              State<RefreshIndicatorExample> createState() =>
-            _RefreshIndicatorExampleState();
-            }
-            
-            class _RefreshIndicatorExampleState extends State<RefreshIndicatorExample> {
-              List<String> items = List.generate(20, (index) => 'Item {index + 1}');    // put dollar before {}
-            
-              Future<void> _refreshData() async {
-                await Future.delayed(const Duration(seconds: 2));
-            
-                setState(() {
-            items = List.generate(10, (index) => 'New Item {index + 1}');    // put dollar before {}
-                });
-              }
-            
-              String url = 'https://youtu.be/ORApMlzwMdM';
-            
-              @override
-              Widget build(BuildContext context) {
-                return SingleChildScrollView(
-            clipBehavior: Clip.none,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [    
-                SizedBox(
-                  height: MediaQuery.of(context).size.height / 1.2,
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 18),
-                    child: RefreshIndicator(
-                      onRefresh: _refreshData,
-                      child: ListView.builder(
-                        itemCount: items.length,
-                        itemBuilder: (context, index) {
-                          return ListTile(
-                            title: Text(items[index]),
-                          );
-                        },
-                      ),
-                    ),
+      body: const Expanded(
+        flex: 1,
+        child: WidgetWithCodeView(
+          filePath: 'lib/widgets/refresh_indicator_widget.dart',
+          iconForegroundColor: Colors.white,
+          iconBackgroundColor: Colors.black,
+          codeLinkPrefix: 'https://google.com?q=',
+          codeContent: '''
+          import 'package:flutter/material.dart';
+        
+          class RefreshIndicatorExample extends StatefulWidget {
+          const RefreshIndicatorExample({super.key});
+        
+          @override
+          State<RefreshIndicatorExample> createState() =>
+        _RefreshIndicatorExampleState();
+        }
+        
+        class _RefreshIndicatorExampleState extends State<RefreshIndicatorExample> {
+          List<String> items = List.generate(20, (index) => 'Item {index + 1}');    // put dollar before {}
+        
+          Future<void> _refreshData() async {
+            await Future.delayed(const Duration(seconds: 2));
+        
+            setState(() {
+        items = List.generate(10, (index) => 'New Item {index + 1}');    // put dollar before {}
+            });
+          }
+        
+          String url = 'https://youtu.be/ORApMlzwMdM';
+        
+          @override
+          Widget build(BuildContext context) {
+            return SingleChildScrollView(
+        clipBehavior: Clip.none,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [    
+            SizedBox(
+              height: MediaQuery.of(context).size.height / 1.2,
+              child: Padding(
+                padding: const EdgeInsets.only(top: 18),
+                child: RefreshIndicator(
+                  onRefresh: _refreshData,
+                  child: ListView.builder(
+                    itemCount: items.length,
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        title: Text(items[index]),
+                      );
+                    },
                   ),
                 ),
-              ],
+              ),
             ),
-                );
-              }
-            }''',
-              child: RefreshIndicatorExample(),
-            ),
-          ),
-        ],
+          ],
+        ),
+            );
+          }
+        }''',
+          child: RefreshIndicatorExample(),
+        ),
       ),
     );
   }
@@ -150,6 +116,27 @@ class _RefreshIndicatorExampleState extends State<RefreshIndicatorExample> {
     });
   }
 
+  String url = 'https://youtu.be/ORApMlzwMdM';
+
+  YoutubePlayerController? controller;
+
+  @override
+  void initState() {
+    final videoId = YoutubePlayer.convertUrlToId(url);
+
+    controller = YoutubePlayerController(
+      initialVideoId: videoId!,
+      flags: const YoutubePlayerFlags(
+        autoPlay: false,
+        mute: false,
+        enableCaption: true,
+        loop: true,
+        forceHD: true,
+      ),
+    );
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -157,6 +144,13 @@ class _RefreshIndicatorExampleState extends State<RefreshIndicatorExample> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          YoutubePlayer(
+            controller: controller!,
+            progressColors: const ProgressBarColors(
+              backgroundColor: Colors.black,
+              handleColor: Colors.white,
+            ),
+          ),
           const Padding(
             padding: EdgeInsets.only(top: 18, left: 15),
             child: Text(

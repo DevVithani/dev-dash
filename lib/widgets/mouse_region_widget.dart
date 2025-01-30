@@ -12,6 +12,160 @@ class MouseRegionWidget extends StatefulWidget {
 
 class _MouseRegionWidgetState extends State<MouseRegionWidget> {
 
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        backgroundColor: Colors.black,
+        title: const Text(
+          'Mouse Region',
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+      body: const Expanded(
+        flex: 1,
+        child: WidgetWithCodeView(
+          filePath: 'lib/widgets/mouse_region_widget.dart',
+          iconForegroundColor: Colors.white,
+          iconBackgroundColor: Colors.black,
+          codeLinkPrefix: 'https://google.com?q=',
+          codeContent: '''
+          import 'package:flutter/material.dart';
+        
+          class MouseRegionExample extends StatefulWidget {
+          const MouseRegionExample({super.key});
+        
+          @override
+          State<MouseRegionExample> createState() => _MouseRegionExampleState();
+        }
+        
+        class _MouseRegionExampleState extends State<MouseRegionExample> {
+        
+          int _enterCounter = 0;
+          int _exitCounter = 0;
+          double x = 0.0;
+          double y = 0.0;
+        
+          void _incrementEnter(PointerEvent details) {
+            setState(() {
+        _enterCounter++;
+            });
+          }
+        
+          void _incrementExit(PointerEvent details) {
+            setState(() {
+        _exitCounter++;
+            });
+          }
+        
+          void _updateLocation(PointerEvent details) {
+            setState(() {
+        x = details.position.dx;
+        y = details.position.dy;
+            });
+          }
+        
+          @override
+          Widget build(BuildContext context) {
+            return SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 18),
+              child: Center(
+                child: ConstrainedBox(
+                  constraints: BoxConstraints.tight(
+                    const Size(300.0, 200.0),
+                  ),
+                  child: MouseRegion(
+                    onEnter: _incrementEnter,
+                    onHover: _updateLocation,
+                    onExit: _incrementExit,
+                    child: ColoredBox(
+                      color: Colors.blue,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          const Text(
+                            'You have entered or exited this box this many times:',
+                          ),
+                          Text(
+                            '_enterCounter Entries\n_exitCounter Exits',    // put dollar symbol before _enterCounter _exitCounter
+                            style: Theme.of(context).textTheme.headlineMedium,
+                          ),
+                          Text(
+                            'The cursor is here: ({x.toStringAsFixed(2)}, {y.toStringAsFixed(2)})',  // put dollar symbol before {}
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            
+            // Example 2 code
+            
+            Center(
+                child: ConstrainedBox(
+                  constraints: BoxConstraints.tight(
+                    const Size(300.0, 200.0),
+                  ),
+                  child: MouseRegion(
+                    onEnter: _incrementEnter,
+                    onHover: _updateLocation,
+                    onExit: _incrementExit,
+                    child: ColoredBox(
+                      color: Colors.blue,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          const Text(
+                            'You have entered or exited this box this many times:',
+                          ),
+                          Text(
+                            '_enterCounter Entries\n_exitCounter Exits',    // put dollar before _enter and _exit
+                            style: Theme.of(context).textTheme.headlineMedium,
+                          ),
+                          Text(
+                            'The cursor is here: ({x.toStringAsFixed(2)}, {y.toStringAsFixed(2)})',  // put dollar before {x}, {y}
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+          ],
+        ),
+            );
+          }
+        }''',
+          child: MouseRegionExample(),
+        ),
+      ),
+    );
+  }
+}
+
+class MouseRegionExample extends StatefulWidget {
+  const MouseRegionExample({super.key});
+
+  @override
+  State<MouseRegionExample> createState() => _MouseRegionExampleState();
+}
+
+class _MouseRegionExampleState extends State<MouseRegionExample> {
+
   String url = 'https://youtu.be/1oF3pI5umck';
 
   YoutubePlayerController? controller;
@@ -38,174 +192,6 @@ class _MouseRegionWidgetState extends State<MouseRegionWidget> {
     controller?.dispose();
     super.dispose();
   }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-        backgroundColor: Colors.black,
-        title: const Text(
-          'Mouse Region',
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 8),
-            child: YoutubePlayer(
-              controller: controller!,
-              progressColors: const ProgressBarColors(
-                backgroundColor: Colors.black,
-                handleColor: Colors.white,
-              ),
-            ),
-          ),
-          const Expanded(
-            flex: 1,
-            child: WidgetWithCodeView(
-              filePath: 'lib/widgets/mouse_region_widget.dart',
-              iconForegroundColor: Colors.white,
-              iconBackgroundColor: Colors.black,
-              codeLinkPrefix: 'https://google.com?q=',
-              codeContent: '''
-              import 'package:flutter/material.dart';
-            
-              class MouseRegionExample extends StatefulWidget {
-              const MouseRegionExample({super.key});
-            
-              @override
-              State<MouseRegionExample> createState() => _MouseRegionExampleState();
-            }
-            
-            class _MouseRegionExampleState extends State<MouseRegionExample> {
-            
-              int _enterCounter = 0;
-              int _exitCounter = 0;
-              double x = 0.0;
-              double y = 0.0;
-            
-              void _incrementEnter(PointerEvent details) {
-                setState(() {
-            _enterCounter++;
-                });
-              }
-            
-              void _incrementExit(PointerEvent details) {
-                setState(() {
-            _exitCounter++;
-                });
-              }
-            
-              void _updateLocation(PointerEvent details) {
-                setState(() {
-            x = details.position.dx;
-            y = details.position.dy;
-                });
-              }
-            
-              @override
-              Widget build(BuildContext context) {
-                return SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 18),
-                  child: Center(
-                    child: ConstrainedBox(
-                      constraints: BoxConstraints.tight(
-                        const Size(300.0, 200.0),
-                      ),
-                      child: MouseRegion(
-                        onEnter: _incrementEnter,
-                        onHover: _updateLocation,
-                        onExit: _incrementExit,
-                        child: ColoredBox(
-                          color: Colors.blue,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              const Text(
-                                'You have entered or exited this box this many times:',
-                              ),
-                              Text(
-                                '_enterCounter Entries\n_exitCounter Exits',    // put dollar symbol before _enterCounter _exitCounter
-                                style: Theme.of(context).textTheme.headlineMedium,
-                              ),
-                              Text(
-                                'The cursor is here: ({x.toStringAsFixed(2)}, {y.toStringAsFixed(2)})',  // put dollar symbol before {}
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                
-                // Example 2 code
-                
-                Center(
-                    child: ConstrainedBox(
-                      constraints: BoxConstraints.tight(
-                        const Size(300.0, 200.0),
-                      ),
-                      child: MouseRegion(
-                        onEnter: _incrementEnter,
-                        onHover: _updateLocation,
-                        onExit: _incrementExit,
-                        child: ColoredBox(
-                          color: Colors.blue,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              const Text(
-                                'You have entered or exited this box this many times:',
-                              ),
-                              Text(
-                                '_enterCounter Entries\n_exitCounter Exits',    // put dollar before _enter and _exit
-                                style: Theme.of(context).textTheme.headlineMedium,
-                              ),
-                              Text(
-                                'The cursor is here: ({x.toStringAsFixed(2)}, {y.toStringAsFixed(2)})',  // put dollar before {x}, {y}
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-              ],
-            ),
-                );
-              }
-            }''',
-              child: MouseRegionExample(),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class MouseRegionExample extends StatefulWidget {
-  const MouseRegionExample({super.key});
-
-  @override
-  State<MouseRegionExample> createState() => _MouseRegionExampleState();
-}
-
-class _MouseRegionExampleState extends State<MouseRegionExample> {
 
   int _enterCounter = 0;
   int _exitCounter = 0;
@@ -240,6 +226,13 @@ class _MouseRegionExampleState extends State<MouseRegionExample> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          YoutubePlayer(
+            controller: controller!,
+            progressColors: const ProgressBarColors(
+              backgroundColor: Colors.black,
+              handleColor: Colors.white,
+            ),
+          ),
           const Padding(
             padding: EdgeInsets.only(top: 18, left: 15),
             child: Text(

@@ -31,6 +31,134 @@ class AutocompleteWidget extends StatefulWidget {
 }
 
 class _AutocompleteWidgetState extends State<AutocompleteWidget> {
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        backgroundColor: Colors.black,
+        title: const Text(
+          'AutoComplete widget',
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+      body: const Expanded(
+        flex: 1,
+        child: WidgetWithCodeView(
+          filePath: 'lib/widgets/auto_complete_widget.dart',
+          iconForegroundColor: Colors.white,
+          iconBackgroundColor: Colors.black,
+          codeLinkPrefix: 'https://google.com?q=',
+          codeContent: '''
+          import 'package:flutter/material.dart';
+        
+          class AutoCompleteExample extends StatefulWidget {
+          const AutoCompleteExample({super.key});
+          
+           static const List<String> listItems = <String>[
+            'Apple',
+            'WaterMelon',
+            'Banana',
+            'Lemon',
+            'Mango',
+            'Tomato',
+            'Potato',
+          ];
+          
+            static const List<String> listLanguages = <String>[
+            'Dart',
+            'Flutter',
+            'Java',
+            'Kotlin',
+            'Python',
+            'C#',
+            'Swift',
+          ];
+        
+          @override
+          State<AutoCompleteExample> createState() => _AutoCompleteExampleState();
+        }
+        
+        class _AutoCompleteExampleState extends State<AutoCompleteExample> {
+        
+          @override
+          Widget build(BuildContext context) {
+            return SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 18),
+              child: Autocomplete<String>(
+                optionsBuilder: (TextEditingValue textEditingValue) {
+                  if (textEditingValue.text == '') {
+                    return const Iterable<String>.empty();
+                  }
+                  return AutocompleteWidget.listItems.where((String item) {
+                    return item.contains(textEditingValue.text.toUpperCase());
+                  });
+                },
+                onSelected: (String item) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(('item Selected ')),   //put dollar symbol before item
+                    ),
+                  );
+                },
+              ),
+            ),
+            
+            // Example 2 Code
+            
+            Padding(
+              padding: const EdgeInsets.only(top: 18),
+              child: Autocomplete<String>(
+                optionsBuilder: (TextEditingValue textEditingValue) {
+                  if (textEditingValue.text == '') {
+                    return const Iterable<String>.empty();
+                  }
+                  return AutocompleteWidget.listLanguages.where((String item) {
+                    return item.contains(textEditingValue.text.toUpperCase());
+                  });
+                },
+                onSelected: (String item) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(('item Selected')),     // put dollar symbol before item
+                    ),
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+            );
+          }
+        }''',
+          child: AutoCompleteExample(),
+        ),
+      ),
+    );
+  }
+}
+
+class AutoCompleteExample extends StatefulWidget {
+  const AutoCompleteExample({super.key});
+
+  @override
+  State<AutoCompleteExample> createState() => _AutoCompleteExampleState();
+}
+
+class _AutoCompleteExampleState extends State<AutoCompleteExample> {
+
   String url = 'https://youtu.be/-Nny8kzW380';
 
   YoutubePlayerController? controller;
@@ -54,151 +182,18 @@ class _AutocompleteWidgetState extends State<AutocompleteWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-        backgroundColor: Colors.black,
-        title: const Text(
-          'AutoComplete widget',
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-      body: Column(
-        children: [
-          Padding(
-            padding: EdgeInsets.only(bottom: 8),
-            child: YoutubePlayer(
-              controller: controller!,
-              progressColors: const ProgressBarColors(
-                backgroundColor: Colors.black,
-                handleColor: Colors.white,
-              ),
-            ),
-          ),
-          const Expanded(
-            flex: 1,
-            child: WidgetWithCodeView(
-              filePath: 'lib/widgets/auto_complete_widget.dart',
-              iconForegroundColor: Colors.white,
-              iconBackgroundColor: Colors.black,
-              codeLinkPrefix: 'https://google.com?q=',
-              codeContent: '''
-              import 'package:flutter/material.dart';
-            
-              class AutoCompleteExample extends StatefulWidget {
-              const AutoCompleteExample({super.key});
-              
-               static const List<String> listItems = <String>[
-                'Apple',
-                'WaterMelon',
-                'Banana',
-                'Lemon',
-                'Mango',
-                'Tomato',
-                'Potato',
-              ];
-              
-                static const List<String> listLanguages = <String>[
-                'Dart',
-                'Flutter',
-                'Java',
-                'Kotlin',
-                'Python',
-                'C#',
-                'Swift',
-              ];
-            
-              @override
-              State<AutoCompleteExample> createState() => _AutoCompleteExampleState();
-            }
-            
-            class _AutoCompleteExampleState extends State<AutoCompleteExample> {
-            
-              @override
-              Widget build(BuildContext context) {
-                return SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 18),
-                  child: Autocomplete<String>(
-                    optionsBuilder: (TextEditingValue textEditingValue) {
-                      if (textEditingValue.text == '') {
-                        return const Iterable<String>.empty();
-                      }
-                      return AutocompleteWidget.listItems.where((String item) {
-                        return item.contains(textEditingValue.text.toUpperCase());
-                      });
-                    },
-                    onSelected: (String item) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(('item Selected ')),   //put dollar symbol before item
-                        ),
-                      );
-                    },
-                  ),
-                ),
-                
-                // Example 2 Code
-                
-                Padding(
-                  padding: const EdgeInsets.only(top: 18),
-                  child: Autocomplete<String>(
-                    optionsBuilder: (TextEditingValue textEditingValue) {
-                      if (textEditingValue.text == '') {
-                        return const Iterable<String>.empty();
-                      }
-                      return AutocompleteWidget.listLanguages.where((String item) {
-                        return item.contains(textEditingValue.text.toUpperCase());
-                      });
-                    },
-                    onSelected: (String item) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(('item Selected')),     // put dollar symbol before item
-                        ),
-                      );
-                    },
-                  ),
-                ),
-              ],
-            ),
-                );
-              }
-            }''',
-              child: AutoCompleteExample(),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class AutoCompleteExample extends StatefulWidget {
-  const AutoCompleteExample({super.key});
-
-  @override
-  State<AutoCompleteExample> createState() => _AutoCompleteExampleState();
-}
-
-class _AutoCompleteExampleState extends State<AutoCompleteExample> {
-  @override
-  Widget build(BuildContext context) {
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          YoutubePlayer(
+            controller: controller!,
+            progressColors: const ProgressBarColors(
+              backgroundColor: Colors.black,
+              handleColor: Colors.white,
+            ),
+          ),
           const Padding(
             padding: EdgeInsets.only(top: 18, left: 15),
             child: Text(

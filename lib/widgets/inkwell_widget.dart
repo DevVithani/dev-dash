@@ -12,6 +12,155 @@ class InkWellWidget extends StatefulWidget {
 }
 
 class _InkWellWidgetState extends State<InkWellWidget> {
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        backgroundColor: Colors.black,
+        title: const Text(
+          'Inkwell',
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+      body: const Expanded(
+        flex: 1,
+        child: WidgetWithCodeView(
+          filePath: 'lib/widgets/inkwell_widget.dart',
+          iconForegroundColor: Colors.white,
+          iconBackgroundColor: Colors.black,
+          codeLinkPrefix: 'https://google.com?q=',
+          codeContent: '''
+          import 'package:flutter/material.dart';
+        
+          class InkwellExample extends StatefulWidget {
+          const InkwellExample({super.key});
+        
+          @override
+          State<InkwellExample> createState() => _InkwellExampleState();
+        }
+        
+        class _InkwellExampleState extends State<InkwellExample> {
+          double sideLength = 100;
+          double siDelENgTH= 100;
+          double  sIDElEnGTH= 100;
+        
+          @override
+          Widget build(BuildContext context) {
+            return SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+          
+          // Example 1 Code
+          
+            Padding(
+              padding: const EdgeInsets.only(top: 18),
+              child: Center(
+                child: AnimatedContainer(
+                  decoration: BoxDecoration(
+                    color: Colors.black,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  height: sideLength,
+                  width: sideLength,
+                  duration: const Duration(seconds: 2),
+                  curve: Curves.bounceInOut,
+                  child: InkWell(
+                    onTap: () {
+                      setState(() {
+                        sideLength == 100 ? sideLength = 200 : sideLength = 100;
+                      });
+                    },
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+            );
+          }
+        }
+        
+        
+            // Example 2 Code
+        
+              Padding(
+              padding: const EdgeInsets.only(top: 18),
+              child: Center(
+                child: AnimatedContainer(
+                  decoration: BoxDecoration(
+                    color: Colors.black,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  height: sIDElEnGTH,
+                  width: sIDElEnGTH,
+                  duration: const Duration(seconds: 2),
+                  curve: Curves.bounceInOut,
+                  child: InkWell(
+                    splashColor: Colors.white,
+                    onDoubleTap: () {
+                      setState(() {
+                        sIDElEnGTH == 100 ? sIDElEnGTH = 200 : sIDElEnGTH = 100;
+                      });
+                    },
+                  ),
+                ),
+              ),
+            ),
+            
+            // Example 3 Code
+            
+            Padding(
+              padding: const EdgeInsets.only(top: 18),
+              child: Center(
+                child: AnimatedContainer(
+                  decoration: BoxDecoration(
+                    color: Colors.black,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  height: siDelENgTH,
+                  width: siDelENgTH,
+                  duration: const Duration(seconds: 2),
+                  curve: Curves.bounceInOut,
+                  child: InkWell(
+                    splashColor: Colors.white,
+                    onLongPress: () {
+                      setState(() {
+                        siDelENgTH == 100 ? siDelENgTH = 200 : siDelENgTH = 100;
+                      });
+                    },
+                  ),
+                ),
+              ),
+            ),''',
+          child: InkwellExample(),
+        ),
+      ),
+    );
+  }
+}
+
+class InkwellExample extends StatefulWidget {
+  const InkwellExample({super.key});
+
+  @override
+  State<InkwellExample> createState() => _InkwellExampleState();
+}
+
+class _InkwellExampleState extends State<InkwellExample> {
+  double sideLength = 100;
+  double siDelENgTH = 100;
+  double sIDElEnGTH = 100;
+
   String url = 'https://www.youtube.com/watch?v=YbrrnSDCbC4';
 
   YoutubePlayerController? controller;
@@ -35,173 +184,18 @@ class _InkWellWidgetState extends State<InkWellWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-        backgroundColor: Colors.black,
-        title: const Text(
-          'Inkwell',
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 8),
-            child: YoutubePlayer(
-              controller: controller!,
-              progressColors: const ProgressBarColors(
-                backgroundColor: Colors.black,
-                handleColor: Colors.white,
-              ),
-            ),
-          ),
-          const Expanded(
-            flex: 1,
-            child: WidgetWithCodeView(
-              filePath: 'lib/widgets/inkwell_widget.dart',
-              iconForegroundColor: Colors.white,
-              iconBackgroundColor: Colors.black,
-              codeLinkPrefix: 'https://google.com?q=',
-              codeContent: '''
-              import 'package:flutter/material.dart';
-            
-              class InkwellExample extends StatefulWidget {
-              const InkwellExample({super.key});
-            
-              @override
-              State<InkwellExample> createState() => _InkwellExampleState();
-            }
-            
-            class _InkwellExampleState extends State<InkwellExample> {
-              double sideLength = 100;
-              double siDelENgTH= 100;
-              double  sIDElEnGTH= 100;
-            
-              @override
-              Widget build(BuildContext context) {
-                return SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-              
-              // Example 1 Code
-              
-                Padding(
-                  padding: const EdgeInsets.only(top: 18),
-                  child: Center(
-                    child: AnimatedContainer(
-                      decoration: BoxDecoration(
-                        color: Colors.black,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      height: sideLength,
-                      width: sideLength,
-                      duration: const Duration(seconds: 2),
-                      curve: Curves.bounceInOut,
-                      child: InkWell(
-                        onTap: () {
-                          setState(() {
-                            sideLength == 100 ? sideLength = 200 : sideLength = 100;
-                          });
-                        },
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-                );
-              }
-            }
-            
-            
-                // Example 2 Code
-            
-                  Padding(
-                  padding: const EdgeInsets.only(top: 18),
-                  child: Center(
-                    child: AnimatedContainer(
-                      decoration: BoxDecoration(
-                        color: Colors.black,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      height: sIDElEnGTH,
-                      width: sIDElEnGTH,
-                      duration: const Duration(seconds: 2),
-                      curve: Curves.bounceInOut,
-                      child: InkWell(
-                        splashColor: Colors.white,
-                        onDoubleTap: () {
-                          setState(() {
-                            sIDElEnGTH == 100 ? sIDElEnGTH = 200 : sIDElEnGTH = 100;
-                          });
-                        },
-                      ),
-                    ),
-                  ),
-                ),
-                
-                // Example 3 Code
-                
-                Padding(
-                  padding: const EdgeInsets.only(top: 18),
-                  child: Center(
-                    child: AnimatedContainer(
-                      decoration: BoxDecoration(
-                        color: Colors.black,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      height: siDelENgTH,
-                      width: siDelENgTH,
-                      duration: const Duration(seconds: 2),
-                      curve: Curves.bounceInOut,
-                      child: InkWell(
-                        splashColor: Colors.white,
-                        onLongPress: () {
-                          setState(() {
-                            siDelENgTH == 100 ? siDelENgTH = 200 : siDelENgTH = 100;
-                          });
-                        },
-                      ),
-                    ),
-                  ),
-                ),''',
-              child: InkwellExample(),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class InkwellExample extends StatefulWidget {
-  const InkwellExample({super.key});
-
-  @override
-  State<InkwellExample> createState() => _InkwellExampleState();
-}
-
-class _InkwellExampleState extends State<InkwellExample> {
-  double sideLength = 100;
-  double siDelENgTH = 100;
-  double sIDElEnGTH = 100;
-
-  @override
-  Widget build(BuildContext context) {
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          YoutubePlayer(
+            controller: controller!,
+            progressColors: const ProgressBarColors(
+              backgroundColor: Colors.black,
+              handleColor: Colors.white,
+            ),
+          ),
           const Padding(
             padding: EdgeInsets.only(top: 18, left: 15),
             child: Text(

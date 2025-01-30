@@ -12,27 +12,6 @@ class ReOrderAbleListWidget extends StatefulWidget {
 
 class _ReOrderAbleListWidgetState extends State<ReOrderAbleListWidget> {
 
-  String url = 'https://youtu.be/3fB1mxOsqJE';
-
-  YoutubePlayerController? controller;
-
-  @override
-  void initState() {
-    final videoId = YoutubePlayer.convertUrlToId(url);
-
-    controller = YoutubePlayerController(
-      initialVideoId: videoId!,
-      flags: const YoutubePlayerFlags(
-        autoPlay: false,
-        mute: false,
-        enableCaption: true,
-        loop: true,
-        forceHD: true,
-      ),
-    );
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,98 +29,84 @@ class _ReOrderAbleListWidgetState extends State<ReOrderAbleListWidget> {
         ),
         backgroundColor: Colors.black,
       ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 8),
-            child: YoutubePlayer(
-              controller: controller!,
-              progressColors: const ProgressBarColors(
-                backgroundColor: Colors.black,
-                handleColor: Colors.white,
+      body: const Expanded(
+        flex: 1,
+        child: WidgetWithCodeView(
+          filePath: "lib/widgets/reorder_able_list_widget.dart",
+          iconForegroundColor: Colors.white,
+          iconBackgroundColor: Colors.black,
+          codeLinkPrefix: 'https://google.com?q=',
+          codeContent: '''
+          import 'package:flutter/material.dart';
+        
+          class ReorderExample extends StatefulWidget {
+          const ReorderExample({super.key});
+        
+          @override
+          State<ReorderExample> createState() => _ReorderExampleState();
+        }
+        
+        class _ReorderExampleState extends State<ReorderExample> {
+          List<String> item = [
+            "Java",
+            "Flutter",
+            "Developer",
+            "Android",
+            "Programming",
+            "C++",
+            "Python",
+            "javascript",
+            "Apple",
+            "Google"
+          ];
+        
+          void sorting() {
+            setState(() {
+        item.sort();
+            });
+          }
+        
+          void recorderData(int oldIndex, int newIndex) {
+            setState(() {
+        if (newIndex > oldIndex) {
+          newIndex -= 1;
+        }
+        final items = item.removeAt(oldIndex);
+        item.insert(newIndex, items);
+            });
+          }
+        
+          @override
+          Widget build(BuildContext context) {
+            return SingleChildScrollView(
+        clipBehavior: Clip.none,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(
+              height: MediaQuery.of(context).size.height / 1.2,
+              child: ReorderableListView(
+                onReorder: recorderData,
+                children: [
+                  for (final items in item)
+                    Card(
+                      color: Colors.white,
+                      key: Key(items),
+                      elevation: 2,
+                      child: ListTile(
+                        title: Text(items),
+                      ),
+                    ),
+                ],
               ),
             ),
-          ),
-          const Expanded(
-            flex: 1,
-            child: WidgetWithCodeView(
-              filePath: "lib/widgets/reorder_able_list_widget.dart",
-              iconForegroundColor: Colors.white,
-              iconBackgroundColor: Colors.black,
-              codeLinkPrefix: 'https://google.com?q=',
-              codeContent: '''
-              import 'package:flutter/material.dart';
-            
-              class ReorderExample extends StatefulWidget {
-              const ReorderExample({super.key});
-            
-              @override
-              State<ReorderExample> createState() => _ReorderExampleState();
-            }
-            
-            class _ReorderExampleState extends State<ReorderExample> {
-              List<String> item = [
-                "Java",
-                "Flutter",
-                "Developer",
-                "Android",
-                "Programming",
-                "C++",
-                "Python",
-                "javascript",
-                "Apple",
-                "Google"
-              ];
-            
-              void sorting() {
-                setState(() {
-            item.sort();
-                });
-              }
-            
-              void recorderData(int oldIndex, int newIndex) {
-                setState(() {
-            if (newIndex > oldIndex) {
-              newIndex -= 1;
-            }
-            final items = item.removeAt(oldIndex);
-            item.insert(newIndex, items);
-                });
-              }
-            
-              @override
-              Widget build(BuildContext context) {
-                return SingleChildScrollView(
-            clipBehavior: Clip.none,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  height: MediaQuery.of(context).size.height / 1.2,
-                  child: ReorderableListView(
-                    onReorder: recorderData,
-                    children: [
-                      for (final items in item)
-                        Card(
-                          color: Colors.white,
-                          key: Key(items),
-                          elevation: 2,
-                          child: ListTile(
-                            title: Text(items),
-                          ),
-                        ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-                );
-              }
-            }''',
-              child: ReorderExample(),
-            ),
-          ),
-        ],
+          ],
+        ),
+            );
+          }
+        }''',
+          child: ReorderExample(),
+        ),
       ),
     );
   }
@@ -184,6 +149,27 @@ class _ReorderExampleState extends State<ReorderExample> {
     });
   }
 
+  String url = 'https://youtu.be/3fB1mxOsqJE';
+
+  YoutubePlayerController? controller;
+
+  @override
+  void initState() {
+    final videoId = YoutubePlayer.convertUrlToId(url);
+
+    controller = YoutubePlayerController(
+      initialVideoId: videoId!,
+      flags: const YoutubePlayerFlags(
+        autoPlay: false,
+        mute: false,
+        enableCaption: true,
+        loop: true,
+        forceHD: true,
+      ),
+    );
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -191,6 +177,13 @@ class _ReorderExampleState extends State<ReorderExample> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          YoutubePlayer(
+            controller: controller!,
+            progressColors: const ProgressBarColors(
+              backgroundColor: Colors.black,
+              handleColor: Colors.white,
+            ),
+          ),
           const Padding(
             padding: EdgeInsets.only(top: 18, left: 15),
             child: Text(

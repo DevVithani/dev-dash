@@ -12,6 +12,118 @@ class NavigationRailWidget extends StatefulWidget {
 
 class _NavigationRailWidgetState extends State<NavigationRailWidget> {
 
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        backgroundColor: Colors.black,
+        title: const Text(
+          'Navigation Rail',
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+      body: const Expanded(
+        flex: 1,
+        child: WidgetWithCodeView(
+          filePath: 'lib/widgets/navigation_rail_widget.dart',
+          iconForegroundColor: Colors.white,
+          iconBackgroundColor: Colors.black,
+          codeLinkPrefix: 'https://google.com?q=',
+          codeContent: '''
+          import 'package:flutter/material.dart';
+          
+          class NavigationRailExample extends StatefulWidget {
+          const NavigationRailExample({super.key});
+        
+          @override
+          State<NavigationRailExample> createState() => _NavigationRailExampleState();
+        }
+        
+        class _NavigationRailExampleState extends State<NavigationRailExample> {
+          int _selectedIndex = 0;
+          
+        Row(
+        children: <Widget>[
+          NavigationRail(
+            trailing: const Icon(Icons.menu),
+            selectedIndex: _selectedIndex,
+            groupAlignment: -1.0,
+            onDestinationSelected: (int index) {
+              setState(() {
+                _selectedIndex = index;
+              });
+            },
+            labelType: NavigationRailLabelType.selected,
+            leading: const Icon(Icons.add),
+            destinations: const <NavigationRailDestination>[
+              NavigationRailDestination(
+                icon: Icon(Icons.favorite_border),
+                selectedIcon: Icon(Icons.favorite),
+                label: Text('Favorite'),
+              ),
+              NavigationRailDestination(
+                icon: Badge(
+                  child: Icon(Icons.bookmark_border),
+                ),
+                selectedIcon: Badge(
+                  child: Icon(Icons.book),
+                ),
+                label: Text('BookMark'),
+              ),
+              NavigationRailDestination(
+                  icon: Badge(
+                    label: Text('4'),
+                    child: Icon(Icons.star_border),
+                  ),
+                  selectedIcon: Badge(
+                    label: Text('4'),
+                    child: Icon(Icons.star),
+                  ),
+                  label: Text('Starred')),
+            ],
+          ),
+          const VerticalDivider(
+            thickness: 1,
+            width: 1,
+          ),
+          Expanded(
+            child: SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                 ],
+               ),
+             ),
+           ),
+         ],
+             );
+            } 
+          } ''',
+          child: NavigationRailExample(),
+        ),
+      ),
+    );
+  }
+}
+
+class NavigationRailExample extends StatefulWidget {
+  const NavigationRailExample({super.key});
+
+  @override
+  State<NavigationRailExample> createState() => _NavigationRailExampleState();
+}
+
+class _NavigationRailExampleState extends State<NavigationRailExample> {
+  int _selectedIndex = 0;
+
   String url = 'https://youtu.be/y9xchtVTtqQ';
 
   YoutubePlayerController? controller;
@@ -32,132 +144,6 @@ class _NavigationRailWidgetState extends State<NavigationRailWidget> {
     );
     super.initState();
   }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-        backgroundColor: Colors.black,
-        title: const Text(
-          'Navigation Rail',
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 8),
-            child: YoutubePlayer(
-              controller: controller!,
-              progressColors: const ProgressBarColors(
-                backgroundColor: Colors.black,
-                handleColor: Colors.white,
-              ),
-            ),
-          ),
-          const Expanded(
-            flex: 1,
-            child: WidgetWithCodeView(
-              filePath: 'lib/widgets/navigation_rail_widget.dart',
-              iconForegroundColor: Colors.white,
-              iconBackgroundColor: Colors.black,
-              codeLinkPrefix: 'https://google.com?q=',
-              codeContent: '''
-              import 'package:flutter/material.dart';
-              
-              class NavigationRailExample extends StatefulWidget {
-              const NavigationRailExample({super.key});
-            
-              @override
-              State<NavigationRailExample> createState() => _NavigationRailExampleState();
-            }
-            
-            class _NavigationRailExampleState extends State<NavigationRailExample> {
-              int _selectedIndex = 0;
-              
-            Row(
-            children: <Widget>[
-              NavigationRail(
-                trailing: const Icon(Icons.menu),
-                selectedIndex: _selectedIndex,
-                groupAlignment: -1.0,
-                onDestinationSelected: (int index) {
-                  setState(() {
-                    _selectedIndex = index;
-                  });
-                },
-                labelType: NavigationRailLabelType.selected,
-                leading: const Icon(Icons.add),
-                destinations: const <NavigationRailDestination>[
-                  NavigationRailDestination(
-                    icon: Icon(Icons.favorite_border),
-                    selectedIcon: Icon(Icons.favorite),
-                    label: Text('Favorite'),
-                  ),
-                  NavigationRailDestination(
-                    icon: Badge(
-                      child: Icon(Icons.bookmark_border),
-                    ),
-                    selectedIcon: Badge(
-                      child: Icon(Icons.book),
-                    ),
-                    label: Text('BookMark'),
-                  ),
-                  NavigationRailDestination(
-                      icon: Badge(
-                        label: Text('4'),
-                        child: Icon(Icons.star_border),
-                      ),
-                      selectedIcon: Badge(
-                        label: Text('4'),
-                        child: Icon(Icons.star),
-                      ),
-                      label: Text('Starred')),
-                ],
-              ),
-              const VerticalDivider(
-                thickness: 1,
-                width: 1,
-              ),
-              Expanded(
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.vertical,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                     ],
-                   ),
-                 ),
-               ),
-             ],
-                 );
-                } 
-              } ''',
-              child: NavigationRailExample(),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class NavigationRailExample extends StatefulWidget {
-  const NavigationRailExample({super.key});
-
-  @override
-  State<NavigationRailExample> createState() => _NavigationRailExampleState();
-}
-
-class _NavigationRailExampleState extends State<NavigationRailExample> {
-  int _selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -205,13 +191,20 @@ class _NavigationRailExampleState extends State<NavigationRailExample> {
           thickness: 1,
           width: 1,
         ),
-        const Expanded(
+        Expanded(
           child: SingleChildScrollView(
             scrollDirection: Axis.vertical,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Padding(
+                YoutubePlayer(
+                  controller: controller!,
+                  progressColors: const ProgressBarColors(
+                    backgroundColor: Colors.black,
+                    handleColor: Colors.white,
+                  ),
+                ),
+                const Padding(
                   padding: EdgeInsets.only(top: 18, left: 15),
                   child: Text(
                     'Properties of NavigationRail Widget: ',
@@ -221,7 +214,7 @@ class _NavigationRailExampleState extends State<NavigationRailExample> {
                     ),
                   ),
                 ),
-                Padding(
+                const Padding(
                   padding: EdgeInsets.only(top: 18, left: 15),
                   child: Text(
                     '1.backgroundColor\n'
@@ -248,7 +241,7 @@ class _NavigationRailExampleState extends State<NavigationRailExample> {
                     ),
                   ),
                 ),
-                Padding(
+                const Padding(
                   padding: EdgeInsets.only(top: 18, left: 15),
                   child: Text(
                     'Example: ',

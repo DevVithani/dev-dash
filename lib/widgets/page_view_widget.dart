@@ -12,6 +12,131 @@ class PageViewWidget extends StatefulWidget {
 
 class _PageViewWidgetState extends State<PageViewWidget> {
 
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        title: const Text(
+          'PageView',
+          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+        ),
+      ),
+      body: const Expanded(
+        flex: 1,
+        child: WidgetWithCodeView(
+          filePath: 'lib/widgets/page_view_widget.dart',
+          iconForegroundColor: Colors.white,
+          iconBackgroundColor: Colors.black,
+          codeLinkPrefix: 'https://google.com?q=',
+          codeContent: '''
+        import 'package:flutter/material.dart';
+          
+          class PageViewExample extends StatefulWidget {
+          const PageViewExample({super.key});
+        
+          @override
+          State<PageViewExample> createState() => _PageViewExampleState();
+        }
+        
+        class _PageViewExampleState extends State<PageViewExample> {
+        
+          @override
+          Widget build(BuildContext context) {
+            return SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+          // Example 1 Code
+          
+            Padding(
+              padding: const EdgeInsets.all(18),
+              child: Center(
+                child: Container(
+                  width: MediaQuery.of(context).size.width * 0.6,
+                  height: MediaQuery.of(context).size.height * 0.6,
+                  child: PageView.builder(
+                    itemCount: 3,
+                    itemBuilder: (context, index) {
+                      return Container(
+                        color: Colors.green[(index + 1) * 100],
+                        child: Center(
+                          child: Text(
+                            'Page {index + 1}', // put dollar symbol before {}
+                            style: const TextStyle(
+                                color: Colors.white, fontSize: 24),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ),
+            ),
+            // Example 2 Code
+            
+            const Padding(
+              padding: EdgeInsets.only(top: 18, left: 15),
+              child: Text(
+                'Example 2: Vertical PageView',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 17,
+                  color: Colors.blue,
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(18),
+              child: Center(
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.6,
+                  height: MediaQuery.of(context).size.height * 0.6,
+                  child: PageView.builder(
+                    scrollDirection: Axis.vertical,
+                    itemCount: 3,
+                    itemBuilder: (context, index) {
+                      return Container(
+                        color: Colors.blue[(index + 1) * 100],
+                        child: Center(
+                          child: Text(
+                            'Page {index + 1}',   // put dollar symbol before {}
+                            style: const TextStyle(
+                                color: Colors.white, fontSize: 24),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+            );
+          }
+        }''',
+          child: PageViewExample(),
+        ),
+      ),
+    );
+  }
+}
+
+class PageViewExample extends StatefulWidget {
+  const PageViewExample({super.key});
+
+  @override
+  State<PageViewExample> createState() => _PageViewExampleState();
+}
+
+class _PageViewExampleState extends State<PageViewExample> {
+
   String url = 'https://youtu.be/J1gE9xvph-A';
 
   YoutubePlayerController? controller;
@@ -35,150 +160,18 @@ class _PageViewWidgetState extends State<PageViewWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.black,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-        title: const Text(
-          'PageView',
-          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
-        ),
-      ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 8),
-            child: YoutubePlayer(
-              controller: controller!,
-              progressColors: const ProgressBarColors(
-                backgroundColor: Colors.black,
-                handleColor: Colors.white,
-              ),
-            ),
-          ),
-          const Expanded(
-            flex: 1,
-            child: WidgetWithCodeView(
-              filePath: 'lib/widgets/page_view_widget.dart',
-              iconForegroundColor: Colors.white,
-              iconBackgroundColor: Colors.black,
-              codeLinkPrefix: 'https://google.com?q=',
-              codeContent: '''
-            import 'package:flutter/material.dart';
-              
-              class PageViewExample extends StatefulWidget {
-              const PageViewExample({super.key});
-            
-              @override
-              State<PageViewExample> createState() => _PageViewExampleState();
-            }
-            
-            class _PageViewExampleState extends State<PageViewExample> {
-            
-              @override
-              Widget build(BuildContext context) {
-                return SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-              // Example 1 Code
-              
-                Padding(
-                  padding: const EdgeInsets.all(18),
-                  child: Center(
-                    child: Container(
-                      width: MediaQuery.of(context).size.width * 0.6,
-                      height: MediaQuery.of(context).size.height * 0.6,
-                      child: PageView.builder(
-                        itemCount: 3,
-                        itemBuilder: (context, index) {
-                          return Container(
-                            color: Colors.green[(index + 1) * 100],
-                            child: Center(
-                              child: Text(
-                                'Page {index + 1}', // put dollar symbol before {}
-                                style: const TextStyle(
-                                    color: Colors.white, fontSize: 24),
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                    ),
-                  ),
-                ),
-                // Example 2 Code
-                
-                const Padding(
-                  padding: EdgeInsets.only(top: 18, left: 15),
-                  child: Text(
-                    'Example 2: Vertical PageView',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 17,
-                      color: Colors.blue,
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(18),
-                  child: Center(
-                    child: SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.6,
-                      height: MediaQuery.of(context).size.height * 0.6,
-                      child: PageView.builder(
-                        scrollDirection: Axis.vertical,
-                        itemCount: 3,
-                        itemBuilder: (context, index) {
-                          return Container(
-                            color: Colors.blue[(index + 1) * 100],
-                            child: Center(
-                              child: Text(
-                                'Page {index + 1}',   // put dollar symbol before {}
-                                style: const TextStyle(
-                                    color: Colors.white, fontSize: 24),
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-                );
-              }
-            }''',
-              child: PageViewExample(),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class PageViewExample extends StatefulWidget {
-  const PageViewExample({super.key});
-
-  @override
-  State<PageViewExample> createState() => _PageViewExampleState();
-}
-
-class _PageViewExampleState extends State<PageViewExample> {
-
-  @override
-  Widget build(BuildContext context) {
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          YoutubePlayer(
+            controller: controller!,
+            progressColors: const ProgressBarColors(
+              backgroundColor: Colors.black,
+              handleColor: Colors.white,
+            ),
+          ),
           const Padding(
             padding: EdgeInsets.only(top: 18, left: 15),
             child: Text(

@@ -11,6 +11,96 @@ class AlertDialogWidget extends StatefulWidget {
 }
 
 class _AlertDialogWidgetState extends State<AlertDialogWidget> {
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        backgroundColor: Colors.black,
+        title: const Text(
+          'Alert Dialog',
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        ),
+      ),
+      body: const Expanded(
+        flex: 1,
+        child: WidgetWithCodeView(
+          filePath: 'lib/widgets/alert_dialog_widget.dart',
+          iconForegroundColor: Colors.white,
+          iconBackgroundColor: Colors.black,
+          codeLinkPrefix: 'https://google.com?q=',
+          codeContent: '''
+          import 'package:flutter/material.dart';
+          
+          class AlertDialogExample extends StatefulWidget {
+          const AlertDialogExample({super.key});
+        
+          @override
+          State<AlertDialogExample> createState() => _AlertDialogExampleState();
+        }
+        
+        class _AlertDialogExampleState extends State<AlertDialogExample> {
+        
+          @override
+          Widget build(BuildContext context) {
+            return SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 18),
+              child: Center(
+                child: ElevatedButton(
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: const Text('Close'),
+                          ),
+                        ],
+                        title: const Text('Login Required'),
+                        contentPadding: const EdgeInsets.all(20.0),
+                        content: const Text(
+                          'Please login for look at your Products',
+                        ),
+                      ),
+                    );
+                  },
+                  child: const Text('Products'),
+          ),
+        ),
+      ),
+              ],
+            ),
+          );
+        }
+      }''',
+          child: AlertDialogExample(),
+        ),
+      ),
+    );
+  }
+}
+
+class AlertDialogExample extends StatefulWidget {
+  const AlertDialogExample({super.key});
+
+  @override
+  State<AlertDialogExample> createState() => _AlertDialogExampleState();
+}
+
+class _AlertDialogExampleState extends State<AlertDialogExample> {
+
   String url = 'https://www.youtube.com/watch?v=75CsnyRXf5I';
 
   YoutubePlayerController? controller;
@@ -40,113 +130,18 @@ class _AlertDialogWidgetState extends State<AlertDialogWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-        backgroundColor: Colors.black,
-        title: const Text(
-          'Alert Dialog',
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-        ),
-      ),
-      body: Column(
-        children: [
-          Padding(
-            padding: EdgeInsets.only(bottom: 8),
-            child: YoutubePlayer(
-              controller: controller!,
-              progressColors: const ProgressBarColors(
-                backgroundColor: Colors.black,
-                handleColor: Colors.white,
-              ),
-            ),
-          ),
-          const Expanded(
-            flex: 1,
-            child: WidgetWithCodeView(
-              filePath: 'lib/widgets/alert_dialog_widget.dart',
-              iconForegroundColor: Colors.white,
-              iconBackgroundColor: Colors.black,
-              codeLinkPrefix: 'https://google.com?q=',
-              codeContent: '''
-              import 'package:flutter/material.dart';
-              
-              class AlertDialogExample extends StatefulWidget {
-              const AlertDialogExample({super.key});
-            
-              @override
-              State<AlertDialogExample> createState() => _AlertDialogExampleState();
-            }
-            
-            class _AlertDialogExampleState extends State<AlertDialogExample> {
-            
-              @override
-              Widget build(BuildContext context) {
-                return SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 18),
-                  child: Center(
-                    child: ElevatedButton(
-                      onPressed: () {
-                        showDialog(
-                          context: context,
-                          builder: (context) => AlertDialog(
-                            actions: [
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                                child: const Text('Close'),
-                              ),
-                            ],
-                            title: const Text('Login Required'),
-                            contentPadding: const EdgeInsets.all(20.0),
-                            content: const Text(
-                              'Please login for look at your Products',
-                            ),
-                          ),
-                        );
-                      },
-                      child: const Text('Products'),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}''',
-              child: AlertDialogExample(),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class AlertDialogExample extends StatefulWidget {
-  const AlertDialogExample({super.key});
-
-  @override
-  State<AlertDialogExample> createState() => _AlertDialogExampleState();
-}
-
-class _AlertDialogExampleState extends State<AlertDialogExample> {
-  @override
-  Widget build(BuildContext context) {
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          YoutubePlayer(
+            controller: controller!,
+            progressColors: const ProgressBarColors(
+              backgroundColor: Colors.black,
+              handleColor: Colors.white,
+            ),
+          ),
           const Padding(
             padding: EdgeInsets.only(top: 18, left: 15),
             child: Text(

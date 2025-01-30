@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import 'package:dev_dash/ui/packages/lib/widget_with_codeview.dart';
 
-
 class AnimatedIconWidget extends StatefulWidget {
   const AnimatedIconWidget({super.key});
 
@@ -11,27 +10,6 @@ class AnimatedIconWidget extends StatefulWidget {
 }
 
 class _AnimatedIconWidgetState extends State<AnimatedIconWidget> {
-  String url = 'https://www.youtube.com/watch?v=pJcbh8pbvJs';
-
-  YoutubePlayerController? controller;
-
-  @override
-  void initState() {
-    final videoId = YoutubePlayer.convertUrlToId(url);
-
-    controller = YoutubePlayerController(
-      initialVideoId: videoId!,
-      flags: const YoutubePlayerFlags(
-        autoPlay: false,
-        mute: false,
-        enableCaption: true,
-        loop: true,
-        forceHD: true,
-      ),
-    );
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,142 +27,128 @@ class _AnimatedIconWidgetState extends State<AnimatedIconWidget> {
           ),
         ),
       ),
-      body: Column(
-        children: [
-          Padding(
-            padding: EdgeInsets.only(bottom: 8),
-            child: YoutubePlayer(
-              controller: controller!,
-              progressColors: const ProgressBarColors(
-                backgroundColor: Colors.black,
-                handleColor: Colors.white,
-              ),
-            ),
-          ),
-          const Expanded(
-            flex: 1,
-            child: WidgetWithCodeView(
-              filePath: 'lib/widgets/animated_icon_widget.dart',
-              iconBackgroundColor: Colors.black,
-              iconForegroundColor: Colors.white,
-              codeLinkPrefix: 'https://google.com?q=',
-              codeContent: '''
-              import 'package:flutter/material.dart';
-            
-              class AnimatedIconExample extends StatefulWidget {
-              const AnimatedIconExample({super.key});
-            
-              @override
-              State<AnimatedIconExample> createState() => _AnimatedIconExampleState();
-            }
-            
-            class _AnimatedIconExampleState extends State<AnimatedIconExample>
-                with TickerProviderStateMixin {
-              late AnimationController _animationController;
-              late AnimationController _animationCoNtRoLLer;
-              late AnimationController _aNiMaTIoNCOnTROlLER;
-            
-              @override
-              void initState() {
-                super.initState();
-                _animationController = AnimationController(
+      body: const Expanded(
+        flex: 1,
+        child: WidgetWithCodeView(
+          filePath: 'lib/widgets/animated_icon_widget.dart',
+          iconBackgroundColor: Colors.black,
+          iconForegroundColor: Colors.white,
+          codeLinkPrefix: 'https://google.com?q=',
+          codeContent: '''
+          import 'package:flutter/material.dart';
+        
+          class AnimatedIconExample extends StatefulWidget {
+          const AnimatedIconExample({super.key});
+        
+          @override
+          State<AnimatedIconExample> createState() => _AnimatedIconExampleState();
+        }
+        
+        class _AnimatedIconExampleState extends State<AnimatedIconExample>
+            with TickerProviderStateMixin {
+          late AnimationController _animationController;
+          late AnimationController _animationCoNtRoLLer;
+          late AnimationController _aNiMaTIoNCOnTROlLER;
+        
+          @override
+          void initState() {
+            super.initState();
+            _animationController = AnimationController(
+        vsync: this,
+        duration: const Duration(milliseconds: 300),);
+            _animationCoNtRoLLer = AnimationController(
             vsync: this,
             duration: const Duration(milliseconds: 300),);
-                _animationCoNtRoLLer = AnimationController(
-                vsync: this,
-                duration: const Duration(milliseconds: 300),);
-                _aNiMaTIoNCOnTROlLER = AnimationController(
-                vsync: this,
-                duration: const Duration(milliseconds: 300),
-                );
-              }
+            _aNiMaTIoNCOnTROlLER = AnimationController(
+            vsync: this,
+            duration: const Duration(milliseconds: 300),
+            );
+          }
+        
+          @override
+          Widget build(BuildContext context) {
+            return SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [  
+            // Example 1 Code
             
-              @override
-              Widget build(BuildContext context) {
-                return SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [  
-                // Example 1 Code
-                
-                Padding(
-                  padding: const EdgeInsets.only(top: 18),
-                  child: Center(
-                    child: GestureDetector(
-                      onTap: () {
-                        if (_animationController.isDismissed) {
-                          _animationController.forward();
-                        } else {
-                          _animationController.reverse();
-                        }
-                      },
-                      child: AnimatedIcon(
-                        icon: AnimatedIcons.menu_close,
-                        progress: _animationController,
-                        size: 50.0,
-                        color: Colors.blue,
-                        semanticLabel: 'Menu/Close',
-                      ),
-                    ),
+            Padding(
+              padding: const EdgeInsets.only(top: 18),
+              child: Center(
+                child: GestureDetector(
+                  onTap: () {
+                    if (_animationController.isDismissed) {
+                      _animationController.forward();
+                    } else {
+                      _animationController.reverse();
+                    }
+                  },
+                  child: AnimatedIcon(
+                    icon: AnimatedIcons.menu_close,
+                    progress: _animationController,
+                    size: 50.0,
+                    color: Colors.blue,
+                    semanticLabel: 'Menu/Close',
                   ),
-                ),
-                // Example 2 Code 
-                
-                Padding(
-                  padding: const EdgeInsets.only(top: 18),
-                  child: Center(
-                    child: GestureDetector(
-                      onTap: () {
-                        if (_animationCoNtRoLLer.isDismissed) {
-                          _animationCoNtRoLLer.forward();
-                        } else {
-                          _animationCoNtRoLLer.reverse();
-                        }
-                      },
-                      child: AnimatedIcon(
-                        icon: AnimatedIcons.ellipsis_search,
-                        progress: _animationCoNtRoLLer,
-                        size: 50.0,
-                        color: Colors.black,
-                        semanticLabel: 'Ellipsis/Search',
-                      ),
-                    ),
-                  ),
-                ),
-                
-                // Example 3 Code
-                
-                Padding(
-                  padding: const EdgeInsets.only(top: 18),
-                  child: Center(
-                    child: GestureDetector(
-                      onTap: () {
-                        if (_aNiMaTIoNCOnTROlLER.isDismissed) {
-                          _aNiMaTIoNCOnTROlLER.forward();
-                        } else {
-                          _aNiMaTIoNCOnTROlLER.reverse();
-                        }
-                      },
-                      child: AnimatedIcon(
-                        icon: AnimatedIcons.arrow_menu,
-                        progress: _aNiMaTIoNCOnTROlLER,
-                        size: 50.0,
-                        color: Colors.black,
-                        semanticLabel: 'Arrow/Menu',
                 ),
               ),
             ),
-          ),
-        ],
-      ),
-    );
-  }
-}''',
-              child: AnimatedIconExample(),
+            // Example 2 Code 
+            
+            Padding(
+              padding: const EdgeInsets.only(top: 18),
+              child: Center(
+                child: GestureDetector(
+                  onTap: () {
+                    if (_animationCoNtRoLLer.isDismissed) {
+                      _animationCoNtRoLLer.forward();
+                    } else {
+                      _animationCoNtRoLLer.reverse();
+                    }
+                  },
+                  child: AnimatedIcon(
+                    icon: AnimatedIcons.ellipsis_search,
+                    progress: _animationCoNtRoLLer,
+                    size: 50.0,
+                    color: Colors.black,
+                    semanticLabel: 'Ellipsis/Search',
+                  ),
+                ),
+              ),
+            ),
+            
+            // Example 3 Code
+            
+            Padding(
+              padding: const EdgeInsets.only(top: 18),
+              child: Center(
+                child: GestureDetector(
+                  onTap: () {
+                    if (_aNiMaTIoNCOnTROlLER.isDismissed) {
+                      _aNiMaTIoNCOnTROlLER.forward();
+                    } else {
+                      _aNiMaTIoNCOnTROlLER.reverse();
+                    }
+                  },
+                  child: AnimatedIcon(
+                    icon: AnimatedIcons.arrow_menu,
+                    progress: _aNiMaTIoNCOnTROlLER,
+                    size: 50.0,
+                    color: Colors.black,
+                    semanticLabel: 'Arrow/Menu',
             ),
           ),
-        ],
+        ),
+      ),
+              ],
+            ),
+          );
+        }
+      }''',
+          child: AnimatedIconExample(),
+        ),
       ),
     );
   }
@@ -203,8 +167,24 @@ class _AnimatedIconExampleState extends State<AnimatedIconExample>
   late AnimationController _animationCoNtRoLLer;
   late AnimationController _aNiMaTIoNCOnTROlLER;
 
+  String url = 'https://www.youtube.com/watch?v=pJcbh8pbvJs';
+
+  YoutubePlayerController? controller;
+
   @override
   void initState() {
+    final videoId = YoutubePlayer.convertUrlToId(url);
+
+    controller = YoutubePlayerController(
+      initialVideoId: videoId!,
+      flags: const YoutubePlayerFlags(
+        autoPlay: false,
+        mute: false,
+        enableCaption: true,
+        loop: true,
+        forceHD: true,
+      ),
+    );
     super.initState();
     _animationController = AnimationController(
       vsync: this,
@@ -235,6 +215,13 @@ class _AnimatedIconExampleState extends State<AnimatedIconExample>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          YoutubePlayer(
+            controller: controller!,
+            progressColors: const ProgressBarColors(
+              backgroundColor: Colors.black,
+              handleColor: Colors.white,
+            ),
+          ),
           const Padding(
             padding: EdgeInsets.only(top: 18, left: 15),
             child: Text(

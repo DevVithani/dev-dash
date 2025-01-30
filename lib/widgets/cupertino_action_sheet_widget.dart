@@ -13,6 +13,109 @@ class CupertinoActionSheetWidget extends StatefulWidget {
 
 class _CupertinoActionSheetWidgetState extends State<CupertinoActionSheetWidget> {
 
+  @override
+  Widget build(BuildContext context) {
+    return CupertinoPageScaffold(
+      navigationBar: CupertinoNavigationBar(
+        leading: IconButton(
+          icon: const Icon(CupertinoIcons.back, color: Colors.white),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        backgroundColor: Colors.black,
+        middle: const Text(
+          'CupertinoActionSheet',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
+      ),
+      child: const Scaffold(
+        body: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          home: Expanded(
+            flex: 1,
+            child: WidgetWithCodeView(
+              filePath: 'lib/widgets/cupertino_action_sheet_widget.dart',
+              iconForegroundColor: Colors.white,
+              iconBackgroundColor: Colors.black,
+              codeLinkPrefix: 'https://google.com?q=',
+              codeContent: '''
+              import 'package:flutter/cupertino.dart';
+            
+              class CupertinoActionExample extends StatefulWidget {
+            const CupertinoActionExample({super.key});
+                    
+            @override
+            State<CupertinoActionExample> createState() => _CupertinoActionExampleState();
+                    }
+                    
+                    class _CupertinoActionExampleState extends State<CupertinoActionExample> {
+            void _showActionSheet(BuildContext context) {
+                    showCupertinoModalPopup<void>(
+            context: context,
+            builder: (BuildContext context) => CupertinoActionSheet(
+              title: const Text('Title'),
+              message: const Text('Message'),
+              actions: <CupertinoActionSheetAction>[
+                CupertinoActionSheetAction(
+                  isDefaultAction: true,
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text('Default Action'),
+                ),
+                CupertinoActionSheetAction(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text('Action'),
+                ),
+                CupertinoActionSheetAction(
+                  isDestructiveAction: true,
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text('Destructive Action'),
+                ),
+              ],
+            ),
+                    );
+            }
+                    
+            @override
+            Widget build(BuildContext context) {
+                    return CupertinoPageScaffold(
+            navigationBar: const CupertinoNavigationBar(
+              middle: Text('CupertinoActionSheet Sample'),
+            ),
+            child: Center(
+              child: CupertinoButton(
+                onPressed: () => _showActionSheet(context),
+                child: const Text('CupertinoActionSheet'),
+              ),
+            ),
+                    );
+            }
+                    }''',
+              child: CupertinoActionExample(),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class CupertinoActionExample extends StatefulWidget {
+  const CupertinoActionExample({super.key});
+
+  @override
+  State<CupertinoActionExample> createState() => _CupertinoActionExampleState();
+}
+
+class _CupertinoActionExampleState extends State<CupertinoActionExample> {
+
   String url = 'https://youtu.be/U-ao8p4A82k';
 
   YoutubePlayerController? controller;
@@ -33,123 +136,6 @@ class _CupertinoActionSheetWidgetState extends State<CupertinoActionSheetWidget>
     );
     super.initState();
   }
-
-  @override
-  Widget build(BuildContext context) {
-    return CupertinoPageScaffold(
-      navigationBar: CupertinoNavigationBar(
-        leading: IconButton(
-          icon: const Icon(CupertinoIcons.back, color: Colors.white),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-        backgroundColor: Colors.black,
-        middle: const Text(
-          'CupertinoActionSheet',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
-        ),
-      ),
-      child: Scaffold(
-        body: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          home: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(bottom: 8),
-                child: YoutubePlayer(
-                  controller: controller!,
-                  progressColors: const ProgressBarColors(
-                    backgroundColor: Colors.black,
-                    handleColor: Colors.white,
-                  ),
-                ),
-              ),
-              const Expanded(
-                flex: 1,
-                child: WidgetWithCodeView(
-                  filePath: 'lib/widgets/cupertino_action_sheet_widget.dart',
-                  iconForegroundColor: Colors.white,
-                  iconBackgroundColor: Colors.black,
-                  codeLinkPrefix: 'https://google.com?q=',
-                  codeContent: '''
-                  import 'package:flutter/cupertino.dart';
-                
-                  class CupertinoActionExample extends StatefulWidget {
-                const CupertinoActionExample({super.key});
-                        
-                @override
-                State<CupertinoActionExample> createState() => _CupertinoActionExampleState();
-                        }
-                        
-                        class _CupertinoActionExampleState extends State<CupertinoActionExample> {
-                void _showActionSheet(BuildContext context) {
-                        showCupertinoModalPopup<void>(
-                context: context,
-                builder: (BuildContext context) => CupertinoActionSheet(
-                  title: const Text('Title'),
-                  message: const Text('Message'),
-                  actions: <CupertinoActionSheetAction>[
-                    CupertinoActionSheetAction(
-                      isDefaultAction: true,
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      child: const Text('Default Action'),
-                    ),
-                    CupertinoActionSheetAction(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      child: const Text('Action'),
-                    ),
-                    CupertinoActionSheetAction(
-                      isDestructiveAction: true,
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      child: const Text('Destructive Action'),
-                    ),
-                  ],
-                ),
-                        );
-                }
-                        
-                @override
-                Widget build(BuildContext context) {
-                        return CupertinoPageScaffold(
-                navigationBar: const CupertinoNavigationBar(
-                  middle: Text('CupertinoActionSheet Sample'),
-                ),
-                child: Center(
-                  child: CupertinoButton(
-                    onPressed: () => _showActionSheet(context),
-                    child: const Text('CupertinoActionSheet'),
-                  ),
-                ),
-                        );
-                }
-                        }''',
-                  child: CupertinoActionExample(),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class CupertinoActionExample extends StatefulWidget {
-  const CupertinoActionExample({super.key});
-
-  @override
-  State<CupertinoActionExample> createState() => _CupertinoActionExampleState();
-}
-
-class _CupertinoActionExampleState extends State<CupertinoActionExample> {
 
   void _showActionSheet(BuildContext context) {
     showCupertinoModalPopup<void>(
@@ -190,6 +176,13 @@ class _CupertinoActionExampleState extends State<CupertinoActionExample> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          YoutubePlayer(
+            controller: controller!,
+            progressColors: const ProgressBarColors(
+              backgroundColor: Colors.black,
+              handleColor: Colors.white,
+            ),
+          ),
           const Padding(
             padding: EdgeInsets.only(top: 18, left: 15),
             child: Text(
