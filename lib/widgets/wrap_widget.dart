@@ -10,7 +10,6 @@ class WrapWidget extends StatefulWidget {
 }
 
 class _WrapWidgetState extends State<WrapWidget> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -107,14 +106,14 @@ class _WrapWidgetState extends State<WrapWidget> {
                       backgroundColor: Colors.blue.shade900,
                       child: const Text('4')),
                   label: const Text('Laurens'),
-                ),
-              ],
-            ),
-          ],
-        ),
-            );
-          }
-        },
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+},
         
          // Example 2 code
          
@@ -157,12 +156,12 @@ class _WrapWidgetState extends State<WrapWidget> {
               width: 100,
               height: 100,
               child:Center(child: Text("W5",))
-            ),
-          ],
-        ),
-            );
-          }
-        }''',
+          ),
+        ],
+      ),
+    );
+  }
+}''',
           labelBackgroundColor: Colors.black,
           filePath: 'lib/widgets/wrap_widget.dart',
           child: WrapWidgetExample(),
@@ -180,7 +179,6 @@ class WrapWidgetExample extends StatefulWidget {
 }
 
 class _WrapWidgetExampleState extends State<WrapWidgetExample> {
-
   String url = 'https://www.youtube.com/watch?v=z5iw2SeFx2M';
 
   YoutubePlayerController? controller;
@@ -266,26 +264,42 @@ class _WrapWidgetExampleState extends State<WrapWidgetExample> {
             children: <Widget>[
               Chip(
                 avatar: CircleAvatar(
-                    backgroundColor: Colors.blue.shade900,
-                    child: const Text('1', style: TextStyle(color: Colors.white),),),
+                  backgroundColor: Colors.blue.shade900,
+                  child: const Text(
+                    '1',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
                 label: const Text('Hamilton'),
               ),
               Chip(
                 avatar: CircleAvatar(
-                    backgroundColor: Colors.blue.shade900,
-                    child: const Text('2', style: TextStyle(color: Colors.white),),),
+                  backgroundColor: Colors.blue.shade900,
+                  child: const Text(
+                    '2',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
                 label: const Text('Lafayette'),
               ),
               Chip(
                 avatar: CircleAvatar(
-                    backgroundColor: Colors.blue.shade900,
-                    child: const Text('3', style: TextStyle(color: Colors.white),),),
+                  backgroundColor: Colors.blue.shade900,
+                  child: const Text(
+                    '3',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
                 label: const Text('Mulligan'),
               ),
               Chip(
                 avatar: CircleAvatar(
-                    backgroundColor: Colors.blue.shade900,
-                    child: const Text('4', style: TextStyle(color: Colors.white),),),
+                  backgroundColor: Colors.blue.shade900,
+                  child: const Text(
+                    '4',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
                 label: const Text('Laurens'),
               ),
             ],

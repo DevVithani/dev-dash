@@ -91,6 +91,40 @@ class _AnimatedSwitcherWidgetState extends State<AnimatedSwitcherWidget> {
           ),
         ),
       ),
+      
+      
+      // Example 2 Code
+      
+      AnimatedSwitcher(
+                duration: const Duration(milliseconds: 500),
+                transitionBuilder: (Widget child, Animation<double> animation) {
+                  return RotationTransition(turns: animation, child: child);
+                },
+                child: value
+                    ? Container(
+                        key: const ValueKey('red_container'),
+                        height: 100,
+                        width: 100,
+                        color: Colors.red,
+                      )
+                    : Container(
+                        key: const ValueKey('Blue_container'),
+                        height: 100,
+                        width: 100,
+                        color: Colors.blue,
+                      ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 18),
+            child: Center(
+              child: ElevatedButton(
+                onPressed: () => setState(() {
+                  value = !value;
+                }),
+                child: const Icon(Icons.change_circle),
+              ),
               ],
             ),
           );

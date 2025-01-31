@@ -30,8 +30,11 @@ class ThemeProvider extends ChangeNotifier {
 
 class Themes {
   static final darkTheme = ThemeData(
-    textTheme:
-        GoogleFonts.latoTextTheme(const TextTheme(headlineMedium: TextStyle())),
+    textTheme: GoogleFonts.latoTextTheme(
+      const TextTheme(
+        headlineMedium: TextStyle(),
+      ),
+    ),
     colorScheme: const ColorScheme.dark(),
   );
 

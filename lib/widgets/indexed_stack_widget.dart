@@ -10,7 +10,6 @@ class IndexStackWidget extends StatefulWidget {
 }
 
 class _IndexStackWidgetState extends State<IndexStackWidget> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -253,22 +252,28 @@ class _IndexedStackExampleState extends State<IndexedStackExample> {
                     ),
                   ],
                 ),
-                IndexedStack(
-                  index: index,
-                  children: [
-                    Center(
-                      child: Image.network(
-                          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQsIz4qZKTOplGKCIt860B8HP3mTBMZGACNFg&s'),
-                    ),
-                    Center(
-                      child: Image.network(
-                          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZGEs4ajlkUdtcsedEPmKeRkpSkOtQwh6lzQ&s'),
-                    ),
-                    Center(
-                      child: Image.network(
-                          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0Gm7iDyKB4FY_HNqS1wxRUalz4ywmRTKqiQ&s'),
-                    ),
-                  ],
+                Padding(
+                  padding: const EdgeInsets.only(top: 18.0),
+                  child: IndexedStack(
+                    index: index,
+                    children: [
+                      Center(
+                        child: Image.network(
+                          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQsIz4qZKTOplGKCIt860B8HP3mTBMZGACNFg&s',
+                        ),
+                      ),
+                      Center(
+                        child: Image.network(
+                          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZGEs4ajlkUdtcsedEPmKeRkpSkOtQwh6lzQ&s',
+                        ),
+                      ),
+                      Center(
+                        child: Image.network(
+                          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0Gm7iDyKB4FY_HNqS1wxRUalz4ywmRTKqiQ&s',
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
                 Container(
                   margin: const EdgeInsets.only(top: 50),
@@ -336,55 +341,58 @@ class _IndexedStackExampleState extends State<IndexedStackExample> {
                     ),
                   ],
                 ),
-                IndexedStack(
-                  index: _index,
-                  children: [
-                    Center(
-                      child: Container(
-                        height: 200,
-                        width: 200,
-                        color: Colors.blue,
-                        child: const Center(
-                            child: Text(
-                          '1',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
-                        )),
+                Padding(
+                  padding: const EdgeInsets.only(top: 18.0),
+                  child: IndexedStack(
+                    index: _index,
+                    children: [
+                      Center(
+                        child: Container(
+                          height: 200,
+                          width: 200,
+                          color: Colors.blue,
+                          child: const Center(
+                              child: Text(
+                            '1',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          )),
+                        ),
                       ),
-                    ),
-                    Center(
-                      child: Container(
-                        height: 200,
-                        width: 200,
-                        color: Colors.orange,
-                        child: const Center(
-                            child: Text(
-                          '2',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
-                        )),
+                      Center(
+                        child: Container(
+                          height: 200,
+                          width: 200,
+                          color: Colors.orange,
+                          child: const Center(
+                              child: Text(
+                            '2',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          )),
+                        ),
                       ),
-                    ),
-                    Center(
-                      child: Container(
-                        height: 200,
-                        width: 200,
-                        color: Colors.green,
-                        child: const Center(
-                            child: Text(
-                          '3',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
-                        )),
+                      Center(
+                        child: Container(
+                          height: 200,
+                          width: 200,
+                          color: Colors.green,
+                          child: const Center(
+                              child: Text(
+                            '3',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          )),
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
                 Container(
                   margin: const EdgeInsets.only(top: 50),

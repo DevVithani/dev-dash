@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import 'package:dev_dash/ui/packages/lib/widget_with_codeview.dart';
 
-
 class AlertDialogWidget extends StatefulWidget {
   const AlertDialogWidget({super.key});
 
@@ -11,7 +10,6 @@ class AlertDialogWidget extends StatefulWidget {
 }
 
 class _AlertDialogWidgetState extends State<AlertDialogWidget> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -77,14 +75,14 @@ class _AlertDialogWidgetState extends State<AlertDialogWidget> {
                     );
                   },
                   child: const Text('Products'),
-          ),
-        ),
-      ),
-              ],
+              ),
             ),
-          );
-        }
-      }''',
+          ),
+        ],
+      ),
+    );
+  }
+}''',
           child: AlertDialogExample(),
         ),
       ),
@@ -100,7 +98,6 @@ class AlertDialogExample extends StatefulWidget {
 }
 
 class _AlertDialogExampleState extends State<AlertDialogExample> {
-
   String url = 'https://www.youtube.com/watch?v=75CsnyRXf5I';
 
   YoutubePlayerController? controller;

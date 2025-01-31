@@ -17,6 +17,11 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
+
+    User? user = FirebaseAuth.instance.currentUser;
+    String displayName = user?.displayName ?? '${user?.phoneNumber}';
+    String photoUrl = user?.photoURL ?? '';
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -41,16 +46,43 @@ class _SettingsPageState extends State<SettingsPage> {
       ),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
-        child: Stack(
+        child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.only(top: 5.0),
+              padding: const EdgeInsets.only(top: 20.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const SizedBox(
-                    height: 20,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                    child: Row(
+                      children: [
+                        // Circle avatar with user's photo
+                        CircleAvatar(
+                          radius: 35,
+                          backgroundImage: photoUrl.isNotEmpty
+                              ? NetworkImage(photoUrl)
+                              : const NetworkImage('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-Z25aOD1KWgPXJyUdl0BTf_3du8oqoe0FOw&s'), // Fallback image
+                        ),
+                        const SizedBox(width: 15),
+                        Text(
+                          'Hello, $displayName',
+                          style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
+                  const Divider(
+                    color: Colors.grey,
+                    height: 25,
+                    indent: 10,
+                    endIndent: 10,
+                  ),
+                  const SizedBox(height: 20),
+
                   const Padding(
                     padding: EdgeInsets.all(8.0),
                     child: Text(
@@ -62,7 +94,6 @@ class _SettingsPageState extends State<SettingsPage> {
                     ),
                   ),
 
-                  // Profile Section
                   ListTile(
                     leading: Container(
                       padding: const EdgeInsets.all(5),
@@ -87,7 +118,6 @@ class _SettingsPageState extends State<SettingsPage> {
                     },
                   ),
                   const Divider(),
-                  // Dark Mode Switch
                   ListTile(
                     leading: Container(
                       padding: const EdgeInsets.all(5),

@@ -18,7 +18,6 @@ class _ProfilePageState extends State<ProfilePage> {
   String email = '';
   String number = '';
   String photoUrl = '';
-  bool _isPasswordVisible = true;
 
   @override
   void initState() {
@@ -40,24 +39,25 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   File? image;
+
   Future pickImage() async {
     try {
       final image = await ImagePicker().pickImage(source: ImageSource.gallery);
-      if(image == null) return;
+      if (image == null) return;
       final imageTemp = File(image.path);
       setState(() => this.image = imageTemp);
-    } on PlatformException catch(e) {
+    } on PlatformException catch (e) {
       print('Failed to pick image: $e');
     }
   }
 
-  Future pickImageCamera() async {
+  Future pickCamera() async {
     try {
       final image = await ImagePicker().pickImage(source: ImageSource.camera);
-      if(image == null) return;
+      if (image == null) return;
       final imageTemp = File(image.path);
       setState(() => this.image = imageTemp);
-    } on PlatformException catch(e) {
+    } on PlatformException catch (e) {
       print('Failed to pick image: $e');
     }
   }
@@ -108,7 +108,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           color: Colors.white,
                         ),
                         onPressed: () {
-                          pickImageCamera();
+                          _showPicker(context);
                         },
                       ),
                     ),
@@ -118,99 +118,85 @@ class _ProfilePageState extends State<ProfilePage> {
               const SizedBox(height: 40),
               TextField(
                 decoration: InputDecoration(
+                  enabledBorder: OutlineInputBorder(
+                    borderSide:
+                        const BorderSide(width: 1.5, color: Colors.blue),
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(
+                        width: 1.5, color: Colors.deepPurpleAccent),
+                    borderRadius: BorderRadius.circular(15),
+                  ),
                   prefixIcon: const Icon(Icons.abc),
                   labelText: 'Name',
                   hintText: _user?.displayName ?? 'Enter Your Name',
-                  enabledBorder: const OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Colors.white,
-                    ),
-                  ),
+                  hintStyle: const TextStyle(color: Colors.grey),
                   filled: true,
                   contentPadding: const EdgeInsets.all(10),
                 ),
                 keyboardType: TextInputType.name,
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 25),
               TextField(
                 decoration: InputDecoration(
                   prefixIcon: const Icon(Icons.mail),
                   labelText: 'Email',
                   hintText: _user?.email ?? 'Enter your Email',
-                  enabledBorder: const OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Colors.white,
-                    ),
+                  hintStyle: const TextStyle(color: Colors.grey),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide:
+                        const BorderSide(width: 1.5, color: Colors.blue),
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(
+                        width: 1.5, color: Colors.deepPurpleAccent),
+                    borderRadius: BorderRadius.circular(15),
                   ),
                   filled: true,
                   contentPadding: const EdgeInsets.all(10),
                 ),
                 keyboardType: TextInputType.emailAddress,
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 25),
               TextField(
                 decoration: InputDecoration(
                   prefixIcon: const Icon(Icons.phone),
                   labelText: 'Mobile Number',
-                  hintText: _user?.phoneNumber ?? 'Enter your Mobile Number',
-                  enabledBorder: const OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Colors.white,
+                  hintText: _user?.phoneNumber,
+                  hintStyle: const TextStyle(color: Colors.grey),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide:
+                        const BorderSide(width: 1.5, color: Colors.blue),
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(
+                      width: 1.5,
+                      color: Colors.deepPurpleAccent,
                     ),
+                    borderRadius: BorderRadius.circular(15),
                   ),
                   filled: true,
                   contentPadding: const EdgeInsets.all(10),
                 ),
                 keyboardType: TextInputType.phone,
               ),
-              const SizedBox(
-                height: 20,
-              ),
-              TextField(
-                decoration: InputDecoration(
-                  prefixIcon: const Icon(Icons.lock),
-                  labelText: 'Create Password',
-                  hintText: 'Enter Your Password (Optional)',
-                  suffixIcon: IconButton(
-                    onPressed: () {
-                      setState(() {
-                        _isPasswordVisible = !_isPasswordVisible;
-                      });
-                    },
-                    icon: Icon(
-                      _isPasswordVisible
-                          ? Icons.remove_red_eye
-                          : Icons.remove_red_eye_outlined,
-                      size: 22,
-                    ),
-                  ),
-                  enabledBorder: const OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Colors.white,
-                    ),
-                  ),
-                  contentPadding: const EdgeInsets.all(10),
-                ),
-                obscureText: !_isPasswordVisible,
-                keyboardType: TextInputType.number,
-              ),
               Padding(
-                padding: const EdgeInsets.only(top: 80.0),
+                padding: const EdgeInsets.only(top: 65.0),
                 child: Center(
                   child: SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
                       onPressed: () {},
                       style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(25),
-                        ),
                         backgroundColor: Colors.deepPurpleAccent,
                         elevation: 5,
                         padding: const EdgeInsets.all(20),
                       ),
                       child: const Text(
-                        'Complete Profile',
+                        'Save',
                         style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
@@ -225,5 +211,33 @@ class _ProfilePageState extends State<ProfilePage> {
         ),
       ),
     );
+  }
+
+  void _showPicker(context) {
+    showModalBottomSheet(
+        context: context,
+        builder: (BuildContext bc) {
+          return SafeArea(
+            child: Wrap(
+              children: <Widget>[
+                ListTile(
+                    leading: const Icon(Icons.photo_library),
+                    title: const Text('Gallery'),
+                    onTap: () {
+                      pickImage();
+                      Navigator.of(context).pop();
+                    }),
+                ListTile(
+                  leading: const Icon(Icons.photo_camera),
+                  title: const Text('Camera'),
+                  onTap: () {
+                    pickCamera();
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            ),
+          );
+        });
   }
 }

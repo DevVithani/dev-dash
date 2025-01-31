@@ -41,10 +41,10 @@ class _FadButtonState extends State<FadButton> {
   Color get color {
     Color baseColor = Colors.lightBlue;
     if (_focused) {
-      baseColor = Color.alphaBlend(Colors.black.withOpacity(0.25), baseColor);
+      baseColor = Color.alphaBlend(Colors.black, baseColor);
     }
     if (_hovering) {
-      baseColor = Color.alphaBlend(Colors.black.withOpacity(0.1), baseColor);
+      baseColor = Color.alphaBlend(Colors.black, baseColor);
     }
     return baseColor;
   }
