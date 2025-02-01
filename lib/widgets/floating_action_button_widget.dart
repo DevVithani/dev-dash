@@ -53,6 +53,7 @@ class _FloatingActionButtonWidgetState
         class _FloatingActionButtonExampleState
             extends State<FloatingActionButtonExample> {
           int i = 0;
+          int j = 100;
         
           @override
           Widget build(BuildContext context) {
@@ -99,6 +100,21 @@ class _FloatingActionButtonWidgetState
             weight: 30.0,
           ),
         ),
+        
+        // Example 2 Code
+        FloatingActionButton(
+              onPressed: () {
+                setState(() {
+                  j--;
+                });
+              },
+              backgroundColor: Colors.blue,
+              child: const Icon(
+                Icons.exposure_minus_1,
+                color: Colors.white,
+                weight: 30,
+              ),
+            ),
             );
           }
         }''',

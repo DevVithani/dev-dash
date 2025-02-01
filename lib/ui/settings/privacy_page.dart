@@ -198,7 +198,7 @@ class _PrivacyPageState extends State<PrivacyPage> {
                 TextSpan(
                   text:
                       'For Any Query regarding our Privacy Policy or Content You can Contact us to our gmail:',
-                  style: const TextStyle(fontSize: 15, color: Colors.black),
+                  style: const TextStyle(fontSize: 15),
                   children: <TextSpan>[
                     TextSpan(
                         text: ' DevDashOfficial@gmail.com',
@@ -239,7 +239,7 @@ class _PrivacyPageState extends State<PrivacyPage> {
               child: const Text(
                 'Last Updated January 31, 2025',
                 style: TextStyle(
-                  color: Colors.black38,
+                  color: Colors.grey,
                 ),
               ),
             ),

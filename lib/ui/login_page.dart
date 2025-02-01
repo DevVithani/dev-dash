@@ -138,22 +138,43 @@ class _LoginPageState extends State<LoginPage> {
                                 Expanded(
                                   child: Center(
                                     child: TextField(
-                                      decoration: const InputDecoration(
-                                        fillColor: Colors.white,
+                                      decoration: InputDecoration(
+                                        fillColor:
+                                            Theme.of(context).brightness ==
+                                                    Brightness.dark
+                                                ? Colors.white
+                                                : Colors.white,
                                         filled: true,
-                                        contentPadding: EdgeInsets.all(10),
+                                        contentPadding: const EdgeInsets.all(10),
                                         enabledBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
-                                            color: Colors.white,
+                                            color: Theme.of(context)
+                                                        .brightness ==
+                                                    Brightness.dark
+                                                ? Colors.white
+                                                : Colors
+                                                    .deepPurpleAccent,
                                           ),
                                         ),
                                         hintText: 'Enter your Mobile Number',
-                                        // labelText: 'Mobile Number',
                                         hintStyle: TextStyle(
                                           fontWeight: FontWeight.bold,
-                                          color: Colors.deepPurpleAccent,
+                                          color: Theme.of(context).brightness ==
+                                                  Brightness.dark
+                                              ? Colors
+                                                  .deepPurpleAccent
+                                              : Colors.deepPurpleAccent,
                                           fontSize: 16,
                                         ),
+                                      ),
+                                      style: TextStyle(
+                                        color: Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? Colors
+                                                .deepPurpleAccent
+                                            : Colors.deepPurpleAccent,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16,
                                       ),
                                       expands: false,
                                       cursorColor: Colors.blueAccent,
@@ -186,7 +207,11 @@ class _LoginPageState extends State<LoginPage> {
                                 ),
                                 onPressed: () async {
                                   if (phone.isEmpty) {
-                                    showSnackbar(context, 'Please enter your mobile number');
+                                    showSnackbar(context,
+                                        'Mobile number can not be empty');
+                                    return;
+                                  } if(phone.length < 10) {
+                                    showSnackbar(context, 'Please Enter Valid Number');
                                     return;
                                   }
                                   snackbarShow(
@@ -200,13 +225,9 @@ class _LoginPageState extends State<LoginPage> {
                                         (PhoneAuthCredential credential) {},
                                     verificationFailed: (e) {
                                       print('Error: $e');
-                                      if (e.code ==
-                                          'network-request-failed') {
+                                      if (e.code == 'network-request-failed') {
                                         showSnackbar(context,
                                             'Network Error: Please check your Internet Connection');
-                                      } else {
-                                        showSnackbar(context,
-                                            'Something went wrong, try again later');
                                       }
                                     },
                                     codeSent: (String verificationId,
@@ -297,6 +318,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   signInWithGoogle() async {
+
     await GoogleSignIn().signOut();
     GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
@@ -306,8 +328,10 @@ class _LoginPageState extends State<LoginPage> {
         accessToken: auth?.accessToken,
         idToken: auth?.idToken,
       );
+      
       UserCredential userCred =
           await FirebaseAuth.instance.signInWithCredential(credential);
+
 
       return userCred.user;
     } catch (e) {

@@ -84,6 +84,26 @@ class _AnimatedPaddingWidgetState extends State<AnimatedPaddingWidget> {
           ),
         ),
       ),
+      // Example 2 Code
+      
+      Center(
+              child: AnimatedPadding(
+                duration: const Duration(milliseconds: 500),
+                curve: Curves.bounceInOut,
+                padding: EdgeInsets.all(_paDDing),
+                child: GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      _paDDing = _paDDing == 12 ? 150 : 12;
+                    });
+                  },
+                  child: Container(
+                    height: 100,
+                    color: Colors.black,
+                  ),
+                ),
+              ),
+            ),
               ],
             ),
           );

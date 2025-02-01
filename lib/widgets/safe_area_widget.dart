@@ -127,53 +127,56 @@ class _SafeAreaExampleState extends State<SafeAreaExample> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        YoutubePlayer(
-          controller: controller!,
-          progressColors: const ProgressBarColors(
-            backgroundColor: Colors.black,
-            handleColor: Colors.white,
-          ),
-        ),
-        const Padding(
-          padding: EdgeInsets.only(top: 18, left: 15),
-          child: Text(
-            'Properties of SafeArea Widget: ',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 20,
+    return SingleChildScrollView(
+      scrollDirection: Axis.vertical,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          YoutubePlayer(
+            controller: controller!,
+            progressColors: const ProgressBarColors(
+              backgroundColor: Colors.black,
+              handleColor: Colors.white,
             ),
           ),
-        ),
-        const Padding(
-          padding: EdgeInsets.only(top: 18, left: 15),
-          child: Text(
-            '1.bottom\n'
-            '2.child\n'
-            '3.left\n'
-            '4.maintainBottomViewPadding\n'
-            '5.minimum\n'
-            '6.right\n'
-            '7.top',
-            style: TextStyle(
-              fontSize: 18,
+          const Padding(
+            padding: EdgeInsets.only(top: 18, left: 15),
+            child: Text(
+              'Properties of SafeArea Widget: ',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+              ),
             ),
           ),
-        ),
-        const Padding(
-          padding: EdgeInsets.only(top: 18, left: 15),
-          child: Text(
-            'Example: Top of the Screen',
-            style: TextStyle(
-              color: Colors.blue,
-              fontWeight: FontWeight.bold,
-              fontSize: 17,
+          const Padding(
+            padding: EdgeInsets.only(top: 18, left: 15),
+            child: Text(
+              '1.bottom\n'
+              '2.child\n'
+              '3.left\n'
+              '4.maintainBottomViewPadding\n'
+              '5.minimum\n'
+              '6.right\n'
+              '7.top',
+              style: TextStyle(
+                fontSize: 18,
+              ),
             ),
           ),
-        ),
-      ],
+          const Padding(
+            padding: EdgeInsets.only(top: 18, left: 15),
+            child: Text(
+              'Example: Top of the Screen',
+              style: TextStyle(
+                color: Colors.blue,
+                fontWeight: FontWeight.bold,
+                fontSize: 17,
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

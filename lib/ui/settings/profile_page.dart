@@ -17,6 +17,7 @@ class _ProfilePageState extends State<ProfilePage> {
   String name = '';
   String email = '';
   String number = '';
+
   String photoUrl = '';
 
   @override
@@ -94,8 +95,8 @@ class _ProfilePageState extends State<ProfilePage> {
                     backgroundImage: photoUrl.isNotEmpty
                         ? NetworkImage(photoUrl)
                         : const NetworkImage(
-                            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-Z25aOD1KWgPXJyUdl0BTf_3du8oqoe0FOw&s',
-                          ),
+                      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-Z25aOD1KWgPXJyUdl0BTf_3du8oqoe0FOw&s',
+                    ),
                   ),
                   Positioned(
                     bottom: 2,
@@ -119,14 +120,21 @@ class _ProfilePageState extends State<ProfilePage> {
               TextField(
                 decoration: InputDecoration(
                   enabledBorder: OutlineInputBorder(
-                    borderSide:
-                        const BorderSide(width: 1.5, color: Colors.blue),
-                    borderRadius: BorderRadius.circular(15),
+                    borderSide: BorderSide(
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black,
+                    ),
+                    borderRadius: BorderRadius.circular(50),
                   ),
                   focusedBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(
-                        width: 1.5, color: Colors.deepPurpleAccent),
-                    borderRadius: BorderRadius.circular(15),
+                    borderSide: BorderSide(
+                      width: 1.5,
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black,
+                    ),
+                    borderRadius: BorderRadius.circular(50),
                   ),
                   prefixIcon: const Icon(Icons.abc),
                   labelText: 'Name',
@@ -145,14 +153,21 @@ class _ProfilePageState extends State<ProfilePage> {
                   hintText: _user?.email ?? 'Enter your Email',
                   hintStyle: const TextStyle(color: Colors.grey),
                   enabledBorder: OutlineInputBorder(
-                    borderSide:
-                        const BorderSide(width: 1.5, color: Colors.blue),
-                    borderRadius: BorderRadius.circular(15),
+                    borderSide: BorderSide(
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black,
+                    ),
+                    borderRadius: BorderRadius.circular(50),
                   ),
                   focusedBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(
-                        width: 1.5, color: Colors.deepPurpleAccent),
-                    borderRadius: BorderRadius.circular(15),
+                    borderSide: BorderSide(
+                      width: 1.5,
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black,
+                    ),
+                    borderRadius: BorderRadius.circular(50),
                   ),
                   filled: true,
                   contentPadding: const EdgeInsets.all(10),
@@ -167,16 +182,20 @@ class _ProfilePageState extends State<ProfilePage> {
                   hintText: _user?.phoneNumber,
                   hintStyle: const TextStyle(color: Colors.grey),
                   enabledBorder: OutlineInputBorder(
-                    borderSide:
-                        const BorderSide(width: 1.5, color: Colors.blue),
-                    borderRadius: BorderRadius.circular(15),
-                  ),
+                      borderSide: BorderSide(
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? Colors.white
+                            : Colors.black,
+                      ),
+                      borderRadius: BorderRadius.circular(50)),
                   focusedBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(
+                    borderSide: BorderSide(
                       width: 1.5,
-                      color: Colors.deepPurpleAccent,
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black,
                     ),
-                    borderRadius: BorderRadius.circular(15),
+                    borderRadius: BorderRadius.circular(50),
                   ),
                   filled: true,
                   contentPadding: const EdgeInsets.all(10),
@@ -215,29 +234,30 @@ class _ProfilePageState extends State<ProfilePage> {
 
   void _showPicker(context) {
     showModalBottomSheet(
-        context: context,
-        builder: (BuildContext bc) {
-          return SafeArea(
-            child: Wrap(
-              children: <Widget>[
-                ListTile(
-                    leading: const Icon(Icons.photo_library),
-                    title: const Text('Gallery'),
-                    onTap: () {
-                      pickImage();
-                      Navigator.of(context).pop();
-                    }),
-                ListTile(
-                  leading: const Icon(Icons.photo_camera),
-                  title: const Text('Camera'),
+      context: context,
+      builder: (BuildContext bc) {
+        return SafeArea(
+          child: Wrap(
+            children: <Widget>[
+              ListTile(
+                  leading: const Icon(Icons.photo_library),
+                  title: const Text('Gallery'),
                   onTap: () {
-                    pickCamera();
+                    pickImage();
                     Navigator.of(context).pop();
-                  },
-                ),
-              ],
-            ),
-          );
-        });
+                  }),
+              ListTile(
+                leading: const Icon(Icons.photo_camera),
+                title: const Text('Camera'),
+                onTap: () {
+                  pickCamera();
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
   }
 }

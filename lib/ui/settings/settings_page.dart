@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dev_dash/ui/settings/privacy_page.dart';
 import 'package:dev_dash/ui/settings/profile_page.dart';
 import 'package:dev_dash/ui/theme.dart';
@@ -57,12 +59,13 @@ class _SettingsPageState extends State<SettingsPage> {
                     padding: const EdgeInsets.symmetric(horizontal: 20.0),
                     child: Row(
                       children: [
-                        // Circle avatar with user's photo
                         CircleAvatar(
                           radius: 35,
                           backgroundImage: photoUrl.isNotEmpty
                               ? NetworkImage(photoUrl)
-                              : const NetworkImage('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-Z25aOD1KWgPXJyUdl0BTf_3du8oqoe0FOw&s'), // Fallback image
+                              : const NetworkImage(
+                            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-Z25aOD1KWgPXJyUdl0BTf_3du8oqoe0FOw&s',
+                          ),
                         ),
                         const SizedBox(width: 15),
                         Text(
@@ -77,7 +80,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   ),
                   const Divider(
                     color: Colors.grey,
-                    height: 25,
+                    height: 50,
                     indent: 10,
                     endIndent: 10,
                   ),

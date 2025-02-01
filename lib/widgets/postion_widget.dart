@@ -2,16 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import 'package:dev_dash/ui/packages/lib/widget_with_codeview.dart';
 
-
 class PositionWidget extends StatefulWidget {
   const PositionWidget({super.key});
 
   @override
-  _PositionWidgetState createState() => _PositionWidgetState();
+  State<PositionWidget> createState() => _PositionWidgetState();
 }
 
 class _PositionWidgetState extends State<PositionWidget> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -133,6 +131,31 @@ class _PositionWidgetState extends State<PositionWidget> {
                 ],
               ),
             ),
+            
+            // Example 2 code
+            
+            Stack(
+              children: [
+                Positioned(
+                  left: 40,
+                  top: 10,
+                  child: Image.network(
+                      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0Gm7iDyKB4FY_HNqS1wxRUalz4ywmRTKqiQ&s'),
+                ),
+                Positioned(
+                  left: 80,
+                  top: 55,
+                  child: Image.network(
+                      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZGEs4ajlkUdtcsedEPmKeRkpSkOtQwh6lzQ&s'),
+                ),
+                Positioned(
+                  left: 169,
+                  top: 150,
+                  child: Image.network(
+                      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzRb6y-IT8X5s6EjKQkHRI9TaVbJHUgqaPRg&s'),
+                ),
+              ],
+            ),
           ],
         ),
             );
@@ -153,7 +176,6 @@ class PositionExample extends StatefulWidget {
 }
 
 class _PositionExampleState extends State<PositionExample> {
-
   String url = 'https://www.youtube.com/watch?v=EgtPleVwxBQ';
 
   YoutubePlayerController? controller;
