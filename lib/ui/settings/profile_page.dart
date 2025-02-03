@@ -1,9 +1,7 @@
-import 'dart:io';
-
+import 'package:dev_dash/utils/snackbar_show.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:image_picker/image_picker.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -17,7 +15,8 @@ class _ProfilePageState extends State<ProfilePage> {
   String name = '';
   String email = '';
   String number = '';
-
+  String verificationId = '';
+  String smsCode = '';
   String photoUrl = '';
 
   @override
@@ -39,28 +38,58 @@ class _ProfilePageState extends State<ProfilePage> {
     }
   }
 
-  File? image;
+  final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _otpController = TextEditingController();
 
-  Future pickImage() async {
-    try {
-      final image = await ImagePicker().pickImage(source: ImageSource.gallery);
-      if (image == null) return;
-      final imageTemp = File(image.path);
-      setState(() => this.image = imageTemp);
-    } on PlatformException catch (e) {
-      print('Failed to pick image: $e');
+  Future<void> updateNumber() async {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    User? user = auth.currentUser;
+    String phoneNumber = _phoneController.text;
+
+    if (user == null) {
+      print('No user logged in.');
+      return;
     }
+
+    await auth.verifyPhoneNumber(
+      phoneNumber: phoneNumber,
+      verificationCompleted: (PhoneAuthCredential credential) async {
+        await user.updatePhoneNumber(credential);
+        snackbarShow(context, 'Phone number linked: ${user.phoneNumber}');
+        print('Phone number linked: ${user.phoneNumber}');
+      },
+      verificationFailed: (FirebaseAuthException e) {
+        print('Verification failed: ${e.message}');
+      },
+      codeSent: (String verificationId, int? resendToken) {
+        this.verificationId = verificationId;
+        setState(() {});
+      },
+      codeAutoRetrievalTimeout: (String verificationId) {
+        print('Auto-retrieval timeout: $verificationId');
+      },
+    );
   }
 
-  Future pickCamera() async {
-    try {
-      final image = await ImagePicker().pickImage(source: ImageSource.camera);
-      if (image == null) return;
-      final imageTemp = File(image.path);
-      setState(() => this.image = imageTemp);
-    } on PlatformException catch (e) {
-      print('Failed to pick image: $e');
-    }
+  Future<void> verifyOTP() async {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    User? user = auth.currentUser;
+
+    PhoneAuthCredential credential = PhoneAuthProvider.credential(
+      verificationId: verificationId,
+      smsCode: _otpController.text,
+    );
+
+    user?.linkWithCredential(credential).then((UserCredential userCredential) {
+      snackbarShow(context, 'Phone number Linked successfully');
+      if (kDebugMode) {
+        print(
+          'Phone number successfully linked: ${userCredential.user?.phoneNumber}');
+      }
+    }).catchError((e) {
+      showSnackbar(context, "Can't link your Mobile Number");
+      print('Error linking phone number: $e');
+    });
   }
 
   @override
@@ -95,8 +124,8 @@ class _ProfilePageState extends State<ProfilePage> {
                     backgroundImage: photoUrl.isNotEmpty
                         ? NetworkImage(photoUrl)
                         : const NetworkImage(
-                      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-Z25aOD1KWgPXJyUdl0BTf_3du8oqoe0FOw&s',
-                    ),
+                            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-Z25aOD1KWgPXJyUdl0BTf_3du8oqoe0FOw&s',
+                          ),
                   ),
                   Positioned(
                     bottom: 2,
@@ -109,7 +138,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           color: Colors.white,
                         ),
                         onPressed: () {
-                          _showPicker(context);
+                          // _showPicker(context);
                         },
                       ),
                     ),
@@ -137,8 +166,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     borderRadius: BorderRadius.circular(50),
                   ),
                   prefixIcon: const Icon(Icons.abc),
-                  labelText: 'Name',
-                  hintText: _user?.displayName ?? 'Enter Your Name',
+                  labelText: 'Name: ${_user?.displayName}',
                   hintStyle: const TextStyle(color: Colors.grey),
                   filled: true,
                   contentPadding: const EdgeInsets.all(10),
@@ -149,8 +177,7 @@ class _ProfilePageState extends State<ProfilePage> {
               TextField(
                 decoration: InputDecoration(
                   prefixIcon: const Icon(Icons.mail),
-                  labelText: 'Email',
-                  hintText: _user?.email ?? 'Enter your Email',
+                  labelText: 'Email: ${_user?.email}',
                   hintStyle: const TextStyle(color: Colors.grey),
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(
@@ -176,18 +203,18 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
               const SizedBox(height: 25),
               TextField(
+                controller: _phoneController,
                 decoration: InputDecoration(
                   prefixIcon: const Icon(Icons.phone),
-                  labelText: 'Mobile Number',
                   hintText: _user?.phoneNumber,
-                  hintStyle: const TextStyle(color: Colors.grey),
                   enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Theme.of(context).brightness == Brightness.dark
-                            ? Colors.white
-                            : Colors.black,
-                      ),
-                      borderRadius: BorderRadius.circular(50)),
+                    borderSide: BorderSide(
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black,
+                    ),
+                    borderRadius: BorderRadius.circular(50),
+                  ),
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(
                       width: 1.5,
@@ -199,6 +226,76 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                   filled: true,
                   contentPadding: const EdgeInsets.all(10),
+                  suffixIcon: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      backgroundColor: Colors.deepPurpleAccent,
+                    ),
+                    onPressed: () {
+                      snackbarShow(context, 'Verification code sent');
+                      updateNumber();
+                    },
+                    child: const Text(
+                      'Send Code',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+                keyboardType: TextInputType.phone,
+              ),
+              const SizedBox(height: 25),
+              TextField(
+                controller: _otpController,
+                decoration: InputDecoration(
+                  prefixIcon: const Icon(Icons.numbers),
+                  labelText: 'Enter Code',
+                  labelStyle: const TextStyle(color: Colors.grey),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black,
+                    ),
+                    borderRadius: BorderRadius.circular(50),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      width: 1.5,
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black,
+                    ),
+                    borderRadius: BorderRadius.circular(50),
+                  ),
+                  filled: true,
+                  contentPadding: const EdgeInsets.all(10),
+                  suffixIcon: SizedBox(
+                    height: 10,
+                    width: 90,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        backgroundColor: Colors.deepPurpleAccent,
+                      ),
+                      onPressed: () {
+                        verifyOTP();
+                      },
+                      child: const Text(
+                        'Verify',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
                 keyboardType: TextInputType.phone,
               ),
@@ -229,35 +326,6 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
         ),
       ),
-    );
-  }
-
-  void _showPicker(context) {
-    showModalBottomSheet(
-      context: context,
-      builder: (BuildContext bc) {
-        return SafeArea(
-          child: Wrap(
-            children: <Widget>[
-              ListTile(
-                  leading: const Icon(Icons.photo_library),
-                  title: const Text('Gallery'),
-                  onTap: () {
-                    pickImage();
-                    Navigator.of(context).pop();
-                  }),
-              ListTile(
-                leading: const Icon(Icons.photo_camera),
-                title: const Text('Camera'),
-                onTap: () {
-                  pickCamera();
-                  Navigator.of(context).pop();
-                },
-              ),
-            ],
-          ),
-        );
-      },
     );
   }
 }

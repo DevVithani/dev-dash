@@ -99,7 +99,7 @@ class _OtpPageState extends State<OtpPage> {
                           onPressed: () async {
                             try {
                               PhoneAuthCredential credential =
-                                  PhoneAuthProvider.credential(
+                              PhoneAuthProvider.credential(
                                 verificationId: LoginPage.verify,
                                 smsCode: code,
                               );

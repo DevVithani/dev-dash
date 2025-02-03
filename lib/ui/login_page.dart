@@ -140,38 +140,38 @@ class _LoginPageState extends State<LoginPage> {
                                     child: TextField(
                                       decoration: InputDecoration(
                                         fillColor:
-                                            Theme.of(context).brightness ==
-                                                    Brightness.dark
-                                                ? Colors.white
-                                                : Colors.white,
+                                        Theme.of(context).brightness ==
+                                            Brightness.dark
+                                            ? Colors.white
+                                            : Colors.white,
                                         filled: true,
                                         contentPadding: const EdgeInsets.all(10),
                                         enabledBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
                                             color: Theme.of(context)
-                                                        .brightness ==
-                                                    Brightness.dark
+                                                .brightness ==
+                                                Brightness.dark
                                                 ? Colors.white
                                                 : Colors
-                                                    .deepPurpleAccent,
+                                                .deepPurpleAccent,
                                           ),
                                         ),
                                         hintText: 'Enter your Mobile Number',
                                         hintStyle: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           color: Theme.of(context).brightness ==
-                                                  Brightness.dark
+                                              Brightness.dark
                                               ? Colors
-                                                  .deepPurpleAccent
+                                              .deepPurpleAccent
                                               : Colors.deepPurpleAccent,
                                           fontSize: 16,
                                         ),
                                       ),
                                       style: TextStyle(
                                         color: Theme.of(context).brightness ==
-                                                Brightness.dark
+                                            Brightness.dark
                                             ? Colors
-                                                .deepPurpleAccent
+                                            .deepPurpleAccent
                                             : Colors.deepPurpleAccent,
                                         fontWeight: FontWeight.bold,
                                         fontSize: 16,
@@ -328,9 +328,9 @@ class _LoginPageState extends State<LoginPage> {
         accessToken: auth?.accessToken,
         idToken: auth?.idToken,
       );
-      
+
       UserCredential userCred =
-          await FirebaseAuth.instance.signInWithCredential(credential);
+      await FirebaseAuth.instance.signInWithCredential(credential);
 
 
       return userCred.user;

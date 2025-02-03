@@ -65,6 +65,7 @@ dependencies:
   permission_handler:
   url_launcher: ^6.3.1
   markdown_widget:
+  firebase_app_check: ^0.3.2+1
 
 dev_dependencies:
   flutter_test:
