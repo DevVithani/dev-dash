@@ -84,7 +84,7 @@ class _ProfilePageState extends State<ProfilePage> {
       snackbarShow(context, 'Phone number Linked successfully');
       if (kDebugMode) {
         print(
-          'Phone number successfully linked: ${userCredential.user?.phoneNumber}');
+            'Phone number successfully linked: ${userCredential.user?.phoneNumber}');
       }
     }).catchError((e) {
       showSnackbar(context, "Can't link your Mobile Number");
