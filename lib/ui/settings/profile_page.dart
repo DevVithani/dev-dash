@@ -167,7 +167,6 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                   prefixIcon: const Icon(Icons.abc),
                   labelText: 'Name: ${_user?.displayName}',
-                  hintStyle: const TextStyle(color: Colors.grey),
                   filled: true,
                   contentPadding: const EdgeInsets.all(10),
                 ),

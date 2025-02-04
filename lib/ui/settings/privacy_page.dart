@@ -113,10 +113,11 @@ class _PrivacyPageState extends State<PrivacyPage> {
                 TextSpan(
                   text: '3. CONTACT US',
                   style: const TextStyle(
-                      fontFamily: 'roboto',
-                      fontSize: 15,
-                      color: Colors.blue,
-                      decoration: TextDecoration.underline),
+                    fontFamily: 'roboto',
+                    fontSize: 15,
+                    color: Colors.blue,
+                    decoration: TextDecoration.underline,
+                  ),
                   recognizer: TapGestureRecognizer()
                     ..onTap = () {
                       _scrollToSection(600);
@@ -203,7 +204,6 @@ class _PrivacyPageState extends State<PrivacyPage> {
                     TextSpan(
                         text: ' DevDashOfficial@gmail.com',
                         style: const TextStyle(
-                          fontFamily: 'roboto',
                           fontSize: 16,
                           color: Colors.blue,
                           decoration: TextDecoration.underline,

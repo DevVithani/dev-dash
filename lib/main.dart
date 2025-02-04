@@ -2,6 +2,7 @@ import 'package:dev_dash/ui/login_page.dart';
 import 'package:dev_dash/ui/navigation_page.dart';
 import 'package:dev_dash/ui/otp_screen.dart';
 import 'package:dev_dash/ui/splash.dart';
+import 'package:dev_dash/ui/splash_screen.dart';
 import 'package:dev_dash/ui/theme.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -40,6 +41,7 @@ class _MyAppState extends State<MyApp> {
             debugShowCheckedModeBanner: false,
             routes: {
               '/': (context) => const SplashScreen(),
+              'splash':  (context) => const Splash(),
               'phone': (context) => const LoginPage(),
               'verify': (context) => const OtpPage(),
               'home': (context) => const HomeScreen(),
