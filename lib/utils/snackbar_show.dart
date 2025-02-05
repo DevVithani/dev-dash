@@ -10,7 +10,7 @@ void showSnackbar(BuildContext context, String content) {
           const Icon(Icons.close, color: Colors.white, size: 20,),
           Padding(
             padding: const EdgeInsets.only(left: 15),
-            child: Text(content),
+            child: Text(content, style: const TextStyle(color: Colors.white),),
           ),
         ],
       ),
@@ -28,7 +28,7 @@ void snackbarShow(BuildContext context, String content) {
           const Icon(Icons.done, color: Colors.white, size: 20,),
           Padding(
             padding: const EdgeInsets.only(left: 15),
-            child: Text(content),
+            child: Text(content, style: const TextStyle(color: Colors.white),),
           ),
         ],
       ),

@@ -1,4 +1,3 @@
-import 'dart:io';
 
 import 'package:dev_dash/ui/settings/privacy_page.dart';
 import 'package:dev_dash/ui/settings/profile_page.dart';

@@ -23,7 +23,7 @@ class ThemeProvider extends ChangeNotifier {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     bool? isDarkMode = prefs.getBool('isDarkMode');
     themeMode =
-        isDarkMode == null || isDarkMode ? ThemeMode.dark : ThemeMode.light;
+    isDarkMode == null || isDarkMode ? ThemeMode.dark : ThemeMode.light;
     notifyListeners();
   }
 }
