@@ -1,7 +1,7 @@
 import 'package:dev_dash/ui/login_page.dart';
 import 'package:dev_dash/ui/navigation_page.dart';
 import 'package:dev_dash/ui/otp_screen.dart';
-import 'package:dev_dash/ui/splash.dart';
+import 'package:dev_dash/ui/auth.dart';
 import 'package:dev_dash/ui/splash_screen.dart';
 import 'package:dev_dash/ui/theme.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
@@ -15,6 +15,10 @@ void main() async {
   await FirebaseAppCheck.instance.activate(
     androidProvider: AndroidProvider.debug,
   );
+  runApp(const MyApp());
+}
+
+void initApp() {
   runApp(const MyApp());
 }
 
